@@ -1,0 +1,55 @@
+log:
+  level: INFO
+  dir: ./logs
+  file_prefix: app_server
+  date_format: YYYY_MM_DD
+  rotation: 100 MB
+  retention: 30 days
+
+# Neo4j数据库配置
+neo4j:
+  url: "bolt://localhost:7687"
+  user: "neo4j"
+  password: "12345678"
+
+# 知识图谱构建配置
+knowledge_graph:
+  mechanism_file: ./data/temp/out-5.20.2.json
+  output_prefix: kg
+  extracted_prefix: extracted_
+  supported_suffixes: [".csv", ".docx", ".json", ".pdf", ".txt", ".png", ".jpg", ".jpeg", ".mp3", ".wav", ".m4a", ".mp4", ".avi", ".mov", ".mkv"]
+  json_suffixes: [".json"]
+  text_suffixes: [".txt", ".csv", ".pdf", ".docx"]
+  image_suffixes: [".png", ".jpg", ".jpeg"]
+  audio_suffixes: [".mp3", ".wav", ".m4a"]
+  video_suffixes: [".mp4", ".avi", ".mov", ".mkv"]
+  write_to_neo4j: true
+  clear_neo4j: true
+  max_workers: 5
+  show_progress: false
+  splitter:
+    chunk_size: 1800
+    chunk_overlap: 120
+    separators: ["\n", "。", "？", "；", "!", "！", "?"]
+
+# 推理配置
+tuili:
+  default_target: T-90S
+  use_llm: true
+
+# 大模型配置
+llm:
+  base_url: http://192.168.1.42:30002/v1
+  api_key: xxx
+  model: /mnt/gemma-4-26B-A4B-it
+  temperature: 0.3
+
+
+files:
+  data_dir: ./data
+  upload_dir: ./data/upload
+  output_dir: ./data/output
+  temp_dir: ./data/temp
+  static_dir: ./static
+  model_dir: ./models
+  resource_dir: ./data

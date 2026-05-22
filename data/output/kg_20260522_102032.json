@@ -1,0 +1,1437 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "时间",
+      "labels": [
+        "时间"
+      ],
+      "name": "2026-05-12",
+      "properties": {
+        "name": "2026-05-12",
+        "time": "2026-05-12",
+        "type": "时间",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "2026-05-12"
+      }
+    },
+    {
+      "id": 2,
+      "label": "时间",
+      "labels": [
+        "时间"
+      ],
+      "name": "2026-05-15",
+      "properties": {
+        "name": "2026-05-15",
+        "time": "2026-05-15",
+        "type": "时间",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "2026-05-15"
+      }
+    },
+    {
+      "id": 3,
+      "label": "时间",
+      "labels": [
+        "时间"
+      ],
+      "name": "2026-05-18",
+      "properties": {
+        "name": "2026-05-18",
+        "time": "2026-05-18",
+        "type": "时间",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "2026-05-18"
+      }
+    },
+    {
+      "id": 4,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "99AE",
+      "properties": {
+        "name": "99AE",
+        "type": "主战坦克",
+        "model": "99AE",
+        "quantity": 18,
+        "event_topic": "中印班公湖大规模军事演习",
+        "coordinates": "33°32′18″N 78°55′42″E",
+        "altitude": 5000,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 5,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "BMP-2",
+      "properties": {
+        "name": "BMP-2",
+        "type": "步兵战车",
+        "model": "BMP-2",
+        "quantity": 6,
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "coordinates": "34°58′22″N 76°47′15″E",
+        "altitude": 2850,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "克什米尔实控线坦克伏击战"
+      }
+    },
+    {
+      "id": 6,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "MQ-9B",
+      "properties": {
+        "name": "MQ-9B",
+        "type": "无人机",
+        "model": "MQ-9B",
+        "quantity": 3,
+        "event_topic": "中印班公湖大规模军事演习",
+        "coordinates": "33°32′18″N 78°55′42″E",
+        "altitude": 5000,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 7,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "MQ-9B“捕食者”",
+      "properties": {
+        "name": "MQ-9B“捕食者”",
+        "type": "无人机",
+        "model": "MQ-9B“捕食者”",
+        "quantity": 2,
+        "event_topic": "中印边境拉达克对峙升级",
+        "coordinates": "33°20′45″N 78°45′32″E",
+        "altitude": 4210,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印边境拉达克对峙升级"
+      }
+    },
+    {
+      "id": 8,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "PHL-03",
+      "properties": {
+        "name": "PHL-03",
+        "type": "远程火箭炮",
+        "model": "PHL-03",
+        "quantity": 6,
+        "event_topic": "中印班公湖大规模军事演习",
+        "coordinates": "33°32′18″N 78°55′42″E",
+        "altitude": 5000,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 9,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "T-90MS",
+      "properties": {
+        "name": "T-90MS",
+        "type": "主战坦克",
+        "model": "T-90MS",
+        "quantity": 4,
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "coordinates": "34°58′22″N 76°47′15″E",
+        "altitude": 2850,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "克什米尔实控线坦克伏击战"
+      }
+    },
+    {
+      "id": 10,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "T-90S",
+      "properties": {
+        "name": "T-90S",
+        "type": "主战坦克",
+        "model": "T-90S",
+        "quantity": [
+          12,
+          36
+        ],
+        "event_topic": [
+          "中印边境拉达克对峙升级",
+          "中印班公湖大规模军事演习"
+        ],
+        "coordinates": [
+          "33°20′45″N 78°45′32″E",
+          "33°32′18″N 78°55′42″E"
+        ],
+        "altitude": [
+          4210,
+          5000
+        ],
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": [
+          "中印边境拉达克对峙升级",
+          "中印班公湖大规模军事演习"
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "中印班公湖大规模军事演习",
+      "properties": {
+        "name": "中印班公湖大规模军事演习",
+        "event_topic": "中印班公湖大规模军事演习",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "type": "事件",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 12,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "中印班公湖大规模军事演习-演习部署",
+      "properties": {
+        "name": "中印班公湖大规模军事演习-演习部署",
+        "event_topic": "中印班公湖大规模军事演习",
+        "core_behavior": "演习部署",
+        "risk_level": "中危",
+        "type": "行为",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "演习部署"
+      }
+    },
+    {
+      "id": 13,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "中印边境拉达克对峙升级",
+      "properties": {
+        "name": "中印边境拉达克对峙升级",
+        "event_topic": "中印边境拉达克对峙升级",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "type": "事件",
+        "desc": "中印边境拉达克对峙升级"
+      }
+    },
+    {
+      "id": 14,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "中印边境拉达克对峙升级-联合部署与火力引导",
+      "properties": {
+        "name": "中印边境拉达克对峙升级-联合部署与火力引导",
+        "event_topic": "中印边境拉达克对峙升级",
+        "core_behavior": "联合部署与火力引导",
+        "risk_level": "高危",
+        "type": "行为",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "联合部署与火力引导"
+      }
+    },
+    {
+      "id": 15,
+      "label": "风险等级",
+      "labels": [
+        "风险等级"
+      ],
+      "name": "中危",
+      "properties": {
+        "name": "中危",
+        "level": "中危",
+        "type": "风险等级",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中危"
+      }
+    },
+    {
+      "id": 16,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "临时指挥中心",
+      "properties": {
+        "name": "临时指挥中心",
+        "type": "临时指挥中心",
+        "quantity": 1,
+        "event_topic": "中印班公湖大规模军事演习",
+        "coordinates": "33°32′18″N 78°55′42″E",
+        "altitude": 5000,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 17,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "克什米尔实控线坦克伏击战",
+      "properties": {
+        "name": "克什米尔实控线坦克伏击战",
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "type": "事件",
+        "desc": "克什米尔实控线坦克伏击战"
+      }
+    },
+    {
+      "id": 18,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "克什米尔实控线坦克伏击战-伏击击毁",
+      "properties": {
+        "name": "克什米尔实控线坦克伏击战-伏击击毁",
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "core_behavior": "伏击击毁",
+        "risk_level": "高危",
+        "type": "行为",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "伏击击毁"
+      }
+    },
+    {
+      "id": 19,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "克什米尔实控线巴拉科特山谷",
+      "properties": {
+        "name": "克什米尔实控线巴拉科特山谷",
+        "normalized_place": "克什米尔实控线巴拉科特山谷",
+        "coordinates": "34°58′22″N 76°47′15″E",
+        "altitude": 2850,
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "type": "地点",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "克什米尔实控线坦克伏击战"
+      }
+    },
+    {
+      "id": 20,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "前沿哨所",
+      "properties": {
+        "name": "前沿哨所",
+        "type": "前沿哨所",
+        "quantity": 3,
+        "event_topic": "中印边境拉达克对峙升级",
+        "coordinates": "33°20′45″N 78°45′32″E",
+        "altitude": 4210,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印边境拉达克对峙升级"
+      }
+    },
+    {
+      "id": 21,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "后勤补给中心",
+      "properties": {
+        "name": "后勤补给中心",
+        "type": "后勤补给中心",
+        "quantity": 1,
+        "event_topic": "中印班公湖大规模军事演习",
+        "coordinates": "33°32′18″N 78°55′42″E",
+        "altitude": 5000,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 22,
+      "label": "兵种",
+      "labels": [
+        "兵种"
+      ],
+      "name": "山地步兵旅",
+      "properties": {
+        "name": "山地步兵旅",
+        "type": "山地步兵旅",
+        "quantity": 1,
+        "event_topic": "中印班公湖大规模军事演习",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 23,
+      "label": "兵种",
+      "labels": [
+        "兵种"
+      ],
+      "name": "山地步兵连",
+      "properties": {
+        "name": "山地步兵连",
+        "type": "山地步兵连",
+        "quantity": 1,
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "克什米尔实控线坦克伏击战"
+      }
+    },
+    {
+      "id": 24,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "拉达克地区楚舒勒西南方向",
+      "properties": {
+        "name": "拉达克地区楚舒勒西南方向",
+        "normalized_place": "拉达克地区楚舒勒西南方向",
+        "coordinates": "33°20′45″N 78°45′32″E",
+        "altitude": 4210,
+        "event_topic": "中印边境拉达克对峙升级",
+        "type": "地点",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印边境拉达克对峙升级"
+      }
+    },
+    {
+      "id": 25,
+      "label": "人员",
+      "labels": [
+        "人员"
+      ],
+      "name": "李云龙",
+      "properties": {
+        "name": "李云龙",
+        "person_name": "李云龙",
+        "rank": "大校",
+        "position": "中方临时指挥中心指挥官",
+        "event_topic": "中印班公湖大规模军事演习",
+        "type": "人员",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 26,
+      "label": "兵种",
+      "labels": [
+        "兵种"
+      ],
+      "name": "步兵师",
+      "properties": {
+        "name": "步兵师",
+        "type": "步兵师",
+        "quantity": 1,
+        "event_topic": [
+          "中印边境拉达克对峙升级",
+          "克什米尔实控线坦克伏击战"
+        ],
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": [
+          "中印边境拉达克对峙升级",
+          "克什米尔实控线坦克伏击战"
+        ]
+      }
+    },
+    {
+      "id": 27,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "炮兵阵地",
+      "properties": {
+        "name": "炮兵阵地",
+        "type": "炮兵阵地",
+        "quantity": 1,
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "coordinates": "34°58′22″N 76°47′15″E",
+        "altitude": 2850,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "克什米尔实控线坦克伏击战"
+      }
+    },
+    {
+      "id": 28,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "班公湖地区",
+      "properties": {
+        "name": "班公湖地区",
+        "normalized_place": "班公湖地区",
+        "coordinates": "33°32′18″N 78°55′42″E",
+        "altitude": 5000,
+        "event_topic": "中印班公湖大规模军事演习",
+        "type": "地点",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 29,
+      "label": "人员",
+      "labels": [
+        "人员"
+      ],
+      "name": "维韦克·夏尔马",
+      "properties": {
+        "name": "维韦克·夏尔马",
+        "person_name": "维韦克·夏尔马",
+        "rank": "上尉",
+        "position": "印军第3坦克排排长",
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "type": "人员",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "克什米尔实控线坦克伏击战"
+      }
+    },
+    {
+      "id": 30,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "绿箭-8E",
+      "properties": {
+        "name": "绿箭-8E",
+        "type": "导弹发射器",
+        "model": "绿箭-8E",
+        "quantity": 4,
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "coordinates": "34°58′22″N 76°47′15″E",
+        "altitude": 2850,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "克什米尔实控线坦克伏击战"
+      }
+    },
+    {
+      "id": 31,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "翼龙-2",
+      "properties": {
+        "name": "翼龙-2",
+        "type": "无人机",
+        "model": "翼龙-2",
+        "quantity": 4,
+        "event_topic": "中印班公湖大规模军事演习",
+        "coordinates": "33°32′18″N 78°55′42″E",
+        "altitude": 5000,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 32,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "苍鹭",
+      "properties": {
+        "name": "苍鹭",
+        "type": "无人机",
+        "model": "苍鹭",
+        "quantity": 2,
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "coordinates": "34°58′22″N 76°47′15″E",
+        "altitude": 2850,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "克什米尔实控线坦克伏击战"
+      }
+    },
+    {
+      "id": 33,
+      "label": "兵种",
+      "labels": [
+        "兵种"
+      ],
+      "name": "装甲团",
+      "properties": {
+        "name": "装甲团",
+        "type": "装甲团",
+        "quantity": 1,
+        "event_topic": "中印班公湖大规模军事演习",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 34,
+      "label": "兵种",
+      "labels": [
+        "兵种"
+      ],
+      "name": "装甲旅",
+      "properties": {
+        "name": "装甲旅",
+        "type": "装甲旅",
+        "quantity": 1,
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "克什米尔实控线坦克伏击战"
+      }
+    },
+    {
+      "id": 35,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "轻型战斗车辆",
+      "properties": {
+        "name": "轻型战斗车辆",
+        "type": "轻型战斗车辆",
+        "model": "未知",
+        "quantity": 2,
+        "event_topic": "中印边境拉达克对峙升级",
+        "coordinates": "33°20′45″N 78°45′32″E",
+        "altitude": 4210,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印边境拉达克对峙升级"
+      }
+    },
+    {
+      "id": 36,
+      "label": "兵种",
+      "labels": [
+        "兵种"
+      ],
+      "name": "防空导弹连",
+      "properties": {
+        "name": "防空导弹连",
+        "type": "防空导弹连",
+        "quantity": 1,
+        "event_topic": "中印班公湖大规模军事演习",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 37,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "阿卡什",
+      "properties": {
+        "name": "阿卡什",
+        "type": "防空系统",
+        "model": "阿卡什",
+        "quantity": 1,
+        "event_topic": "中印班公湖大规模军事演习",
+        "coordinates": "33°32′18″N 78°55′42″E",
+        "altitude": 5000,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印班公湖大规模军事演习"
+      }
+    },
+    {
+      "id": 38,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "隐蔽坑道",
+      "properties": {
+        "name": "隐蔽坑道",
+        "type": "隐蔽坑道",
+        "quantity": 1,
+        "event_topic": "克什米尔实控线坦克伏击战",
+        "coordinates": "34°58′22″N 76°47′15″E",
+        "altitude": 2850,
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "克什米尔实控线坦克伏击战"
+      }
+    },
+    {
+      "id": 39,
+      "label": "人员",
+      "labels": [
+        "人员"
+      ],
+      "name": "马诺杰·辛格·潘瓦尔",
+      "properties": {
+        "name": "马诺杰·辛格·潘瓦尔",
+        "person_name": "马诺杰·辛格·潘瓦尔",
+        "rank": "少将",
+        "position": "印度陆军第14军第3步兵师师长",
+        "event_topic": "中印边境拉达克对峙升级",
+        "type": "人员",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "中印边境拉达克对峙升级"
+      }
+    },
+    {
+      "id": 40,
+      "label": "风险等级",
+      "labels": [
+        "风险等级"
+      ],
+      "name": "高危",
+      "properties": {
+        "name": "高危",
+        "level": "高危",
+        "type": "风险等级",
+        "from_file": "upload_83c0f76079044688a6e650bf45e0c366.txt",
+        "desc": "高危"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": 4,
+      "relation": "位于",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "位于",
+      "target": 19,
+      "properties": {}
+    },
+    {
+      "source": 6,
+      "relation": "位于",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 7,
+      "relation": "位于",
+      "target": 24,
+      "properties": {}
+    },
+    {
+      "source": 8,
+      "relation": "位于",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 9,
+      "relation": "位于",
+      "target": 19,
+      "properties": {}
+    },
+    {
+      "source": 10,
+      "relation": "位于",
+      "target": 24,
+      "properties": {}
+    },
+    {
+      "source": 10,
+      "relation": "位于",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 11,
+      "relation": "包含行为",
+      "target": 12,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "发生地点",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "发生时间",
+      "target": 3,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及人员",
+      "target": 25,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及兵种",
+      "target": 22,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及兵种",
+      "target": 33,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及兵种",
+      "target": 36,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及工事",
+      "target": 16,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及工事",
+      "target": 21,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及车辆",
+      "target": 4,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及车辆",
+      "target": 6,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及车辆",
+      "target": 8,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及车辆",
+      "target": 10,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及车辆",
+      "target": 31,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "涉及车辆",
+      "target": 37,
+      "properties": {}
+    },
+    {
+      "source": 12,
+      "relation": "风险等级",
+      "target": 15,
+      "properties": {}
+    },
+    {
+      "source": 13,
+      "relation": "包含行为",
+      "target": 14,
+      "properties": {}
+    },
+    {
+      "source": 14,
+      "relation": "发生地点",
+      "target": 24,
+      "properties": {}
+    },
+    {
+      "source": 14,
+      "relation": "发生时间",
+      "target": 1,
+      "properties": {}
+    },
+    {
+      "source": 14,
+      "relation": "涉及人员",
+      "target": 39,
+      "properties": {}
+    },
+    {
+      "source": 14,
+      "relation": "涉及兵种",
+      "target": 26,
+      "properties": {}
+    },
+    {
+      "source": 14,
+      "relation": "涉及工事",
+      "target": 20,
+      "properties": {}
+    },
+    {
+      "source": 14,
+      "relation": "涉及车辆",
+      "target": 7,
+      "properties": {}
+    },
+    {
+      "source": 14,
+      "relation": "涉及车辆",
+      "target": 10,
+      "properties": {}
+    },
+    {
+      "source": 14,
+      "relation": "涉及车辆",
+      "target": 35,
+      "properties": {}
+    },
+    {
+      "source": 14,
+      "relation": "风险等级",
+      "target": 40,
+      "properties": {}
+    },
+    {
+      "source": 16,
+      "relation": "位于",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 17,
+      "relation": "包含行为",
+      "target": 18,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "发生地点",
+      "target": 19,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "发生时间",
+      "target": 2,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "涉及人员",
+      "target": 29,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "涉及兵种",
+      "target": 23,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "涉及兵种",
+      "target": 26,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "涉及兵种",
+      "target": 34,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "涉及工事",
+      "target": 27,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "涉及工事",
+      "target": 38,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "涉及车辆",
+      "target": 5,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "涉及车辆",
+      "target": 9,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "涉及车辆",
+      "target": 30,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "涉及车辆",
+      "target": 32,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "风险等级",
+      "target": 40,
+      "properties": {}
+    },
+    {
+      "source": 20,
+      "relation": "位于",
+      "target": 24,
+      "properties": {}
+    },
+    {
+      "source": 21,
+      "relation": "位于",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 22,
+      "relation": "位于",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 23,
+      "relation": "位于",
+      "target": 19,
+      "properties": {}
+    },
+    {
+      "source": 26,
+      "relation": "位于",
+      "target": 19,
+      "properties": {}
+    },
+    {
+      "source": 26,
+      "relation": "位于",
+      "target": 24,
+      "properties": {}
+    },
+    {
+      "source": 27,
+      "relation": "位于",
+      "target": 19,
+      "properties": {}
+    },
+    {
+      "source": 30,
+      "relation": "位于",
+      "target": 19,
+      "properties": {}
+    },
+    {
+      "source": 31,
+      "relation": "位于",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 32,
+      "relation": "位于",
+      "target": 19,
+      "properties": {}
+    },
+    {
+      "source": 33,
+      "relation": "位于",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 34,
+      "relation": "位于",
+      "target": 19,
+      "properties": {}
+    },
+    {
+      "source": 35,
+      "relation": "位于",
+      "target": 24,
+      "properties": {}
+    },
+    {
+      "source": 36,
+      "relation": "位于",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 37,
+      "relation": "位于",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 38,
+      "relation": "位于",
+      "target": 19,
+      "properties": {}
+    }
+  ],
+  "links": [
+    {
+      "source": 4,
+      "target": 28,
+      "relation": "位于"
+    },
+    {
+      "source": 5,
+      "target": 19,
+      "relation": "位于"
+    },
+    {
+      "source": 6,
+      "target": 28,
+      "relation": "位于"
+    },
+    {
+      "source": 7,
+      "target": 24,
+      "relation": "位于"
+    },
+    {
+      "source": 8,
+      "target": 28,
+      "relation": "位于"
+    },
+    {
+      "source": 9,
+      "target": 19,
+      "relation": "位于"
+    },
+    {
+      "source": 10,
+      "target": 24,
+      "relation": "位于"
+    },
+    {
+      "source": 10,
+      "target": 28,
+      "relation": "位于"
+    },
+    {
+      "source": 11,
+      "target": 12,
+      "relation": "包含行为"
+    },
+    {
+      "source": 12,
+      "target": 28,
+      "relation": "发生地点"
+    },
+    {
+      "source": 12,
+      "target": 3,
+      "relation": "发生时间"
+    },
+    {
+      "source": 12,
+      "target": 25,
+      "relation": "涉及人员"
+    },
+    {
+      "source": 12,
+      "target": 22,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 12,
+      "target": 33,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 12,
+      "target": 36,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 12,
+      "target": 16,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 12,
+      "target": 21,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 12,
+      "target": 4,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 12,
+      "target": 6,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 12,
+      "target": 8,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 12,
+      "target": 10,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 12,
+      "target": 31,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 12,
+      "target": 37,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 12,
+      "target": 15,
+      "relation": "风险等级"
+    },
+    {
+      "source": 13,
+      "target": 14,
+      "relation": "包含行为"
+    },
+    {
+      "source": 14,
+      "target": 24,
+      "relation": "发生地点"
+    },
+    {
+      "source": 14,
+      "target": 1,
+      "relation": "发生时间"
+    },
+    {
+      "source": 14,
+      "target": 39,
+      "relation": "涉及人员"
+    },
+    {
+      "source": 14,
+      "target": 26,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 14,
+      "target": 20,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 14,
+      "target": 7,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 14,
+      "target": 10,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 14,
+      "target": 35,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 14,
+      "target": 40,
+      "relation": "风险等级"
+    },
+    {
+      "source": 16,
+      "target": 28,
+      "relation": "位于"
+    },
+    {
+      "source": 17,
+      "target": 18,
+      "relation": "包含行为"
+    },
+    {
+      "source": 18,
+      "target": 19,
+      "relation": "发生地点"
+    },
+    {
+      "source": 18,
+      "target": 2,
+      "relation": "发生时间"
+    },
+    {
+      "source": 18,
+      "target": 29,
+      "relation": "涉及人员"
+    },
+    {
+      "source": 18,
+      "target": 23,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 18,
+      "target": 26,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 18,
+      "target": 34,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 18,
+      "target": 27,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 18,
+      "target": 38,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 18,
+      "target": 5,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 18,
+      "target": 9,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 18,
+      "target": 30,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 18,
+      "target": 32,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 18,
+      "target": 40,
+      "relation": "风险等级"
+    },
+    {
+      "source": 20,
+      "target": 24,
+      "relation": "位于"
+    },
+    {
+      "source": 21,
+      "target": 28,
+      "relation": "位于"
+    },
+    {
+      "source": 22,
+      "target": 28,
+      "relation": "位于"
+    },
+    {
+      "source": 23,
+      "target": 19,
+      "relation": "位于"
+    },
+    {
+      "source": 26,
+      "target": 19,
+      "relation": "位于"
+    },
+    {
+      "source": 26,
+      "target": 24,
+      "relation": "位于"
+    },
+    {
+      "source": 27,
+      "target": 19,
+      "relation": "位于"
+    },
+    {
+      "source": 30,
+      "target": 19,
+      "relation": "位于"
+    },
+    {
+      "source": 31,
+      "target": 28,
+      "relation": "位于"
+    },
+    {
+      "source": 32,
+      "target": 19,
+      "relation": "位于"
+    },
+    {
+      "source": 33,
+      "target": 28,
+      "relation": "位于"
+    },
+    {
+      "source": 34,
+      "target": 19,
+      "relation": "位于"
+    },
+    {
+      "source": 35,
+      "target": 24,
+      "relation": "位于"
+    },
+    {
+      "source": 36,
+      "target": 28,
+      "relation": "位于"
+    },
+    {
+      "source": 37,
+      "target": 28,
+      "relation": "位于"
+    },
+    {
+      "source": 38,
+      "target": 19,
+      "relation": "位于"
+    }
+  ]
+}

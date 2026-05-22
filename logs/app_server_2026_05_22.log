@@ -1,0 +1,14 @@
+2026-05-22 11:08:21.677 | INFO     | app_server:startup_event:69 - 服务启动完成
+2026-05-22 11:08:21.678 | INFO     | app_server:startup_event:70 - 上传目录: data\upload
+2026-05-22 11:08:21.678 | INFO     | app_server:startup_event:71 - 输出目录: data\output
+2026-05-22 11:08:53.568 | INFO     | app_server:knowledge_graph_construction_api:82 - 收到文件: name=example.txt, type=text/plain
+2026-05-22 11:08:53.570 | INFO     | app_server:knowledge_graph_construction_api:85 - 文件已保存: data\upload\upload_d16a8d5bffbc4f218649b7bb0708995f.txt
+2026-05-22 11:08:53.570 | INFO     | app_server:knowledge_graph_construction_api:82 - 收到文件: name=news.json, type=application/json
+2026-05-22 11:08:53.580 | INFO     | app_server:knowledge_graph_construction_api:85 - 文件已保存: data\upload\upload_41370010436749cd9a3b5753e3fee2e2.json
+2026-05-22 11:08:53.586 | INFO     | app_server:knowledge_graph_construction_api:82 - 收到文件: name=example.csv, type=text/csv
+2026-05-22 11:08:53.591 | INFO     | app_server:knowledge_graph_construction_api:85 - 文件已保存: data\upload\upload_7af244bfbb914b5ab026c686f851197f.csv
+2026-05-22 11:09:40.404 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:17 - 开始搜索数据库，输入: T-90S
+2026-05-22 11:09:40.445 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:25 - 任务完成，查询目标=T-90S, 耗时=28.486967086791992
+2026-05-22 15:18:06.284 | INFO     | app_server:startup_event:69 - 服务启动完成
+2026-05-22 15:18:06.284 | INFO     | app_server:startup_event:70 - 上传目录: data\upload
+2026-05-22 15:18:06.284 | INFO     | app_server:startup_event:71 - 输出目录: data\output
