@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 import time
 import uuid
@@ -18,6 +19,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from config import init_config, logger
 from utils.util import (
     as_list,
+    build_node_description,
     clean_text,
     edge_to_link,
     get_neo4j_config,
@@ -40,7 +42,6 @@ OUTPUT_DIR = resolve_path(FILES_CONFIG.get("output_dir"), DATA_DIR / "output")
 
 DEFAULT_OUTPUT_PREFIX = str(KG_CONFIG.get("output_prefix", "kg"))
 DEFAULT_EXTRACTED_PREFIX = str(KG_CONFIG.get("extracted_prefix", "extracted_"))
-DEFAULT_SHOW_PROGRESS = bool(KG_CONFIG.get("show_progress", False))
 DEFAULT_WRITE_TO_NEO4J = bool(KG_CONFIG.get("write_to_neo4j", True))
 DEFAULT_CLEAR_NEO4J = bool(KG_CONFIG.get("clear_neo4j", False))
 
@@ -66,10 +67,73 @@ class MechanismKGBuilder:
         "person": "人员",
         "organization": "组织机构",
         "equipment": "装备设备",
+        "vessel": "舰艇",
+        "aircraft": "航空器",
+        "facility": "设施",
+        "entity": "实体",
         "fortification": "工事",
         "vehicle": "车辆",
         "unit": "兵种",
         "risk": "风险等级",
+    }
+
+    TARGET_CATEGORY_MAP = {
+        "工事": ("fortification", "涉及工事"),
+        "车辆": ("vehicle", "涉及车辆"),
+        "兵种": ("unit", "涉及兵种"),
+        "舰艇": ("vessel", "涉及舰艇"),
+        "航空器": ("aircraft", "涉及航空器"),
+        "装备设备": ("equipment", "涉及装备"),
+        "设施": ("facility", "涉及设施"),
+    }
+
+    TARGET_HANDLED_KEYS = {
+        "name",
+        "type",
+        "model",
+        "quantity",
+        "quantity_value",
+        "quantity_unit",
+        "side",
+        "organization",
+        "location",
+        "mission",
+        "status",
+        "purpose",
+        "caliber",
+        "range",
+        "accuracy",
+        "response_time",
+        "response_time_value",
+        "response_time_comparison",
+        "duration",
+        "speed",
+        "height",
+        "distance",
+        "movement_direction",
+        "coordinates",
+        "altitude",
+        "event_topic",
+        "from_file",
+        "label",
+        "labels",
+        "id",
+    }
+
+    ORG_HANDLED_KEYS = {
+        "name",
+        "type",
+        "side",
+        "parent_organization",
+        "location",
+        "mission",
+        "coordinates",
+        "altitude",
+        "event_topic",
+        "from_file",
+        "label",
+        "labels",
+        "id",
     }
 
     def __init__(self) -> None:
@@ -161,6 +225,11 @@ class MechanismKGBuilder:
         if place_id:
             self.add_edge(behavior_id, "发生地点", place_id)
 
+        for place in as_list(event.get("地点列表")):
+            extra_place_id = self._add_place(place, topic)
+            if extra_place_id and extra_place_id != place_id:
+                self.add_edge(behavior_id, "涉及地点", extra_place_id)
+
         risk = clean_text(event.get("风险等级"))
         if risk:
             risk_id = self._node_id("risk", risk)
@@ -172,28 +241,39 @@ class MechanismKGBuilder:
             if person_id:
                 self.add_edge(behavior_id, "涉及人员", person_id)
 
+        for organization in as_list(event.get("组织机构")):
+            organization_id = self._add_organization(organization, topic)
+            if organization_id:
+                self.add_edge(behavior_id, "涉及组织", organization_id)
+
         target_system = event.get("目标体系") or {}
         if not isinstance(target_system, dict):
-            return
+            target_system = {}
 
-        for fortification in as_list(target_system.get("工事")):
-            node_id = self._add_target_node("fortification", fortification, topic, place_id)
-            if node_id:
-                self.add_edge(behavior_id, "涉及工事", node_id)
+        for category, (kind, relation) in self.TARGET_CATEGORY_MAP.items():
+            for target in as_list(target_system.get(category)):
+                node_id = self._add_target_node(kind, target, topic, place_id)
+                if node_id:
+                    self.add_edge(behavior_id, relation, node_id)
 
-        for vehicle in as_list(target_system.get("车辆")):
-            node_id = self._add_target_node("vehicle", vehicle, topic, place_id)
-            if node_id:
-                self.add_edge(behavior_id, "涉及车辆", node_id)
+        for organization in as_list(target_system.get("组织机构")):
+            organization_id = self._add_organization(organization, topic)
+            if organization_id:
+                self.add_edge(behavior_id, "涉及组织", organization_id)
 
-        for unit in as_list(target_system.get("兵种")):
-            node_id = self._add_target_node("unit", unit, topic, place_id)
-            if node_id:
-                self.add_edge(behavior_id, "涉及兵种", node_id)
+        for person in as_list(target_system.get("人员")):
+            person_id = self._add_person(person, topic)
+            if person_id:
+                self.add_edge(behavior_id, "涉及人员", person_id)
+
+        self._add_explicit_relationships(event)
 
     def _add_place(self, place: Any, topic: str) -> Optional[str]:
         if isinstance(place, dict):
             name = clean_text(place.get("规范化地名")) or clean_text(place.get("名称"))
+            coordinates = clean_text(place.get("经纬度"))
+            if not name:
+                name = coordinates
             if not name:
                 return None
             node_id = self._node_id("place", name)
@@ -204,8 +284,10 @@ class MechanismKGBuilder:
                 {
                     "name": name,
                     "normalized_place": name,
-                    "coordinates": clean_text(place.get("经纬度")),
+                    "coordinates": coordinates,
                     "altitude": place.get("海拔"),
+                    "direction": clean_text(place.get("方位")),
+                    "distance": clean_text(place.get("距离")),
                     "event_topic": topic,
                 },
             )
@@ -233,9 +315,13 @@ class MechanismKGBuilder:
                     "person_name": name,
                     "rank": clean_text(person.get("军衔")),
                     "position": clean_text(person.get("职务")),
+                    "side": clean_text(person.get("所属方")),
+                    "organization": clean_text(person.get("所属组织")),
+                    "commanded_target": clean_text(person.get("指挥对象")),
                     "event_topic": topic,
                 },
             )
+            self._attach_ownership_edges(node_id, person)
             return node_id
 
         name = clean_text(person)
@@ -243,6 +329,35 @@ class MechanismKGBuilder:
             return None
         node_id = self._node_id("person", name)
         self.add_node(node_id, self.LABELS["person"], name, {"name": name, "person_name": name})
+        return node_id
+
+    def _add_organization(self, organization: Any, topic: str) -> Optional[str]:
+        if isinstance(organization, dict):
+            name = clean_text(organization.get("名称")) or clean_text(organization.get("姓名"))
+            if not name:
+                return None
+
+            node_id = self._node_id("organization", name)
+            properties = self._collect_properties(organization, handled_keys=self.ORG_HANDLED_KEYS)
+            properties.update({
+                "name": name,
+                "type": clean_text(organization.get("类型")) or self.LABELS["organization"],
+                "side": clean_text(organization.get("所属方")),
+                "parent_organization": clean_text(organization.get("上级组织")),
+                "location": clean_text(organization.get("位置")),
+                "mission": clean_text(organization.get("任务")),
+                "event_topic": topic,
+            })
+            self.add_node(node_id, self.LABELS["organization"], name, properties)
+            self._attach_ownership_edges(node_id, organization)
+            self._attach_location_edge(node_id, organization, topic, None)
+            return node_id
+
+        name = clean_text(organization)
+        if not name:
+            return None
+        node_id = self._node_id("organization", name)
+        self.add_node(node_id, self.LABELS["organization"], name, {"name": name, "event_topic": topic})
         return node_id
 
     def _add_target_node(self, kind: str, target: Any, topic: str, place_id: Optional[str]) -> Optional[str]:
@@ -256,31 +371,368 @@ class MechanismKGBuilder:
 
         target_type = clean_text(target.get("类型"))
         model = clean_text(target.get("型号"))
-        name = model if model and model != "未知" else target_type
+        explicit_name = clean_text(target.get("名称")) or clean_text(target.get("姓名"))
+        name = model if model and model != "未知" else explicit_name or target_type
         if not name:
             return None
 
         node_id = self._node_id(kind, name)
-        properties = {
+        properties = self._collect_properties(target, handled_keys=self.TARGET_HANDLED_KEYS)
+        normalized_type = self._normalize_target_type(kind, target_type, model, name)
+        side = clean_text(target.get("所属方"))
+        organization = clean_text(target.get("所属组织"))
+        location = clean_text(target.get("位置")) or self._place_name_from_id(place_id)
+        quantity_value = target.get("数量")
+        quantity_text = self._format_quantity(quantity_value, kind, normalized_type, model, name, location)
+        response_time_value = clean_text(target.get("响应时间")) or clean_text(target.get("反应时间"))
+        properties.update({
             "name": name,
-            "type": target_type,
+            "type": normalized_type,
             "model": model,
-            "quantity": target.get("数量"),
+            "quantity": quantity_text,
+            "quantity_value": quantity_value,
+            "quantity_unit": self._infer_quantity_unit(kind, normalized_type, model, name) if quantity_text else "",
+            "side": side,
+            "organization": organization,
+            "location": location,
+            "mission": clean_text(target.get("任务")),
+            "status": clean_text(target.get("状态")),
+            "purpose": clean_text(target.get("用途")),
+            "caliber": clean_text(target.get("口径")),
+            "range": clean_text(target.get("射程")),
+            "accuracy": clean_text(target.get("精度")),
+            "response_time": self._format_response_time(
+                response_time_value,
+                kind,
+                normalized_type,
+                model,
+                name,
+                clean_text(target.get("任务")),
+                clean_text(target.get("用途")),
+            ),
+            "response_time_value": response_time_value,
+            "duration": clean_text(target.get("耗时")),
+            "speed": clean_text(target.get("速度")),
+            "height": clean_text(target.get("高度")),
+            "distance": clean_text(target.get("距离")),
+            "movement_direction": clean_text(target.get("运动方向")),
             "event_topic": topic,
-        }
-        if kind in {"fortification", "vehicle"} and place_id:
+        })
+        if kind in {"fortification", "vehicle", "equipment", "vessel", "aircraft", "facility"} and place_id:
             place_node = self.nodes.get(place_id, {})
-            properties.setdefault("coordinates", place_node.get("properties", {}).get("coordinates"))
-            properties.setdefault("altitude", place_node.get("properties", {}).get("altitude"))
+            properties.setdefault("coordinates", clean_text(target.get("经纬度")) or place_node.get("properties", {}).get("coordinates"))
+            properties.setdefault("altitude", target.get("海拔") or place_node.get("properties", {}).get("altitude"))
 
         self.add_node(node_id, self.LABELS[kind], name, properties)
+        self._attach_location_edge(node_id, target, topic, place_id)
+        self._attach_ownership_edges(node_id, target)
+        return node_id
+
+    @staticmethod
+    def _normalize_target_type(kind: str, target_type: str, model: str, name: str) -> str:
+        raw_type = clean_text(target_type)
+        raw_model = clean_text(model)
+        raw_name = clean_text(name)
+        text = " ".join([raw_type, raw_model, raw_name])
+
+        if kind == "vehicle":
+            if raw_type and not any(keyword in raw_type for keyword in ("连", "排", "营", "旅", "团", "师", "军", "队")):
+                return raw_type
+            if any(keyword in text for keyword in ("无人机", "UAV", "MQ-", "翼龙", "彩虹", "侦察机")):
+                return "无人机"
+            if any(keyword in text for keyword in ("步兵战车", "装甲车", "输送车")):
+                return "装甲车辆"
+            if any(keyword in text for keyword in ("坦克", "T-", "VT-", "MBT", "主战坦克")):
+                return "主战坦克"
+            if any(keyword in text for keyword in ("火箭炮",)):
+                return "火箭炮"
+            return raw_type or "车辆"
+
+        if kind == "equipment":
+            if raw_type and raw_type not in {"未知", "其他"}:
+                return raw_type
+            if any(keyword in text for keyword in ("防空", "导弹", "火箭炮", "火炮", "雷达", "传感器", "通信", "数据链")):
+                return raw_type or "装备设备"
+            return raw_type or "装备设备"
+
+        if kind == "fortification":
+            return raw_type or "工事"
+
+        if kind == "facility":
+            return raw_type or "设施"
+
+        if kind == "aircraft":
+            return raw_type or "航空器"
+
+        if kind == "vessel":
+            return raw_type or "舰艇"
+
+        if kind == "unit":
+            return raw_type or "兵种"
+
+        return raw_type or MechanismKGBuilder.LABELS.get(kind, kind)
+
+    def _place_name_from_id(self, place_id: Optional[str]) -> str:
+        if not place_id:
+            return ""
+        place_node = self.nodes.get(place_id) or {}
+        properties = place_node.get("properties", {}) or {}
+        return (
+            clean_text(properties.get("normalized_place"))
+            or clean_text(properties.get("name"))
+            or clean_text(place_node.get("name"))
+        )
+
+    @classmethod
+    def _format_quantity(
+        cls,
+        quantity: Any,
+        kind: str,
+        target_type: str,
+        model: str,
+        name: str,
+        location: str,
+    ) -> str:
+        quantity_text = clean_text(quantity)
+        if not quantity_text or quantity_text in {"未知", "不详", "unknown", "None"}:
+            return ""
+        count_text = quantity_text
+        if not re.search(r"(辆|架|门|套|个|枚|具|艘|人|名|支|台|部|连|排|营|旅|团|师|军)$", count_text):
+            count_text = f"{count_text}{cls._infer_quantity_unit(kind, target_type, model, name)}"
+        if location:
+            return f"{location}有{count_text}"
+        return f"{name}数量{count_text}"
+
+    @staticmethod
+    def _infer_quantity_unit(kind: str, target_type: str, model: str, name: str) -> str:
+        text = " ".join([kind, clean_text(target_type), clean_text(model), clean_text(name)])
+        if kind == "aircraft" or any(keyword in text for keyword in ("无人机", "UAV", "MQ-", "翼龙", "彩虹", "飞机", "直升机")):
+            return "架"
+        if kind == "vessel" or any(keyword in text for keyword in ("舰", "艇", "船")):
+            return "艘"
+        if any(keyword in text for keyword in ("坦克", "装甲", "战车", "车辆", "车")) or kind == "vehicle":
+            return "辆"
+        if any(keyword in text for keyword in ("火箭炮", "火炮", "榴弹炮", "炮")):
+            return "门"
+        if any(keyword in text for keyword in ("发射器", "发射具")):
+            return "具"
+        if any(keyword in text for keyword in ("导弹", "弹药")):
+            return "枚"
+        if any(keyword in text for keyword in ("系统", "雷达", "中心", "站")):
+            return "套"
+        return "个"
+
+    @classmethod
+    def _format_response_time(
+        cls,
+        response_time: Any,
+        kind: str,
+        target_type: str,
+        model: str,
+        name: str,
+        mission: str,
+        purpose: str,
+    ) -> str:
+        raw = clean_text(response_time)
+        if not raw or raw in {"未知", "不详", "unknown", "None"}:
+            return ""
+        if "响应时间" in raw or "反应时间" in raw:
+            return raw
+        subject = cls._response_time_subject(kind, target_type, model, name, mission, purpose)
+        return f"{subject}响应时间{raw}"
+
+    @staticmethod
+    def _response_time_subject(
+        kind: str,
+        target_type: str,
+        model: str,
+        name: str,
+        mission: str,
+        purpose: str,
+    ) -> str:
+        text = " ".join([
+            kind,
+            clean_text(target_type),
+            clean_text(model),
+            clean_text(name),
+            clean_text(mission),
+            clean_text(purpose),
+        ])
+        if any(keyword in text for keyword in ("坦克", "装甲", "战车", "T-", "VT-", "99")):
+            return "火控系统"
+        if any(keyword in text for keyword in ("导弹", "防空", "发射", "火箭炮", "火炮")):
+            return "武器系统"
+        if any(keyword in text for keyword in ("无人机", "侦察", "数据链", "链路")):
+            return "任务链路"
+        return "系统"
+
+    def _attach_location_edge(
+        self,
+        node_id: str,
+        source: Dict[str, Any],
+        topic: str,
+        fallback_place_id: Optional[str],
+    ) -> None:
+        location = clean_text(source.get("位置")) or clean_text(source.get("地点")) or clean_text(source.get("规范化地名"))
+        coordinates = clean_text(source.get("经纬度"))
+        place_id = None
+        if location or coordinates:
+            place_id = self._add_place(
+                {
+                    "名称": location or coordinates,
+                    "经纬度": coordinates,
+                    "海拔": source.get("海拔"),
+                    "距离": source.get("距离"),
+                    "方位": source.get("方位"),
+                },
+                topic,
+            )
+        place_id = place_id or fallback_place_id
         if place_id:
             self.add_edge(node_id, "位于", place_id)
+
+    def _attach_ownership_edges(self, node_id: str, source: Dict[str, Any]) -> None:
+        side = clean_text(source.get("所属方")) or clean_text(source.get("阵营"))
+        organization = clean_text(source.get("所属组织"))
+        parent_organization = clean_text(source.get("上级组织"))
+        commanded_target = clean_text(source.get("指挥对象"))
+
+        if side:
+            side_id = self._ensure_generic_node(side, "organization", {"name": side, "side": side})
+            self.add_edge(side_id, "拥有", node_id)
+
+        if organization:
+            organization_id = self._ensure_generic_node(
+                organization,
+                "organization",
+                {"name": organization, "side": side},
+            )
+            self.add_edge(node_id, "隶属", organization_id)
+            self.add_edge(organization_id, "装备", node_id)
+            if side:
+                side_id = self._ensure_generic_node(side, "organization", {"name": side, "side": side})
+                self.add_edge(organization_id, "隶属", side_id)
+
+        if parent_organization:
+            parent_id = self._ensure_generic_node(
+                parent_organization,
+                "organization",
+                {"name": parent_organization, "side": side},
+            )
+            self.add_edge(node_id, "隶属", parent_id)
+
+        if commanded_target:
+            target_id = self._resolve_node_id(commanded_target)
+            if target_id:
+                self.add_edge(node_id, "指挥", target_id)
+
+    def _add_explicit_relationships(self, event: Dict[str, Any]) -> None:
+        relationships = []
+        for key in ("关联关系", "关系", "relationships", "edges"):
+            relationships.extend(as_list(event.get(key)))
+
+        for relationship in relationships:
+            if not isinstance(relationship, dict):
+                continue
+            source_name = (
+                clean_text(relationship.get("头实体"))
+                or clean_text(relationship.get("源实体"))
+                or clean_text(relationship.get("from"))
+                or clean_text(relationship.get("source"))
+            )
+            relation = (
+                clean_text(relationship.get("关系"))
+                or clean_text(relationship.get("relation"))
+                or clean_text(relationship.get("type"))
+            )
+            target_name = (
+                clean_text(relationship.get("尾实体"))
+                or clean_text(relationship.get("目标实体"))
+                or clean_text(relationship.get("to"))
+                or clean_text(relationship.get("target"))
+            )
+            if not source_name or not relation or not target_name:
+                continue
+
+            source_id = self._resolve_node_id(source_name)
+            target_id = self._resolve_node_id(target_name)
+            if not source_id or not target_id:
+                continue
+
+            properties = {}
+            attrs = relationship.get("属性")
+            if isinstance(attrs, dict):
+                properties.update(attrs)
+            evidence = clean_text(relationship.get("证据"))
+            if evidence:
+                properties["evidence"] = evidence
+            self.add_edge(source_id, relation, target_id, properties)
+
+    @staticmethod
+    def _collect_properties(item: Dict[str, Any], handled_keys: Optional[set] = None) -> Dict[str, Any]:
+        handled = set(handled_keys or set())
+        return {
+            str(key): value
+            for key, value in (item or {}).items()
+            if value not in ("", None, [])
+            and str(key).isascii()
+            and str(key) not in handled
+        }
+
+    def _ensure_generic_node(
+        self,
+        name: str,
+        kind: str = "entity",
+        properties: Optional[Dict[str, Any]] = None,
+    ) -> str:
+        node_id = self._node_id(kind, name)
+        label = self.LABELS.get(kind, self.LABELS["entity"])
+        self.add_node(node_id, label, name, {"name": name, **(properties or {})})
         return node_id
+
+    def _resolve_node_id(self, name: str) -> Optional[str]:
+        clean_name = clean_text(name)
+        if not clean_name:
+            return None
+        direct_id = self._node_id("entity", clean_name)
+        if direct_id in self.nodes:
+            return direct_id
+
+        target_key = self._entity_key(clean_name)
+        for node_id, node in self.nodes.items():
+            names = [
+                node.get("name", ""),
+                node.get("properties", {}).get("name", ""),
+                node.get("properties", {}).get("model", ""),
+                node.get("properties", {}).get("type", ""),
+                node.get("properties", {}).get("person_name", ""),
+            ]
+            for candidate in names:
+                candidate_key = self._entity_key(candidate)
+                if not candidate_key:
+                    continue
+                if target_key == candidate_key:
+                    return node_id
+                if len(target_key) >= 4 and (target_key in candidate_key or candidate_key in target_key):
+                    return node_id
+
+        return self._ensure_generic_node(clean_name)
+
+    @staticmethod
+    def _entity_key(value: Any) -> str:
+        text = clean_text(value).lower()
+        text = text.replace("“", "").replace("”", "").replace('"', "").replace("'", "")
+        for token in (" ", "\t", "\n", "（", "）", "(", ")", "-", "_"):
+            text = text.replace(token, "")
+        for suffix in ("主战坦克", "坦克", "无人机", "战车", "导弹", "火箭炮系统", "火箭炮", "防空系统", "系统", "装备", "设备"):
+            if text.endswith(suffix):
+                text = text[: -len(suffix)]
+        return text
 
     def add_node(self, node_id: str, label: str, name: str, properties: Optional[Dict[str, Any]] = None) -> None:
         clean_properties = normalize_node_properties(normalize_properties(properties or {}), label, self.current_source_file)
         clean_properties["name"] = clean_text(clean_properties.get("name")) or name
+        clean_properties["desc"] = build_node_description(clean_properties, label)
         if node_id not in self.nodes:
             self.nodes[node_id] = {
                 "id": node_id,
@@ -296,12 +748,16 @@ class MechanismKGBuilder:
 
         existing = self.nodes[node_id]["properties"]
         for key, value in clean_properties.items():
+            if key == "desc":
+                continue
             if value in ("", None, []):
                 continue
             if key not in existing or existing[key] in ("", None, []):
                 existing[key] = value
             elif existing[key] != value:
                 existing[key] = merge_values(existing[key], value)
+        desc_source = {key: value for key, value in existing.items() if key != "desc"}
+        existing["desc"] = build_node_description(desc_source, self.nodes[node_id]["label"])
 
     def add_edge(
         self,
@@ -311,6 +767,8 @@ class MechanismKGBuilder:
         properties: Optional[Dict[str, Any]] = None,
     ) -> None:
         if source not in self.nodes or target not in self.nodes:
+            return
+        if source == target:
             return
         edge_key = (source, relation, target)
         if edge_key not in self.edges:
@@ -341,20 +799,18 @@ class MechanismKGBuilder:
 
 def build_graph_from_files(
     input_paths: Iterable[Any],
-    show_progress: Optional[bool] = None,
 ) -> Tuple[Dict[str, List[Dict[str, Any]]], List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]]]:
     mechanism_events: List[Dict[str, Any]] = []
     source_summaries: List[Dict[str, Any]] = []
     failed_files: List[Dict[str, Any]] = []
     input_paths = list(input_paths)
-    show_progress = DEFAULT_SHOW_PROGRESS if show_progress is None else bool(show_progress)
 
     iterator = input_paths
-    if show_progress and input_paths:
+    if input_paths:
         try:
             from tqdm import tqdm
 
-            iterator = tqdm(input_paths, desc="构建知识图谱", total=len(input_paths))
+            iterator = tqdm(input_paths, desc="读取输入文件", total=len(input_paths), unit="file", dynamic_ncols=True)
         except Exception:
             iterator = input_paths
 
@@ -390,7 +846,6 @@ def build_knowledge_graph(
 
     graph_data, mechanism_events, source_summaries, failed_files = build_graph_from_files(
         input_paths,
-        show_progress=DEFAULT_SHOW_PROGRESS,
     )
     write_json(extracted_path, mechanism_events)
     write_json(output_path, graph_data)

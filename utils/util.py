@@ -135,46 +135,166 @@ def merge_values(left: Any, right: Any) -> Any:
     return values
 
 
+PROPERTY_KEY_MAP = {
+    "类型": "type",
+    "类别": "category",
+    "名称": "name",
+    "姓名": "person_name",
+    "描述": "desc",
+    "说明": "desc",
+    "内容": "content",
+    "来源文件": "from_file",
+    "经纬度": "coordinates",
+    "规范化地名": "normalized_place",
+    "海拔": "altitude",
+    "军衔": "rank",
+    "职务": "position",
+    "数量": "quantity",
+    "数量值": "quantity_value",
+    "数量单位": "quantity_unit",
+    "型号": "model",
+    "事件主题": "event_topic",
+    "核心行为": "core_behavior",
+    "述谓结构": "predicate",
+    "目标体系": "target_system",
+    "地点信息": "location_info",
+    "地点列表": "location_list",
+    "人员信息": "personnel_info",
+    "风险等级": "risk_level",
+    "所属方": "side",
+    "阵营": "side",
+    "所属组织": "organization",
+    "上级组织": "parent_organization",
+    "指挥对象": "commanded_target",
+    "位置": "location",
+    "地点": "location",
+    "方位": "direction",
+    "方向": "direction",
+    "距离": "distance",
+    "任务": "mission",
+    "状态": "status",
+    "用途": "purpose",
+    "口径": "caliber",
+    "射程": "range",
+    "精度": "accuracy",
+    "命中精度": "accuracy",
+    "响应时间": "response_time",
+    "反应时间": "response_time",
+    "响应时间值": "response_time_value",
+    "耗时": "duration",
+    "速度": "speed",
+    "高度": "height",
+    "运动方向": "movement_direction",
+    "装备": "equipment",
+    "可用": "available",
+    "证据": "evidence",
+    "响应时间对比": "response_time_comparison",
+    "印军响应时间": "indian_response_time",
+    "巴军响应时间": "pakistan_response_time",
+    "中方响应时间": "china_response_time",
+}
+
+
+DESCRIPTION_FIELDS = [
+    ("type", "类型"),
+    ("model", "型号"),
+    ("side", "所属方"),
+    ("organization", "所属组织"),
+    ("location", "位置"),
+    ("quantity", "数量"),
+    ("mission", "任务"),
+    ("status", "状态"),
+    ("purpose", "用途"),
+    ("rank", "军衔"),
+    ("position", "职务"),
+    ("event_topic", "事件"),
+    ("time", "时间"),
+    ("coordinates", "坐标"),
+    ("altitude", "海拔"),
+]
+
+
+def _description_value(value: Any) -> str:
+    if value in ("", None, [], {}):
+        return ""
+    if isinstance(value, list):
+        return "、".join(text for text in (_description_value(item) for item in value) if text)
+    if isinstance(value, dict):
+        pairs = []
+        for key, item in value.items():
+            text = _description_value(item)
+            if text:
+                pairs.append(f"{key}:{text}")
+        return "；".join(pairs)
+    return clean_text(value)
+
+
+def build_node_description(properties: Dict[str, Any], label: str = "") -> str:
+    props = properties or {}
+    existing = clean_text(props.get("desc")) or clean_text(props.get("description"))
+    if existing:
+        return existing
+
+    label_text = clean_text(label) or clean_text(props.get("label")) or clean_text(props.get("type")) or "实体"
+    name = clean_text(props.get("name")) or _description_value(props.get("person_name"))
+    type_text = _description_value(props.get("type"))
+    subject = name or type_text or label_text
+    prefix = f"{label_text}节点：{subject}"
+
+    details = []
+    seen_values = {subject}
+    for key, title in DESCRIPTION_FIELDS:
+        value_text = _description_value(props.get(key))
+        if not value_text or value_text in seen_values:
+            continue
+        if key == "type" and value_text == label_text:
+            continue
+        details.append(f"{title}{value_text}")
+        seen_values.add(value_text)
+
+    if details:
+        return f"{prefix}；" + "；".join(details)
+    return prefix
+
+
+def normalize_property_key(key: Any) -> str:
+    key_text = clean_text(key)
+    if not key_text:
+        return ""
+    mapped_key = PROPERTY_KEY_MAP.get(key_text)
+    if mapped_key:
+        return mapped_key
+    if key_text.isascii():
+        return key_text
+    return ""
+
+
 def normalize_node_properties(properties: Dict[str, Any], label: str, source_file: str) -> Dict[str, Any]:
-    key_map = {
-        "类型": "type",
-        "名称": "name",
-        "来源文件": "from_file",
-        "经纬度": "coordinates",
-        "海拔": "altitude",
-        "军衔": "rank",
-        "职务": "position",
-        "数量": "quantity",
-        "型号": "model",
-        "事件主题": "event_topic",
-        "核心行为": "core_behavior",
-        "述谓结构": "predicate",
-        "目标体系": "target_system",
-        "地点信息": "location_info",
-        "人员信息": "personnel_info",
-        "风险等级": "risk_level",
-    }
 
     result: Dict[str, Any] = {}
     for key, value in (properties or {}).items():
         if value in ("", None, []):
             continue
-        result[key_map.get(str(key), str(key))] = value
+        mapped_key = normalize_property_key(key)
+        if not mapped_key:
+            continue
+        if mapped_key in {"accuracy", "precision"}:
+            text = clean_text(value)
+            if text and not re.search(r"\d|%|km|m|米|秒|度|倍", text):
+                continue
+        result[mapped_key] = value
 
     if not clean_text(result.get("type")):
         result["type"] = label
     result["name"] = clean_text(result.get("name"))
     if source_file:
         result["from_file"] = merge_values(result.get("from_file"), source_file)
-    if "coordinates" not in result and result.get("location"):
-        result["coordinates"] = result.pop("location")
-    if not clean_text(result.get("desc")):
-        for candidate_key in ("core_behavior", "event_topic", "predicate", "model", "time", "level", "name"):
-            candidate = clean_text(result.get(candidate_key))
-            if candidate:
-                result["desc"] = candidate
-                break
-    return {key: value for key, value in result.items() if value not in ("", None, [])}
+    result["desc"] = build_node_description(result, label)
+    return {
+        key: value
+        for key, value in result.items()
+        if key.isascii() and value not in ("", None, [])
+    }
 
 
 def edge_to_link(edge: Dict[str, Any]) -> Dict[str, Any]:
@@ -262,7 +382,7 @@ def read_docx_file(path: Path) -> str:
 
 def read_source_file(path: Path) -> str:
     suffix = path.suffix.lower()
-    if suffix == ".txt":
+    if suffix in {".txt", ".md", ".markdown"}:
         return read_text_file(path)
     if suffix == ".csv":
         return read_csv_file(path)
@@ -720,7 +840,26 @@ def format_scalar(value: Any) -> str:
 def summarize_properties(properties: Dict[str, Any]) -> str:
     if not properties:
         return ""
-    preferred_keys = ["name", "type", "model", "quantity", "event_topic", "coordinates", "altitude"]
+    preferred_keys = [
+        "name",
+        "type",
+        "model",
+        "quantity",
+        "side",
+        "organization",
+        "location",
+        "event_topic",
+        "coordinates",
+        "altitude",
+        "caliber",
+        "range",
+        "accuracy",
+        "response_time",
+        "duration",
+        "speed",
+        "height",
+        "distance",
+    ]
     parts = []
     for key in preferred_keys:
         if key in properties and properties[key] not in ("", None, []):

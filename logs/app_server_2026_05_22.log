@@ -12,3 +12,18 @@
 2026-05-22 15:18:06.284 | INFO     | app_server:startup_event:69 - 服务启动完成
 2026-05-22 15:18:06.284 | INFO     | app_server:startup_event:70 - 上传目录: data\upload
 2026-05-22 15:18:06.284 | INFO     | app_server:startup_event:71 - 输出目录: data\output
+2026-05-22 16:11:57.885 | INFO     | app_server:startup_event:69 - 服务启动完成
+2026-05-22 16:11:57.885 | INFO     | app_server:startup_event:70 - 上传目录: data\upload
+2026-05-22 16:11:57.886 | INFO     | app_server:startup_event:71 - 输出目录: data\output
+2026-05-22 16:12:14.521 | INFO     | app_server:startup_event:69 - 服务启动完成
+2026-05-22 16:12:14.522 | INFO     | app_server:startup_event:70 - 上传目录: data\upload
+2026-05-22 16:12:14.522 | INFO     | app_server:startup_event:71 - 输出目录: data\output
+2026-05-22 16:37:37.382 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:17 - 开始搜索数据库，输入: T-90S
+2026-05-22 16:37:37.414 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:25 - 任务完成，查询目标=T-90S, 耗时=28.914928436279297
+2026-05-22 17:24:19.817 | INFO     | app_server:startup_event:69 - 服务启动完成
+2026-05-22 17:24:19.818 | INFO     | app_server:startup_event:70 - 上传目录: data\upload
+2026-05-22 17:24:19.818 | INFO     | app_server:startup_event:71 - 输出目录: data\output
+2026-05-22 17:24:47.787 | INFO     | app_server:knowledge_graph_construction_api:82 - 收到文件: name=example.txt, type=text/plain
+2026-05-22 17:24:47.789 | INFO     | app_server:knowledge_graph_construction_api:85 - 文件已保存: data\upload\upload_689a57f21bc046518a66a276930b719f.txt
+2026-05-22 17:27:21.066 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:17 - 开始搜索数据库，输入: T-90S
+2026-05-22 17:27:21.158 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:25 - 任务完成，查询目标=T-90S, 耗时=88.96231651306152

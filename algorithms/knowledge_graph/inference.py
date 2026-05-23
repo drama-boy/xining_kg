@@ -65,6 +65,52 @@ MEDIUM_RISK_KEYWORDS = (
     "指挥",
 )
 
+ALLY_RELATIONS = {
+    "同方协同",
+    "协同",
+    "合作",
+    "联合",
+    "数据链互通",
+    "引导",
+    "支援",
+    "保障",
+    "装备",
+    "拥有",
+    "隶属",
+    "指挥",
+    "使用",
+    "部署",
+    "部署于",
+}
+OPPONENT_RELATIONS = {
+    "对抗",
+    "敌对阵营",
+    "伏击",
+    "击毁",
+    "命中",
+    "攻击",
+    "打击",
+    "拦截",
+    "压制",
+    "优于",
+    "劣于",
+}
+TARGET_RELATIONS = {
+    "提及装备",
+    "涉及装备",
+    "涉及车辆",
+    "涉及兵种",
+    "涉及工事",
+    "涉及舰艇",
+    "涉及航空器",
+    "涉及设施",
+    "提及人员",
+    "提及组织",
+    "涉及人员",
+    "涉及组织",
+}
+ASSOCIATION_OBJECT_LABELS = {"车辆", "装备设备", "舰艇", "航空器", "设施", "工事", "兵种"}
+
 
 @dataclass
 class GraphEntity:
@@ -287,13 +333,31 @@ class KGInferenceEngine:
         for item in timeline or []:
             event = item.get("event", "")
             behavior = item.get("behavior", "")
-            behavior_or_event = "；".join([value for value in (event, behavior) if value])
+            behavior_or_event = KGInferenceEngine._format_behavior_or_event(event, behavior)
             result_timeline.append({
                 "时间": item.get("time", ""),
                 "地点": item.get("locations", []),
                 "行为或事件": behavior_or_event,
             })
         return result_timeline
+
+    @staticmethod
+    def _format_behavior_or_event(event: Any, behavior: Any) -> str:
+        event_text = normalize_text(event)
+        behavior_text = KGInferenceEngine._short_behavior_name(event_text, behavior)
+        return event_text or behavior_text
+
+    @staticmethod
+    def _short_behavior_name(event: Any, behavior: Any) -> str:
+        event_text = normalize_text(event)
+        behavior_text = normalize_text(behavior)
+        if not behavior_text or behavior_text == event_text:
+            return ""
+        for separator in ("-", "：", ":", "—"):
+            prefix = f"{event_text}{separator}"
+            if event_text and behavior_text.startswith(prefix):
+                return behavior_text[len(prefix):].strip()
+        return behavior_text
 
     def build_llm_context(self, result: InferenceResult) -> Dict[str, Any]:
         matched_entity = result.matched_entities[0] if result.matched_entities else None
@@ -711,17 +775,25 @@ class KGInferenceEngine:
         order = {
             "车辆": 0,
             "装备设备": 1,
-            "行为": 2,
-            "事件": 3,
-            "地点": 4,
-            "时间": 5,
+            "舰艇": 2,
+            "航空器": 3,
+            "兵种": 4,
+            "组织机构": 5,
+            "人员": 6,
+            "行为": 7,
+            "事件": 8,
+            "地点": 9,
+            "时间": 10,
         }
         return order.get(node.label, 9)
 
     @staticmethod
     def _is_vehicle_like(node: GraphEntity) -> bool:
         text = " ".join([node.label, node.name, json.dumps(node.properties, ensure_ascii=False)])
-        return any(keyword in text for keyword in ("坦克", "装甲", "无人机", "火箭炮", "战车", "导弹"))
+        return any(
+            keyword in text
+            for keyword in ("坦克", "装甲", "无人机", "火箭炮", "战车", "导弹", "舰", "艇", "防空", "火炮", "雷达")
+        )
 
     @staticmethod
     def _normalize_vehicle_alias(text: str) -> str:
@@ -754,10 +826,14 @@ class KGInferenceEngine:
                     times.append(target.name)
                 elif edge.relation in {"提及地点", "发生地点"} or target.label == "地点":
                     locations.append(target.name)
-                elif edge.relation in {"提及装备", "涉及车辆", "涉及兵种", "涉及工事", "提及人员", "提及组织", "涉及人员"}:
+                elif edge.relation in TARGET_RELATIONS:
                     targets.append(target.name)
                 elif edge.relation == "包含行为" and target.label == "行为":
-                    relations.append({"event": event_node.name, "behavior": target.name, "via": edge.relation})
+                    relations.append({
+                        "event": event_node.name,
+                        "behavior": self._short_behavior_name(event_node.name, target.name) or target.name,
+                        "via": edge.relation,
+                    })
 
             if behavior_node:
                 for edge in self.out_edges[behavior_node.id]:
@@ -775,7 +851,7 @@ class KGInferenceEngine:
 
             contexts.append({
                 "event": event_node.name,
-                "behavior": behavior_node.name if behavior_node else "",
+                "behavior": self._short_behavior_name(event_node.name, behavior_node.name) if behavior_node else "",
                 "relation": via_relation,
                 "times": dedup_list(times),
                 "locations": dedup_list(locations),
@@ -806,7 +882,7 @@ class KGInferenceEngine:
                 add_context(parent_event, node, "self")
 
         # When the target is a vehicle/equipment, pull its event context.
-        if node.label in {"车辆", "装备设备", "人员", "兵种", "工事", "地点"}:
+        if node.label in {"车辆", "装备设备", "舰艇", "航空器", "设施", "人员", "组织机构", "兵种", "工事", "地点"}:
             for edge in self.in_edges[node.id]:
                 source = self.node_by_id.get(edge.source)
                 if source and source.label in {"事件", "行为"}:
@@ -857,18 +933,179 @@ class KGInferenceEngine:
     def _split_allies_opponents(self, node: GraphEntity, contexts: List[Dict[str, Any]]) -> Tuple[List[str], List[str]]:
         allies = []
         opponents = []
-        text = " ".join([node.name, json.dumps(node.properties, ensure_ascii=False)])
-        is_self_side = any(keyword in text for keyword in ("中国", "中方", "印军", "印度"))
-        for ctx in contexts:
+        scope_nodes = [node] + self._related_variant_nodes(node)
+        scope_ids = {scope_node.id for scope_node in scope_nodes}
+
+        for scope_node in scope_nodes:
+            for edge in self.in_edges[scope_node.id]:
+                source = self.node_by_id.get(edge.source)
+                if not source or source.id in scope_ids:
+                    continue
+                if not self._is_association_object(source, edge.relation):
+                    continue
+                relation_class = self._classify_relation(node, source, edge.relation)
+                if relation_class == "team":
+                    allies.append(source.name)
+                elif relation_class == "opponent":
+                    opponents.append(source.name)
+
+            for edge in self.out_edges[scope_node.id]:
+                target = self.node_by_id.get(edge.target)
+                if not target or target.id in scope_ids:
+                    continue
+                if not self._is_association_object(target, edge.relation):
+                    continue
+                relation_class = self._classify_relation(node, target, edge.relation)
+                if relation_class == "team":
+                    allies.append(target.name)
+                elif relation_class == "opponent":
+                    opponents.append(target.name)
+
+        expanded_contexts = list(contexts or [])
+        for variant_node in scope_nodes[1:]:
+            expanded_contexts.extend(self._collect_event_context(variant_node))
+
+        for ctx in expanded_contexts:
             for target in ctx.get("targets", []):
-                t = normalize_name(target)
-                if any(keyword in t for keyword in ("中国", "中方", "翼龙", "99AE")):
+                target_node = self._find_node_by_name(target)
+                if target_node and target_node.id in scope_ids:
+                    continue
+                if not target_node or not self._is_association_object(target_node):
+                    continue
+                relation_class = self._classify_side_relation(node, target_node, target)
+                if relation_class == "team":
                     allies.append(target)
-                elif any(keyword in t for keyword in ("印度", "印军", "巴基斯坦", "绿箭", "T-90MS", "T-90S")):
+                elif relation_class == "opponent":
                     opponents.append(target)
-        if is_self_side:
-            return dedup_list(allies), dedup_list(opponents)
-        return dedup_list(opponents), dedup_list(allies)
+
+        node_names = {normalize_name(scope_node.name) for scope_node in scope_nodes}
+        return (
+            [item for item in dedup_list(allies) if normalize_name(item) not in node_names],
+            [item for item in dedup_list(opponents) if normalize_name(item) not in node_names],
+        )
+
+    def _related_variant_nodes(self, node: GraphEntity) -> List[GraphEntity]:
+        family_key = self._node_family_key(node)
+        if not family_key:
+            return []
+        variants = []
+        for candidate in self.nodes:
+            if candidate.id == node.id or not self._is_vehicle_like(candidate):
+                continue
+            if self._node_family_key(candidate) == family_key:
+                variants.append(candidate)
+        variants.sort(key=lambda item: (self._node_priority(item), item.name))
+        return variants
+
+    def _node_family_key(self, node: GraphEntity) -> str:
+        candidates = [
+            node.name,
+            node.properties.get("name", ""),
+            node.properties.get("model", ""),
+        ]
+        for candidate in candidates:
+            family_key = self._vehicle_family_key(candidate)
+            if family_key:
+                return family_key
+        return ""
+
+    @staticmethod
+    def _vehicle_family_key(text: Any) -> str:
+        alias = KGInferenceEngine._normalize_vehicle_alias(normalize_text(text))
+        compact = re.sub(r"[^0-9a-z]+", "", alias.lower())
+        if not compact:
+            return ""
+        for pattern in (r"(t\d{2,3})[a-z]*$", r"(vt\d{1,3})[a-z]*$", r"(ztz\d{2,3})[a-z]*$"):
+            match = re.match(pattern, compact)
+            if match:
+                return match.group(1)
+        return ""
+
+    def _classify_relation(self, node: GraphEntity, other: GraphEntity, relation: str) -> str:
+        if other.id == node.id:
+            return ""
+        if relation in OPPONENT_RELATIONS:
+            return "opponent"
+        if relation in ALLY_RELATIONS:
+            return "team"
+        return self._classify_side_relation(node, other, other.name)
+
+    def _classify_side_relation(self, node: GraphEntity, other: Optional[GraphEntity], fallback_name: str = "") -> str:
+        node_side = self._node_side(node)
+        other_side = self._node_side(other) if other else self._side_from_text(fallback_name, allow_unknown=False)
+        if node_side and other_side:
+            if node_side == other_side:
+                return "team"
+            return "opponent"
+        return ""
+
+    def _is_association_object(self, node: Optional[GraphEntity], relation: str = "") -> bool:
+        if not node:
+            return False
+        if node.label in {"地点", "时间", "风险等级", "事件", "行为", "述谓结构", "组织机构", "人员"}:
+            return False
+        if node.label in ASSOCIATION_OBJECT_LABELS:
+            return True
+        if node.label == "实体":
+            if self._side_from_text(node.name, allow_unknown=False):
+                return False
+            return relation in ALLY_RELATIONS or relation in OPPONENT_RELATIONS or self._is_vehicle_like(node)
+        return self._is_vehicle_like(node)
+
+    def _find_node_by_name(self, name: str) -> Optional[GraphEntity]:
+        norm = normalize_name(name)
+        if not norm:
+            return None
+        exact = self.nodes_by_name.get(norm)
+        if exact:
+            return exact[0]
+        alias = self._normalize_vehicle_alias(norm)
+        for node in self.nodes:
+            names = [
+                node.name,
+                node.properties.get("name", ""),
+                node.properties.get("model", ""),
+                node.properties.get("type", ""),
+                node.properties.get("person_name", ""),
+            ]
+            for candidate in names:
+                candidate_norm = normalize_name(candidate)
+                if not candidate_norm:
+                    continue
+                candidate_alias = self._normalize_vehicle_alias(candidate_norm)
+                if norm == candidate_norm or (alias and alias == candidate_alias):
+                    return node
+                if len(norm) >= 4 and (norm in candidate_norm or candidate_norm in norm):
+                    return node
+        return None
+
+    def _node_side(self, node: Optional[GraphEntity]) -> str:
+        if not node:
+            return ""
+        properties = node.properties or {}
+        for key in ("side", "所属方", "阵营"):
+            side = self._side_from_text(properties.get(key), allow_unknown=True)
+            if side:
+                return side
+        if node.label == "组织机构":
+            side = self._side_from_text(node.name, allow_unknown=False)
+            if side:
+                return side
+        organization = normalize_text(properties.get("organization") or properties.get("所属组织"))
+        return self._side_from_text(organization, allow_unknown=False)
+
+    @staticmethod
+    def _side_from_text(value: Any, allow_unknown: bool = False) -> str:
+        text = normalize_name(value)
+        if not text:
+            return ""
+        if any(keyword in text for keyword in ("中方", "中国", "解放军", "中国人民解放军")):
+            return "中方"
+        if any(keyword in text for keyword in ("印军", "印度", "印度陆军")):
+            return "印军"
+        if any(keyword in text for keyword in ("巴军", "巴基斯坦", "巴基斯坦陆军")):
+            return "巴军"
+        return text if allow_unknown else ""
 
     def _predict_action_label(self, node: GraphEntity, contexts: List[Dict[str, Any]]) -> str:
         all_text = " ".join(

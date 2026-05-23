@@ -71,7 +71,7 @@ async def startup_event() -> None:
     logger.info("输出目录: {}", OUTPUT_DIR)
 
 
-@app.post("/api/knowledge_graph/construction",description="支持的文件格式: txt, docx, pdf, csv, json\n")
+@app.post("/api/knowledge_graph/construction",description="支持的文件格式: txt, markdown, docx, pdf, csv, json\n")
 async def knowledge_graph_construction_api(files: List[UploadFile] = File(...)) -> dict:
     if not files:
         raise HTTPException(status_code=400, detail="请上传至少一个文件，字段名为 files")
