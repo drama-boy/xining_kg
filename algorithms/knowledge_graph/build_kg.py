@@ -58,6 +58,74 @@ def make_output_file() -> Path:
 class MechanismKGBuilder:
     """Create a node-property graph for mechanism thinking maps."""
 
+    PRIORITY_NODE_TYPES = {
+        "反坦克锥",
+        "弹药库",
+        "油库",
+        "指挥部",
+        "有限掩体",
+        "加农炮",
+        "圆周掩体",
+        "坦克",
+        "正方型掩体",
+        "C型掩体",
+        "装甲车",
+        "运输车",
+        "堑壕",
+    }
+
+    PRIORITY_TYPE_RULES = (
+        ("反坦克锥", ("反坦克锥", "阻车锥", "反坦克障碍锥", "龙牙")),
+        ("弹药库", ("弹药库", "弹药仓库", "弹药储备库", "弹药储存库", "弹药补给库")),
+        ("油库", ("油库", "油料库", "燃油库", "燃料库", "油料仓库")),
+        ("指挥部", ("指挥部", "指挥所", "指挥中心", "临时指挥中心", "作战指挥中心", "前线指挥所")),
+        ("有限掩体", ("有限掩体",)),
+        ("圆周掩体", ("圆周掩体", "环形掩体", "圆形掩体")),
+        ("正方型掩体", ("正方型掩体", "正方形掩体", "方形掩体")),
+        ("C型掩体", ("C型掩体", "C形掩体", "c型掩体", "c形掩体")),
+        ("堑壕", ("堑壕", "战壕", "壕沟", "交通壕")),
+        ("装甲车", ("装甲车", "装甲车辆", "步兵战车", "战车", "装甲输送车")),
+        ("运输车", ("运输车", "运输车辆", "输送车", "补给车", "后勤车", "卡车", "军用卡车")),
+        ("加农炮", ("加农炮", "自行加农炮", "牵引式加农炮")),
+        ("坦克", ("坦克", "主战坦克", "轻型坦克", "T-", "VT-", "MBT", "99AE", "T90", "T-90")),
+    )
+
+    GENERIC_CONFLICT_TYPES = {
+        "车辆",
+        "主战坦克",
+        "轻型坦克",
+        "装甲车辆",
+        "运输车辆",
+        "工事",
+        "防御工事",
+        "设施",
+        "装备",
+        "装备设备",
+        "仓库",
+        "仓储设施",
+        "储存设施",
+        "库房",
+        "掩体",
+        "防护工事",
+        "火炮",
+        "炮",
+        "指挥中心",
+        "指挥所",
+        "指挥机构",
+        "后勤设施",
+        "补给设施",
+        "障碍物",
+    }
+
+    CONTEXT_PRIORITY_TYPES = {
+        "车辆": {"坦克", "装甲车", "运输车"},
+        "工事": {"反坦克锥", "有限掩体", "圆周掩体", "正方型掩体", "C型掩体", "堑壕"},
+        "装备设备": {"反坦克锥", "加农炮", "坦克", "装甲车", "运输车"},
+        "设施": {"弹药库", "油库", "指挥部"},
+        "组织机构": {"指挥部"},
+        "实体": PRIORITY_NODE_TYPES,
+    }
+
     LABELS = {
         "event": "事件",
         "behavior": "行为",
@@ -378,7 +446,7 @@ class MechanismKGBuilder:
 
         node_id = self._node_id(kind, name)
         properties = self._collect_properties(target, handled_keys=self.TARGET_HANDLED_KEYS)
-        normalized_type = self._normalize_target_type(kind, target_type, model, name)
+        normalized_type = self._normalize_target_type(kind, target_type, model, " ".join([name, explicit_name]))
         side = clean_text(target.get("所属方"))
         organization = clean_text(target.get("所属组织"))
         location = clean_text(target.get("位置")) or self._place_name_from_id(place_id)
@@ -429,21 +497,116 @@ class MechanismKGBuilder:
         return node_id
 
     @staticmethod
-    def _normalize_target_type(kind: str, target_type: str, model: str, name: str) -> str:
+    def _flatten_type_values(value: Any) -> List[str]:
+        values: List[str] = []
+        for item in as_list(value):
+            text = clean_text(item)
+            if text and text not in values:
+                values.append(text)
+        return values
+
+    @classmethod
+    def _priority_type_from_text(cls, *values: Any) -> str:
+        text = " ".join(clean_text(value) for value in values if clean_text(value))
+        if not text:
+            return ""
+        text_lower = text.lower()
+        for canonical, keywords in cls.PRIORITY_TYPE_RULES:
+            if canonical == "坦克" and "反坦克" in text and "反坦克锥" not in text:
+                continue
+            if any(keyword.lower() in text_lower for keyword in keywords):
+                return canonical
+        return ""
+
+    @classmethod
+    def _type_conflicts_with_priority(cls, value: str, priority_types: List[str]) -> bool:
+        text = clean_text(value)
+        if not text:
+            return True
+        if text in cls.GENERIC_CONFLICT_TYPES:
+            return True
+        mapped_type = cls._priority_type_from_text(text)
+        if mapped_type:
+            return True
+        for priority_type in priority_types:
+            if priority_type in text or text in priority_type:
+                return True
+        return False
+
+    @classmethod
+    def _priority_type_from_context(cls, label: str, *values: Any) -> str:
+        priority_type = cls._priority_type_from_text(*values)
+        allowed_types = cls.CONTEXT_PRIORITY_TYPES.get(clean_text(label), set())
+        if priority_type in allowed_types:
+            return priority_type
+        return ""
+
+    @classmethod
+    def _normalize_type_property(
+        cls,
+        value: Any,
+        label: str,
+        name: str,
+        model: Any = "",
+    ) -> Any:
+        raw_values = cls._flatten_type_values(value)
+        priority_values: List[str] = []
+        other_values: List[str] = []
+
+        for item in raw_values:
+            priority_type = cls._priority_type_from_text(item)
+            if priority_type:
+                if priority_type not in priority_values:
+                    priority_values.append(priority_type)
+            elif item not in other_values:
+                other_values.append(item)
+
+        context_priority_type = cls._priority_type_from_context(label, name, model)
+        if context_priority_type and context_priority_type not in priority_values:
+            priority_values.append(context_priority_type)
+
+        if priority_values:
+            merged = priority_values + [
+                item
+                for item in other_values
+                if not cls._type_conflicts_with_priority(item, priority_values)
+            ]
+        else:
+            merged = other_values or [clean_text(label)]
+
+        merged = [item for item in merged if item]
+        if not merged:
+            return ""
+        if len(merged) == 1:
+            return merged[0]
+        return merged
+
+    @classmethod
+    def _normalize_target_type(cls, kind: str, target_type: str, model: str, name: str) -> Any:
         raw_type = clean_text(target_type)
         raw_model = clean_text(model)
         raw_name = clean_text(name)
         text = " ".join([raw_type, raw_model, raw_name])
+        priority_type = cls._priority_type_from_text(text)
+        if priority_type:
+            return cls._normalize_type_property(
+                [priority_type, raw_type],
+                cls.LABELS.get(kind, kind),
+                "",
+                "",
+            )
 
         if kind == "vehicle":
             if raw_type and not any(keyword in raw_type for keyword in ("连", "排", "营", "旅", "团", "师", "军", "队")):
-                return raw_type
+                return clean_text(cls._normalize_type_property(raw_type, "车辆", raw_name, raw_model)) or raw_type
             if any(keyword in text for keyword in ("无人机", "UAV", "MQ-", "翼龙", "彩虹", "侦察机")):
                 return "无人机"
-            if any(keyword in text for keyword in ("步兵战车", "装甲车", "输送车")):
-                return "装甲车辆"
+            if any(keyword in text for keyword in ("运输车", "运输车辆", "输送车", "补给车", "卡车")):
+                return "运输车"
+            if any(keyword in text for keyword in ("步兵战车", "装甲车", "装甲车辆", "战车")):
+                return "装甲车"
             if any(keyword in text for keyword in ("坦克", "T-", "VT-", "MBT", "主战坦克")):
-                return "主战坦克"
+                return "坦克"
             if any(keyword in text for keyword in ("火箭炮",)):
                 return "火箭炮"
             return raw_type or "车辆"
@@ -732,6 +895,12 @@ class MechanismKGBuilder:
     def add_node(self, node_id: str, label: str, name: str, properties: Optional[Dict[str, Any]] = None) -> None:
         clean_properties = normalize_node_properties(normalize_properties(properties or {}), label, self.current_source_file)
         clean_properties["name"] = clean_text(clean_properties.get("name")) or name
+        clean_properties["type"] = self._normalize_type_property(
+            clean_properties.get("type"),
+            label,
+            clean_properties["name"],
+            clean_properties.get("model", ""),
+        )
         clean_properties["desc"] = build_node_description(clean_properties, label)
         if node_id not in self.nodes:
             self.nodes[node_id] = {
@@ -756,6 +925,13 @@ class MechanismKGBuilder:
                 existing[key] = value
             elif existing[key] != value:
                 existing[key] = merge_values(existing[key], value)
+            if key == "type":
+                existing["type"] = self._normalize_type_property(
+                    existing.get("type"),
+                    self.nodes[node_id]["label"],
+                    existing.get("name", name),
+                    existing.get("model", ""),
+                )
         desc_source = {key: value for key, value in existing.items() if key != "desc"}
         existing["desc"] = build_node_description(desc_source, self.nodes[node_id]["label"])
 
