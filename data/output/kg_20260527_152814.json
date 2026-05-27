@@ -1,0 +1,3983 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "装备设备",
+      "labels": [
+        "装备设备"
+      ],
+      "name": "120mm",
+      "properties": {
+        "name": "120mm",
+        "type": "弹药",
+        "model": "120mm",
+        "quantity": "27号前沿弹药库有800枚",
+        "quantity_value": 800,
+        "quantity_unit": "枚",
+        "side": "印军",
+        "location": "27号前沿弹药库",
+        "purpose": "存储",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "装备设备节点：120mm；类型弹药；所属方印军；位置27号前沿弹药库；数量27号前沿弹药库有800枚；用途存储；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 2,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "15号C型掩体",
+      "properties": {
+        "name": "15号C型掩体",
+        "type": "C型掩体",
+        "quantity": "一线连防御区有8个",
+        "quantity_value": 8,
+        "quantity_unit": "个",
+        "side": "一线连",
+        "location": "一线连防御区",
+        "status": "开口朝后、三面防护，内置弹药架与折叠床位",
+        "purpose": "步兵班阵地过夜与弹药储存",
+        "event_topic": "印军第33军阵地防御演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：15号C型掩体；类型C型掩体；所属方一线连；位置一线连防御区；数量一线连防御区有8个；状态开口朝后、三面防护，内置弹药架与折叠床位；用途步兵班阵地过夜与弹药储存；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 3,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "1号反坦克锥群",
+      "properties": {
+        "name": "1号反坦克锥群",
+        "type": "反坦克锥",
+        "quantity": "通往莫尔多通道的两处开阔通道前沿有1辆",
+        "quantity_value": 1,
+        "quantity_unit": "辆",
+        "side": "第254装甲旅",
+        "location": "通往莫尔多通道的两处开阔通道前沿",
+        "status": "新建",
+        "purpose": "防御",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：1号反坦克锥群；类型反坦克锥；所属方第254装甲旅；位置通往莫尔多通道的两处开阔通道前沿；数量通往莫尔多通道的两处开阔通道前沿有1辆；状态新建；用途防御；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 4,
+      "label": "时间",
+      "labels": [
+        "时间"
+      ],
+      "name": "2026-03-12",
+      "properties": {
+        "name": "2026-03-12",
+        "time": "2026-03-12",
+        "type": "时间",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "时间节点：2026-03-12"
+      }
+    },
+    {
+      "id": 5,
+      "label": "时间",
+      "labels": [
+        "时间"
+      ],
+      "name": "2026-04-05",
+      "properties": {
+        "name": "2026-04-05",
+        "time": "2026-04-05",
+        "type": "时间",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "时间节点：2026-04-05"
+      }
+    },
+    {
+      "id": 6,
+      "label": "时间",
+      "labels": [
+        "时间"
+      ],
+      "name": "2026-05-22",
+      "properties": {
+        "name": "2026-05-22",
+        "time": "2026-05-22",
+        "type": "时间",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "时间节点：2026-05-22"
+      }
+    },
+    {
+      "id": 7,
+      "label": "时间",
+      "labels": [
+        "时间"
+      ],
+      "name": "2026-06-08",
+      "properties": {
+        "name": "2026-06-08",
+        "time": "2026-06-08",
+        "type": "时间",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "时间节点：2026-06-08"
+      }
+    },
+    {
+      "id": 8,
+      "label": "时间",
+      "labels": [
+        "时间"
+      ],
+      "name": "2026-07-01",
+      "properties": {
+        "name": "2026-07-01",
+        "time": "2026-07-01",
+        "type": "时间",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "时间节点：2026-07-01"
+      }
+    },
+    {
+      "id": 9,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "26号主堑壕",
+      "properties": {
+        "name": "26号主堑壕",
+        "type": "堑壕",
+        "quantity": "主防御阵地有1个",
+        "quantity_value": 1,
+        "quantity_unit": "个",
+        "side": "印军",
+        "location": "主防御阵地",
+        "status": "深1.9米、长450米",
+        "purpose": "核心防御系统",
+        "event_topic": "印军第33军阵地防御演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：26号主堑壕；类型堑壕；所属方印军；位置主防御阵地；数量主防御阵地有1个；状态深1.9米、长450米；用途核心防御系统；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 10,
+      "label": "工事",
+      "labels": [
+        "工事",
+        "地点"
+      ],
+      "name": "27号前沿弹药库",
+      "properties": {
+        "name": "27号前沿弹药库",
+        "type": [
+          "弹药库",
+          "地点"
+        ],
+        "quantity": "距实控线11公里处有1枚",
+        "quantity_value": 1,
+        "quantity_unit": "枚",
+        "side": "印军",
+        "location": "距实控线11公里处",
+        "status": "钢筋混凝土拱形结构",
+        "purpose": "存储迫击炮弹及导弹",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：27号前沿弹药库；类型弹药库、地点；所属方印军；位置距实控线11公里处；数量距实控线11公里处有1枚；状态钢筋混凝土拱形结构；用途存储迫击炮弹及导弹；事件印军第14军夏季战术部署升级",
+        "normalized_place": "27号前沿弹药库"
+      }
+    },
+    {
+      "id": 11,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "28号野战油库",
+      "properties": {
+        "name": "28号野战油库",
+        "type": "油库",
+        "quantity": "曼冬错地域有1个",
+        "quantity_value": 1,
+        "quantity_unit": "个",
+        "side": "印军",
+        "location": "曼冬错地域",
+        "status": "配置两个柔性软体油囊，总容量40万升",
+        "purpose": "向坦克加油点输送",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：28号野战油库；类型油库；所属方印军；位置曼冬错地域；数量曼冬错地域有1个；状态配置两个柔性软体油囊，总容量40万升；用途向坦克加油点输送；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 12,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "29号旅级前进指挥部",
+      "properties": {
+        "name": "29号旅级前进指挥部",
+        "type": "指挥部",
+        "quantity": "天然岩洞有1个",
+        "quantity_value": 1,
+        "quantity_unit": "个",
+        "side": "印军",
+        "location": "天然岩洞",
+        "status": "增设电子干扰与反无人机天线",
+        "purpose": "指挥",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：29号旅级前进指挥部；类型指挥部；所属方印军；位置天然岩洞；数量天然岩洞有1个；状态增设电子干扰与反无人机天线；用途指挥；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 13,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "2号反坦克锥群",
+      "properties": {
+        "name": "2号反坦克锥群",
+        "type": "反坦克锥",
+        "quantity": "通往莫尔多通道的两处开阔通道前沿有1辆",
+        "quantity_value": 1,
+        "quantity_unit": "辆",
+        "side": "第254装甲旅",
+        "location": "通往莫尔多通道的两处开阔通道前沿",
+        "status": "新建",
+        "purpose": "防御",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：2号反坦克锥群；类型反坦克锥；所属方第254装甲旅；位置通往莫尔多通道的两处开阔通道前沿；数量通往莫尔多通道的两处开阔通道前沿有1辆；状态新建；用途防御；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 14,
+      "label": "工事",
+      "labels": [
+        "工事",
+        "地点"
+      ],
+      "name": "30号圆周掩体",
+      "properties": {
+        "name": "30号圆周掩体",
+        "type": [
+          "圆周掩体",
+          "地点"
+        ],
+        "quantity": "斯潘古尔山口西侧有1个",
+        "quantity_value": 1,
+        "quantity_unit": "个",
+        "side": "印军",
+        "location": "斯潘古尔山口西侧",
+        "status": "内装1套AGS-17自动榴弹发射器",
+        "purpose": "火力点",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：30号圆周掩体；类型圆周掩体、地点；所属方印军；位置斯潘古尔山口西侧；数量斯潘古尔山口西侧有1个；状态内装1套AGS-17自动榴弹发射器；用途火力点；事件印军第14军夏季战术部署升级",
+        "normalized_place": "30号圆周掩体"
+      }
+    },
+    {
+      "id": 15,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "3号弹药库",
+      "properties": {
+        "name": "3号弹药库",
+        "type": "弹药库",
+        "quantity": "纵深6公里处有1枚",
+        "quantity_value": 1,
+        "quantity_unit": "枚",
+        "side": "旅属炮兵群",
+        "location": "纵深6公里处",
+        "status": "启用",
+        "purpose": "持续作战支持",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：3号弹药库；类型弹药库；所属方旅属炮兵群；位置纵深6公里处；数量纵深6公里处有1枚；状态启用；用途持续作战支持；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 16,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "43号至45号反坦克锥群",
+      "properties": {
+        "name": "43号至45号反坦克锥群",
+        "type": "反坦克锥",
+        "quantity": "主要通道两侧有3辆",
+        "quantity_value": 3,
+        "quantity_unit": "辆",
+        "side": "第254装甲旅",
+        "location": "主要通道两侧",
+        "status": "形成三道防坦克障碍带",
+        "purpose": "防御",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：43号至45号反坦克锥群；类型反坦克锥；所属方第254装甲旅；位置主要通道两侧；数量主要通道两侧有3辆；状态形成三道防坦克障碍带；用途防御；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 17,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "49-53号有限掩体",
+      "properties": {
+        "name": "49-53号有限掩体",
+        "type": "有限掩体",
+        "quantity": "连阵地有5个",
+        "quantity_value": 5,
+        "quantity_unit": "个",
+        "side": "印军",
+        "location": "连阵地",
+        "purpose": "供重机枪组使用",
+        "event_topic": "金刚力量-2026对抗演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：49-53号有限掩体；类型有限掩体；所属方印军；位置连阵地；数量连阵地有5个；用途供重机枪组使用；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 18,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "4号野战油库",
+      "properties": {
+        "name": "4号野战油库",
+        "type": "油库",
+        "quantity": "纵深6公里处有1个",
+        "quantity_value": 1,
+        "quantity_unit": "个",
+        "side": "旅属炮兵群",
+        "location": "纵深6公里处",
+        "status": "启用",
+        "purpose": "车辆加油",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：4号野战油库；类型油库；所属方旅属炮兵群；位置纵深6公里处；数量纵深6公里处有1个；状态启用；用途车辆加油；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 19,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "54-56号C型掩体",
+      "properties": {
+        "name": "54-56号C型掩体",
+        "type": "C型掩体",
+        "quantity": "连阵地有3个",
+        "quantity_value": 3,
+        "quantity_unit": "个",
+        "side": "印军",
+        "location": "连阵地",
+        "purpose": "班排集合点",
+        "event_topic": "金刚力量-2026对抗演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：54-56号C型掩体；类型C型掩体；所属方印军；位置连阵地；数量连阵地有3个；用途班排集合点；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 20,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "5号旅级战术指挥部",
+      "properties": {
+        "name": "5号旅级战术指挥部",
+        "type": "指挥部",
+        "side": "印军",
+        "location": "列城东南35公里处",
+        "mission": "指挥",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：5号旅级战术指挥部；类型指挥部；所属方印军；位置列城东南35公里处；任务指挥；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 21,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "5号旅级战术指挥部地下加固工事",
+      "properties": {
+        "name": "5号旅级战术指挥部地下加固工事",
+        "type": "指挥部",
+        "quantity": "列城东南35公里处有1个",
+        "quantity_value": 1,
+        "quantity_unit": "个",
+        "side": "印军",
+        "location": "列城东南35公里处",
+        "status": "集成卫星通信与无人机数据链",
+        "purpose": "指挥",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：5号旅级战术指挥部地下加固工事；类型指挥部；所属方印军；位置列城东南35公里处；数量列城东南35公里处有1个；状态集成卫星通信与无人机数据链；用途指挥；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 22,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "63号至70号运输车",
+      "properties": {
+        "name": "63号至70号运输车",
+        "type": "运输车",
+        "quantity": "提斯浦尔综合训练场有8辆",
+        "quantity_value": 8,
+        "quantity_unit": "辆",
+        "side": "印军",
+        "location": "提斯浦尔综合训练场",
+        "mission": "协同装卸载演练",
+        "purpose": "模拟物资车队",
+        "event_topic": "金刚力量-2026对抗演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "车辆节点：63号至70号运输车；类型运输车；所属方印军；位置提斯浦尔综合训练场；数量提斯浦尔综合训练场有8辆；任务协同装卸载演练；用途模拟物资车队；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 23,
+      "label": "工事",
+      "labels": [
+        "工事",
+        "地点"
+      ],
+      "name": "6号有限掩体",
+      "properties": {
+        "name": "6号有限掩体",
+        "type": [
+          "有限掩体",
+          "地点"
+        ],
+        "quantity": "前沿阵地有15个",
+        "quantity_value": 15,
+        "quantity_unit": "个",
+        "side": "第17山地师",
+        "location": "前沿阵地",
+        "status": "半封闭钢筋混凝土结构，抗155mm炮弹直接命中",
+        "purpose": "SIG716机枪组与反坦克小组轮换驻守",
+        "event_topic": "印军第17山地师实弹演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：6号有限掩体；类型有限掩体、地点；所属方第17山地师；位置前沿阵地；数量前沿阵地有15个；状态半封闭钢筋混凝土结构，抗155mm炮弹直接命中；用途SIG716机枪组与反坦克小组轮换驻守；事件印军第17山地师实弹演练",
+        "normalized_place": "6号有限掩体"
+      }
+    },
+    {
+      "id": 24,
+      "label": "实体",
+      "labels": [
+        "实体"
+      ],
+      "name": "6条支壕",
+      "properties": {
+        "name": "6条支壕",
+        "type": "实体",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "实体节点：6条支壕"
+      }
+    },
+    {
+      "id": 25,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "71号主堑壕",
+      "properties": {
+        "name": "71号主堑壕",
+        "type": "堑壕",
+        "quantity": "全阵地有1个",
+        "quantity_value": 1,
+        "quantity_unit": "个",
+        "side": "印军",
+        "location": "全阵地",
+        "status": "总长达2.1公里",
+        "purpose": "防御",
+        "event_topic": "金刚力量-2026对抗演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：71号主堑壕；类型堑壕；所属方印军；位置全阵地；数量全阵地有1个；状态总长达2.1公里；用途防御；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 26,
+      "label": "工事",
+      "labels": [
+        "工事",
+        "地点"
+      ],
+      "name": "8号圆周掩体",
+      "properties": {
+        "name": "8号圆周掩体",
+        "type": [
+          "圆周掩体",
+          "地点"
+        ],
+        "quantity": "制高点有1个",
+        "quantity_value": 1,
+        "quantity_unit": "个",
+        "side": "印军",
+        "location": "制高点",
+        "status": "环形射击平台加顶部伪装网",
+        "purpose": "配备反器材步枪",
+        "event_topic": "印军第17山地师实弹演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "工事节点：8号圆周掩体；类型圆周掩体、地点；所属方印军；位置制高点；数量制高点有1个；状态环形射击平台加顶部伪装网；用途配备反器材步枪；事件印军第17山地师实弹演练",
+        "normalized_place": "8号圆周掩体"
+      }
+    },
+    {
+      "id": 27,
+      "label": "装备设备",
+      "labels": [
+        "装备设备"
+      ],
+      "name": "AGS-17",
+      "properties": {
+        "name": "AGS-17",
+        "type": "加农炮",
+        "model": "AGS-17",
+        "quantity": "30号圆周掩体有1门",
+        "quantity_value": 1,
+        "quantity_unit": "门",
+        "side": "印军",
+        "location": "30号圆周掩体",
+        "purpose": "火力点",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "装备设备节点：AGS-17；类型加农炮；所属方印军；位置30号圆周掩体；数量30号圆周掩体有1门；用途火力点；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 28,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "BMP-2",
+      "properties": {
+        "name": "BMP-2",
+        "type": "装甲车",
+        "model": "BMP-2",
+        "quantity": "预设反冲击路线有6辆",
+        "quantity_value": 6,
+        "quantity_unit": "辆",
+        "side": "印军",
+        "location": "预设反冲击路线",
+        "mission": "机动",
+        "purpose": "反冲击",
+        "event_topic": "金刚力量-2026对抗演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "车辆节点：BMP-2；类型装甲车；所属方印军；位置预设反冲击路线；数量预设反冲击路线有6辆；任务机动；用途反冲击；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 29,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "BMP-2步战车",
+      "properties": {
+        "name": "BMP-2步战车",
+        "type": "装甲车",
+        "model": "BMP-2步战车",
+        "quantity": "交通壕末端有5辆",
+        "quantity_value": 5,
+        "quantity_unit": "辆",
+        "side": "印军",
+        "location": "交通壕末端",
+        "mission": "模拟封锁河谷通道",
+        "purpose": "预设发射阵位",
+        "event_topic": "印军第33军阵地防御演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "车辆节点：BMP-2步战车；类型装甲车；所属方印军；位置交通壕末端；数量交通壕末端有5辆；任务模拟封锁河谷通道；用途预设发射阵位；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 30,
+      "label": "装备设备",
+      "labels": [
+        "装备设备"
+      ],
+      "name": "M777超轻型榴弹炮",
+      "properties": {
+        "name": "M777超轻型榴弹炮",
+        "type": "加农炮",
+        "model": "M777超轻型榴弹炮",
+        "quantity": "提斯浦尔综合训练场有3门",
+        "quantity_value": 3,
+        "quantity_unit": "门",
+        "side": "炮兵群",
+        "location": "提斯浦尔综合训练场",
+        "mission": "对模拟指挥所实施精确打击",
+        "range": "15公里外",
+        "accuracy": "命中偏差小于8米",
+        "event_topic": "金刚力量-2026对抗演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "装备设备节点：M777超轻型榴弹炮；类型加农炮；所属方炮兵群；位置提斯浦尔综合训练场；数量提斯浦尔综合训练场有3门；任务对模拟指挥所实施精确打击；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 31,
+      "label": "装备设备",
+      "labels": [
+        "装备设备"
+      ],
+      "name": "M95",
+      "properties": {
+        "name": "M95",
+        "type": "反器材步枪",
+        "model": "M95",
+        "quantity": "8号圆周掩体有1个",
+        "quantity_value": 1,
+        "quantity_unit": "个",
+        "side": "印军",
+        "location": "8号圆周掩体",
+        "mission": "射击",
+        "event_topic": "印军第17山地师实弹演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "装备设备节点：M95；类型反器材步枪；所属方印军；位置8号圆周掩体；数量8号圆周掩体有1个；任务射击；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 32,
+      "label": "兵种",
+      "labels": [
+        "兵种"
+      ],
+      "name": "SIG716机枪组",
+      "properties": {
+        "name": "SIG716机枪组",
+        "type": "机枪组",
+        "side": "印军",
+        "location": "6号有限掩体",
+        "mission": "驻守",
+        "event_topic": "印军第17山地师实弹演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "兵种节点：SIG716机枪组；类型机枪组；所属方印军；位置6号有限掩体；任务驻守；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 33,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "T-72M1",
+      "properties": {
+        "name": "T-72M1",
+        "type": "坦克",
+        "model": "T-72M1",
+        "quantity": "主要通道两侧有12辆",
+        "quantity_value": 12,
+        "quantity_unit": "辆",
+        "side": "第254装甲旅",
+        "location": "主要通道两侧",
+        "mission": "前出部署",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "车辆节点：T-72M1；类型坦克；所属方第254装甲旅；位置主要通道两侧；数量主要通道两侧有12辆；任务前出部署；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 34,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "T-90S",
+      "properties": {
+        "name": "T-90S",
+        "type": "坦克",
+        "model": "T-90S",
+        "quantity": "山间机动路线有6辆",
+        "quantity_value": 6,
+        "quantity_unit": "辆",
+        "side": "第4装甲团",
+        "organization": "第4装甲团",
+        "location": "山间机动路线",
+        "mission": "反冲击演练",
+        "purpose": "加装高原散热套件",
+        "event_topic": "印军第17山地师实弹演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "车辆节点：T-90S；类型坦克；所属方第4装甲团；位置山间机动路线；数量山间机动路线有6辆；任务反冲击演练；用途加装高原散热套件；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 35,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "一线连",
+      "properties": {
+        "name": "一线连",
+        "side": "一线连",
+        "type": "组织机构",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：一线连"
+      }
+    },
+    {
+      "id": 36,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "一线连防御区",
+      "properties": {
+        "name": "一线连防御区",
+        "normalized_place": "一线连防御区",
+        "event_topic": "印军第33军阵地防御演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：一线连防御区；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 37,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "下亚东河谷通道",
+      "properties": {
+        "name": "下亚东河谷通道",
+        "normalized_place": "下亚东河谷通道",
+        "event_topic": "印军第33军阵地防御演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：下亚东河谷通道；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 38,
+      "label": "风险等级",
+      "labels": [
+        "风险等级"
+      ],
+      "name": "中危",
+      "properties": {
+        "name": "中危",
+        "level": "中危",
+        "type": "风险等级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "风险等级节点：中危"
+      }
+    },
+    {
+      "id": 39,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "中国",
+      "properties": {
+        "name": "中国",
+        "side": "中国",
+        "type": "组织机构",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：中国"
+      }
+    },
+    {
+      "id": 40,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "中方",
+      "properties": {
+        "name": "中方",
+        "type": "阵营",
+        "side": "中国",
+        "location": "班公湖方向",
+        "mission": "潜在装甲突击",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：中方；类型阵营；所属方中国；位置班公湖方向；任务潜在装甲突击；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 41,
+      "label": "装备设备",
+      "labels": [
+        "装备设备"
+      ],
+      "name": "丹努什155mm榴弹炮",
+      "properties": {
+        "name": "丹努什155mm榴弹炮",
+        "type": "加农炮",
+        "model": "丹努什155mm榴弹炮",
+        "quantity": "色拉山口东侧有3门",
+        "quantity_value": 3,
+        "quantity_unit": "门",
+        "side": "印军",
+        "location": "色拉山口东侧",
+        "mission": "火力覆盖",
+        "range": "8公里开阔地",
+        "event_topic": "印军第17山地师实弹演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "装备设备节点：丹努什155mm榴弹炮；类型加农炮；所属方印军；位置色拉山口东侧；数量色拉山口东侧有3门；任务火力覆盖；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 42,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "主要通道两侧",
+      "properties": {
+        "name": "主要通道两侧",
+        "normalized_place": "主要通道两侧",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：主要通道两侧；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 43,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "主防御阵地",
+      "properties": {
+        "name": "主防御阵地",
+        "normalized_place": "主防御阵地",
+        "event_topic": "印军第33军阵地防御演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：主防御阵地；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 44,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "交通壕末端",
+      "properties": {
+        "name": "交通壕末端",
+        "normalized_place": "交通壕末端",
+        "event_topic": "印军第33军阵地防御演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：交通壕末端；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 45,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "全阵地",
+      "properties": {
+        "name": "全阵地",
+        "normalized_place": "全阵地",
+        "event_topic": "金刚力量-2026对抗演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：全阵地；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 46,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "列城",
+      "properties": {
+        "name": "列城",
+        "normalized_place": "列城",
+        "direction": "东南",
+        "distance": "35公里",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：列城；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 47,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "列城东南35公里处",
+      "properties": {
+        "name": "列城东南35公里处",
+        "normalized_place": "列城东南35公里处",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：列城东南35公里处；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 48,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "制高点",
+      "properties": {
+        "name": "制高点",
+        "normalized_place": "制高点",
+        "event_topic": "印军第17山地师实弹演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：制高点；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 49,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "前沿阵地",
+      "properties": {
+        "name": "前沿阵地",
+        "normalized_place": "前沿阵地",
+        "event_topic": "印军第17山地师实弹演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：前沿阵地；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 50,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "印军",
+      "properties": {
+        "name": "印军",
+        "side": "印军",
+        "type": "组织机构",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：印军"
+      }
+    },
+    {
+      "id": 51,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "印军东部军区",
+      "properties": {
+        "name": "印军东部军区",
+        "type": "军区",
+        "side": "印军",
+        "parent_organization": "印军",
+        "location": "提斯浦尔综合训练场",
+        "mission": "组织“金刚力量-2026”演练",
+        "event_topic": "金刚力量-2026对抗演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：印军东部军区；类型军区；所属方印军；位置提斯浦尔综合训练场；任务组织“金刚力量-2026”演练；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 52,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "印军楚舒勒地区阵地加固",
+      "properties": {
+        "name": "印军楚舒勒地区阵地加固",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "type": "事件",
+        "desc": "事件节点：印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 53,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "印军楚舒勒地区阵地加固-阵地加固",
+      "properties": {
+        "name": "印军楚舒勒地区阵地加固-阵地加固",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "core_behavior": "阵地加固",
+        "risk_level": "中危",
+        "type": "行为",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "行为节点：印军楚舒勒地区阵地加固-阵地加固；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 54,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "印军第14军夏季战术部署升级",
+      "properties": {
+        "name": "印军第14军夏季战术部署升级",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "type": "事件",
+        "desc": "事件节点：印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 55,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "印军第14军夏季战术部署升级-部署",
+      "properties": {
+        "name": "印军第14军夏季战术部署升级-部署",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "core_behavior": "部署",
+        "risk_level": "高危",
+        "type": "行为",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "行为节点：印军第14军夏季战术部署升级-部署；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 56,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "印军第17山地师实弹演练",
+      "properties": {
+        "name": "印军第17山地师实弹演练",
+        "event_topic": "印军第17山地师实弹演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "type": "事件",
+        "desc": "事件节点：印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 57,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "印军第17山地师实弹演练-演练",
+      "properties": {
+        "name": "印军第17山地师实弹演练-演练",
+        "event_topic": "印军第17山地师实弹演练",
+        "core_behavior": "演练",
+        "risk_level": "中危",
+        "type": "行为",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "行为节点：印军第17山地师实弹演练-演练；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 58,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "印军第33军阵地防御演练",
+      "properties": {
+        "name": "印军第33军阵地防御演练",
+        "event_topic": "印军第33军阵地防御演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "type": "事件",
+        "desc": "事件节点：印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 59,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "印军第33军阵地防御演练-演练",
+      "properties": {
+        "name": "印军第33军阵地防御演练-演练",
+        "event_topic": "印军第33军阵地防御演练",
+        "core_behavior": "演练",
+        "risk_level": "中危",
+        "type": "行为",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "行为节点：印军第33军阵地防御演练-演练；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 60,
+      "label": "兵种",
+      "labels": [
+        "兵种"
+      ],
+      "name": "反坦克小组",
+      "properties": {
+        "name": "反坦克小组",
+        "type": "反坦克小组",
+        "side": "印军",
+        "location": "6号有限掩体",
+        "mission": "驻守",
+        "event_topic": "印军第17山地师实弹演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "兵种节点：反坦克小组；所属方印军；位置6号有限掩体；任务驻守；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 61,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "后方物资转运点",
+      "properties": {
+        "name": "后方物资转运点",
+        "normalized_place": "后方物资转运点",
+        "event_topic": "印军第33军阵地防御演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：后方物资转运点；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 62,
+      "label": "实体",
+      "labels": [
+        "实体"
+      ],
+      "name": "坦克加油点",
+      "properties": {
+        "name": "坦克加油点",
+        "type": [
+          "坦克",
+          "实体"
+        ],
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "实体节点：坦克加油点"
+      }
+    },
+    {
+      "id": 63,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "塔塔公司LPT-1616军用卡车",
+      "properties": {
+        "name": "塔塔公司LPT-1616军用卡车",
+        "type": "运输车",
+        "model": "塔塔公司LPT-1616军用卡车",
+        "quantity": "后方物资转运点有5辆",
+        "quantity_value": 5,
+        "quantity_unit": "辆",
+        "side": "印军",
+        "location": "后方物资转运点",
+        "mission": "弹药与口粮前送",
+        "event_topic": "印军第33军阵地防御演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "车辆节点：塔塔公司LPT-1616军用卡车；类型运输车；所属方印军；位置后方物资转运点；数量后方物资转运点有5辆；任务弹药与口粮前送；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 64,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "天然岩洞",
+      "properties": {
+        "name": "天然岩洞",
+        "normalized_place": "天然岩洞",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：天然岩洞；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 65,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "实控线",
+      "properties": {
+        "name": "实控线",
+        "normalized_place": "实控线",
+        "distance": "11公里",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：实控线；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 66,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "山地旅",
+      "properties": {
+        "name": "山地旅",
+        "type": "山地旅",
+        "side": "第33军",
+        "parent_organization": "第33军",
+        "location": "邦乃堆拉山口以东3公里处",
+        "mission": "组织阵地综合防御演练",
+        "event_topic": "印军第33军阵地防御演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：山地旅；所属方第33军；位置邦乃堆拉山口以东3公里处；任务组织阵地综合防御演练；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 67,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "山间机动路线",
+      "properties": {
+        "name": "山间机动路线",
+        "normalized_place": "山间机动路线",
+        "event_topic": "印军第17山地师实弹演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：山间机动路线；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 68,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "拉达克东部楚舒勒地区",
+      "properties": {
+        "name": "拉达克东部楚舒勒地区",
+        "normalized_place": "拉达克东部楚舒勒地区",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：拉达克东部楚舒勒地区；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 69,
+      "label": "实体",
+      "labels": [
+        "实体"
+      ],
+      "name": "持续作战",
+      "properties": {
+        "name": "持续作战",
+        "type": "实体",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "实体节点：持续作战"
+      }
+    },
+    {
+      "id": 70,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "提斯浦尔综合训练场",
+      "properties": {
+        "name": "提斯浦尔综合训练场",
+        "normalized_place": "提斯浦尔综合训练场",
+        "event_topic": "金刚力量-2026对抗演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：提斯浦尔综合训练场；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 71,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "斯潘古尔山口西侧",
+      "properties": {
+        "name": "斯潘古尔山口西侧",
+        "normalized_place": "斯潘古尔山口西侧",
+        "direction": "西侧",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：斯潘古尔山口西侧；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 72,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "旅属炮兵群",
+      "properties": {
+        "name": "旅属炮兵群",
+        "type": [
+          "炮兵部队",
+          "组织机构"
+        ],
+        "side": [
+          "第254装甲旅",
+          "旅属炮兵群"
+        ],
+        "parent_organization": "第254装甲旅",
+        "location": "纵深6公里处",
+        "mission": "保障补给",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：旅属炮兵群；类型炮兵部队、组织机构；所属方第254装甲旅、旅属炮兵群；位置纵深6公里处；任务保障补给；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 73,
+      "label": "实体",
+      "labels": [
+        "实体"
+      ],
+      "name": "无人机",
+      "properties": {
+        "name": "无人机",
+        "type": "实体",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "实体节点：无人机"
+      }
+    },
+    {
+      "id": 74,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "曼冬错地域",
+      "properties": {
+        "name": "曼冬错地域",
+        "normalized_place": "曼冬错地域",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：曼冬错地域；事件印军第14军夏季战术部署升级",
+        "direction": "班公湖以南"
+      }
+    },
+    {
+      "id": 75,
+      "label": "兵种",
+      "labels": [
+        "兵种"
+      ],
+      "name": "机枪手",
+      "properties": {
+        "name": "机枪手",
+        "type": "机枪手",
+        "quantity": "邦乃堆拉山口以东有5个",
+        "quantity_value": 5,
+        "quantity_unit": "个",
+        "side": "印军",
+        "organization": "运输车队",
+        "location": "邦乃堆拉山口以东",
+        "mission": "配备于运输车",
+        "event_topic": "印军第33军阵地防御演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "兵种节点：机枪手；所属方印军；所属组织运输车队；位置邦乃堆拉山口以东；数量邦乃堆拉山口以东有5个；任务配备于运输车；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 76,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "楚舒勒地区",
+      "properties": {
+        "name": "楚舒勒地区",
+        "normalized_place": "楚舒勒地区",
+        "direction": "东部",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：楚舒勒地区；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 77,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "演练区域",
+      "properties": {
+        "name": "演练区域",
+        "normalized_place": "演练区域",
+        "event_topic": "印军第17山地师实弹演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：演练区域；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 78,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "炮兵群",
+      "properties": {
+        "name": "炮兵群",
+        "type": [
+          "炮兵部队",
+          "组织机构"
+        ],
+        "side": [
+          "印军",
+          "炮兵群"
+        ],
+        "mission": "精确打击",
+        "event_topic": "金刚力量-2026对抗演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：炮兵群；类型炮兵部队、组织机构；所属方印军、炮兵群；任务精确打击；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 79,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "班公湖以南",
+      "properties": {
+        "name": "班公湖以南",
+        "normalized_place": "班公湖以南",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：班公湖以南；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 80,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "班公湖方向",
+      "properties": {
+        "name": "班公湖方向",
+        "normalized_place": "班公湖方向",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：班公湖方向；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 81,
+      "label": "装备设备",
+      "labels": [
+        "装备设备"
+      ],
+      "name": "短号",
+      "properties": {
+        "name": "短号",
+        "type": "导弹",
+        "model": "短号",
+        "quantity": "27号前沿弹药库有60枚",
+        "quantity_value": 60,
+        "quantity_unit": "枚",
+        "side": "印军",
+        "location": "27号前沿弹药库",
+        "purpose": "存储",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "装备设备节点：短号；类型导弹；所属方印军；位置27号前沿弹药库；数量27号前沿弹药库有60枚；用途存储；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 82,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "第14军",
+      "properties": {
+        "name": "第14军",
+        "type": [
+          "军",
+          "组织机构"
+        ],
+        "side": [
+          "印军",
+          "第14军"
+        ],
+        "parent_organization": "印军",
+        "location": "班公湖以南",
+        "mission": "夏季战术部署升级",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：第14军；类型军、组织机构；所属方印军、第14军；位置班公湖以南；任务夏季战术部署升级；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 83,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "第17山地师",
+      "properties": {
+        "name": "第17山地师",
+        "type": [
+          "山地师",
+          "组织机构"
+        ],
+        "side": [
+          "印军",
+          "第17山地师"
+        ],
+        "parent_organization": "印军",
+        "location": "邦迪拉方向",
+        "mission": "实弹战术演练",
+        "event_topic": "印军第17山地师实弹演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：第17山地师；类型山地师、组织机构；所属方印军、第17山地师；位置邦迪拉方向；任务实弹战术演练；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 84,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "第254装甲旅",
+      "properties": {
+        "name": "第254装甲旅",
+        "type": [
+          "装甲旅",
+          "组织机构"
+        ],
+        "side": [
+          "印军",
+          "第254装甲旅"
+        ],
+        "parent_organization": "印军",
+        "location": [
+          "楚舒勒地区",
+          "主要通道两侧"
+        ],
+        "mission": [
+          "阵地加固",
+          "前出部署"
+        ],
+        "event_topic": [
+          "印军楚舒勒地区阵地加固",
+          "印军第14军夏季战术部署升级"
+        ],
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：第254装甲旅；类型装甲旅、组织机构；所属方印军、第254装甲旅；位置楚舒勒地区、主要通道两侧；任务阵地加固、前出部署；事件印军楚舒勒地区阵地加固、印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 85,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "第33军",
+      "properties": {
+        "name": "第33军",
+        "type": [
+          "军",
+          "组织机构"
+        ],
+        "side": [
+          "印军",
+          "第33军"
+        ],
+        "parent_organization": "印军",
+        "location": "锡金",
+        "mission": "组织阵地综合防御演练",
+        "event_topic": "印军第33军阵地防御演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：第33军；类型军、组织机构；所属方印军、第33军；位置锡金；任务组织阵地综合防御演练；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 86,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "第3步兵师",
+      "properties": {
+        "name": "第3步兵师",
+        "type": "步兵师",
+        "side": "第14军",
+        "parent_organization": "第14军",
+        "location": "曼冬错地域",
+        "mission": "夏季战术部署升级",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：第3步兵师；类型步兵师；所属方第14军；位置曼冬错地域；任务夏季战术部署升级；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 87,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "第4装甲团",
+      "properties": {
+        "name": "第4装甲团",
+        "type": [
+          "装甲团",
+          "组织机构"
+        ],
+        "side": [
+          "印军",
+          "第4装甲团"
+        ],
+        "parent_organization": "第17山地师",
+        "location": "演练区域",
+        "mission": "反冲击演练",
+        "event_topic": "印军第17山地师实弹演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：第4装甲团；类型装甲团、组织机构；所属方印军、第4装甲团；位置演练区域；任务反冲击演练；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 88,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "纵深6公里处",
+      "properties": {
+        "name": "纵深6公里处",
+        "normalized_place": "纵深6公里处",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：纵深6公里处；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 89,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "色拉山口东侧",
+      "properties": {
+        "name": "色拉山口东侧",
+        "normalized_place": "色拉山口东侧",
+        "direction": "东侧",
+        "distance": "8公里开阔地",
+        "event_topic": "印军第17山地师实弹演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：色拉山口东侧；事件印军第17山地师实弹演练"
+      }
+    },
+    {
+      "id": 90,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "莫尔多通道",
+      "properties": {
+        "name": "莫尔多通道",
+        "normalized_place": "莫尔多通道",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：莫尔多通道；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 91,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "距实控线11公里处",
+      "properties": {
+        "name": "距实控线11公里处",
+        "normalized_place": "距实控线11公里处",
+        "event_topic": "印军第14军夏季战术部署升级",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：距实控线11公里处；事件印军第14军夏季战术部署升级"
+      }
+    },
+    {
+      "id": 92,
+      "label": "实体",
+      "labels": [
+        "实体"
+      ],
+      "name": "车辆加油",
+      "properties": {
+        "name": "车辆加油",
+        "type": "实体",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "实体节点：车辆加油"
+      }
+    },
+    {
+      "id": 93,
+      "label": "组织机构",
+      "labels": [
+        "组织机构"
+      ],
+      "name": "运输车队",
+      "properties": {
+        "name": "运输车队",
+        "side": "印军",
+        "type": "组织机构",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "组织机构节点：运输车队；所属方印军"
+      }
+    },
+    {
+      "id": 94,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "连阵地",
+      "properties": {
+        "name": "连阵地",
+        "normalized_place": "连阵地",
+        "event_topic": "金刚力量-2026对抗演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：连阵地；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 95,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "通往莫尔多通道的两处开阔通道前沿",
+      "properties": {
+        "name": "通往莫尔多通道的两处开阔通道前沿",
+        "normalized_place": "通往莫尔多通道的两处开阔通道前沿",
+        "event_topic": "印军楚舒勒地区阵地加固",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：通往莫尔多通道的两处开阔通道前沿；事件印军楚舒勒地区阵地加固"
+      }
+    },
+    {
+      "id": 96,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "邦乃堆拉山口以东",
+      "properties": {
+        "name": "邦乃堆拉山口以东",
+        "normalized_place": "邦乃堆拉山口以东",
+        "event_topic": "印军第33军阵地防御演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：邦乃堆拉山口以东；事件印军第33军阵地防御演练",
+        "direction": "以东3公里",
+        "distance": "3公里"
+      }
+    },
+    {
+      "id": 97,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "邦乃堆拉山口以东3公里处",
+      "properties": {
+        "name": "邦乃堆拉山口以东3公里处",
+        "normalized_place": "邦乃堆拉山口以东3公里处",
+        "event_topic": "印军第33军阵地防御演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：邦乃堆拉山口以东3公里处；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 98,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "邦迪拉方向",
+      "properties": {
+        "name": "邦迪拉方向",
+        "normalized_place": "邦迪拉方向",
+        "event_topic": "印军第17山地师实弹演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：邦迪拉方向；事件印军第17山地师实弹演练",
+        "direction": "藏南达旺以南"
+      }
+    },
+    {
+      "id": 99,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "金刚力量-2026对抗演练",
+      "properties": {
+        "name": "金刚力量-2026对抗演练",
+        "event_topic": "金刚力量-2026对抗演练",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "type": "事件",
+        "desc": "事件节点：金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 100,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "金刚力量-2026对抗演练-对抗",
+      "properties": {
+        "name": "金刚力量-2026对抗演练-对抗",
+        "event_topic": "金刚力量-2026对抗演练",
+        "core_behavior": "对抗",
+        "risk_level": "高危",
+        "type": "行为",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "行为节点：金刚力量-2026对抗演练-对抗；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 101,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "锡金",
+      "properties": {
+        "name": "锡金",
+        "normalized_place": "锡金",
+        "event_topic": "印军第33军阵地防御演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：锡金；事件印军第33军阵地防御演练"
+      }
+    },
+    {
+      "id": 102,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "预设反冲击路线",
+      "properties": {
+        "name": "预设反冲击路线",
+        "normalized_place": "预设反冲击路线",
+        "event_topic": "金刚力量-2026对抗演练",
+        "type": "地点",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "地点节点：预设反冲击路线；事件金刚力量-2026对抗演练"
+      }
+    },
+    {
+      "id": 103,
+      "label": "风险等级",
+      "labels": [
+        "风险等级"
+      ],
+      "name": "高危",
+      "properties": {
+        "name": "高危",
+        "level": "高危",
+        "type": "风险等级",
+        "from_file": "upload_50a9a116081a47599f7c158a75c96a1b.docx",
+        "desc": "风险等级节点：高危"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": 1,
+      "relation": "位于",
+      "target": 10,
+      "properties": {}
+    },
+    {
+      "source": 2,
+      "relation": "位于",
+      "target": 36,
+      "properties": {}
+    },
+    {
+      "source": 3,
+      "relation": "位于",
+      "target": 95,
+      "properties": {}
+    },
+    {
+      "source": 3,
+      "relation": "部署于",
+      "target": 90,
+      "properties": {
+        "结构": "梯形钢筋混凝土",
+        "间距": "1.5米",
+        "纵深": "120米",
+        "evidence": "新建1号反坦克锥群与2号反坦克锥群，采用梯形钢筋混凝土结构，间距1.5米，纵深达120米"
+      }
+    },
+    {
+      "source": 9,
+      "relation": "位于",
+      "target": 43,
+      "properties": {}
+    },
+    {
+      "source": 9,
+      "relation": "连接",
+      "target": 24,
+      "properties": {
+        "evidence": "主防御阵地堑壕系统以26号主堑壕为核心，连接6条支壕"
+      }
+    },
+    {
+      "source": 10,
+      "relation": "位于",
+      "target": 91,
+      "properties": {}
+    },
+    {
+      "source": 11,
+      "relation": "位于",
+      "target": 74,
+      "properties": {}
+    },
+    {
+      "source": 11,
+      "relation": "保障",
+      "target": 62,
+      "properties": {
+        "容量": "40万升",
+        "evidence": "由地下管道向坦克加油点输送"
+      }
+    },
+    {
+      "source": 12,
+      "relation": "位于",
+      "target": 64,
+      "properties": {}
+    },
+    {
+      "source": 13,
+      "relation": "位于",
+      "target": 95,
+      "properties": {}
+    },
+    {
+      "source": 14,
+      "relation": "位于",
+      "target": 71,
+      "properties": {}
+    },
+    {
+      "source": 15,
+      "relation": "位于",
+      "target": 88,
+      "properties": {}
+    },
+    {
+      "source": 15,
+      "relation": "支持",
+      "target": 69,
+      "properties": {
+        "库容": "支持72小时持续作战",
+        "evidence": "库容分别可支持72小时持续作战"
+      }
+    },
+    {
+      "source": 16,
+      "relation": "位于",
+      "target": 42,
+      "properties": {}
+    },
+    {
+      "source": 17,
+      "relation": "位于",
+      "target": 94,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "位于",
+      "target": 88,
+      "properties": {}
+    },
+    {
+      "source": 18,
+      "relation": "支持",
+      "target": 92,
+      "properties": {
+        "库容": "500辆次车辆加油",
+        "evidence": "库容分别可支持...500辆次车辆加油"
+      }
+    },
+    {
+      "source": 19,
+      "relation": "位于",
+      "target": 94,
+      "properties": {}
+    },
+    {
+      "source": 20,
+      "relation": "位于",
+      "target": 47,
+      "properties": {}
+    },
+    {
+      "source": 21,
+      "relation": "位于",
+      "target": 47,
+      "properties": {}
+    },
+    {
+      "source": 22,
+      "relation": "位于",
+      "target": 70,
+      "properties": {}
+    },
+    {
+      "source": 23,
+      "relation": "位于",
+      "target": 49,
+      "properties": {}
+    },
+    {
+      "source": 25,
+      "relation": "位于",
+      "target": 45,
+      "properties": {}
+    },
+    {
+      "source": 26,
+      "relation": "位于",
+      "target": 48,
+      "properties": {}
+    },
+    {
+      "source": 27,
+      "relation": "位于",
+      "target": 14,
+      "properties": {}
+    },
+    {
+      "source": 28,
+      "relation": "位于",
+      "target": 102,
+      "properties": {}
+    },
+    {
+      "source": 29,
+      "relation": "位于",
+      "target": 44,
+      "properties": {}
+    },
+    {
+      "source": 29,
+      "relation": "同方协同",
+      "target": 22,
+      "properties": {
+        "动作": "完成协同装卸载演练",
+        "evidence": "与63号至70号运输车完成协同装卸载演练"
+      }
+    },
+    {
+      "source": 30,
+      "relation": "位于",
+      "target": 70,
+      "properties": {}
+    },
+    {
+      "source": 31,
+      "relation": "位于",
+      "target": 26,
+      "properties": {}
+    },
+    {
+      "source": 32,
+      "relation": "位于",
+      "target": 23,
+      "properties": {}
+    },
+    {
+      "source": 33,
+      "relation": "位于",
+      "target": 42,
+      "properties": {}
+    },
+    {
+      "source": 34,
+      "relation": "位于",
+      "target": 67,
+      "properties": {}
+    },
+    {
+      "source": 34,
+      "relation": "隶属",
+      "target": 87,
+      "properties": {}
+    },
+    {
+      "source": 35,
+      "relation": "拥有",
+      "target": 2,
+      "properties": {}
+    },
+    {
+      "source": 39,
+      "relation": "拥有",
+      "target": 40,
+      "properties": {}
+    },
+    {
+      "source": 40,
+      "relation": "位于",
+      "target": 80,
+      "properties": {}
+    },
+    {
+      "source": 41,
+      "relation": "位于",
+      "target": 89,
+      "properties": {}
+    },
+    {
+      "source": 41,
+      "relation": "协同",
+      "target": 73,
+      "properties": {
+        "方式": "无人机校射",
+        "evidence": "在无人机校射下对15公里外模拟指挥所实施精确打击"
+      }
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 1,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 9,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 10,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 11,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 12,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 14,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 17,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 19,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 20,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 21,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 22,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 25,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 26,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 27,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 29,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 31,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 32,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 41,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 51,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 60,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 63,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 75,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 78,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 81,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 82,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 83,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 84,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 85,
+      "properties": {}
+    },
+    {
+      "source": 50,
+      "relation": "拥有",
+      "target": 87,
+      "properties": {}
+    },
+    {
+      "source": 51,
+      "relation": "位于",
+      "target": 70,
+      "properties": {}
+    },
+    {
+      "source": 51,
+      "relation": "隶属",
+      "target": 50,
+      "properties": {}
+    },
+    {
+      "source": 52,
+      "relation": "包含行为",
+      "target": 53,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "发生地点",
+      "target": 68,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "发生时间",
+      "target": 4,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及地点",
+      "target": 46,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及地点",
+      "target": 76,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及地点",
+      "target": 90,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及工事",
+      "target": 3,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及工事",
+      "target": 13,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及工事",
+      "target": 15,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及工事",
+      "target": 18,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及工事",
+      "target": 21,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及组织",
+      "target": 20,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及组织",
+      "target": 40,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及组织",
+      "target": 72,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "涉及组织",
+      "target": 84,
+      "properties": {}
+    },
+    {
+      "source": 53,
+      "relation": "风险等级",
+      "target": 38,
+      "properties": {}
+    },
+    {
+      "source": 54,
+      "relation": "包含行为",
+      "target": 55,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "发生地点",
+      "target": 74,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "发生时间",
+      "target": 7,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及地点",
+      "target": 65,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及地点",
+      "target": 71,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及工事",
+      "target": 10,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及工事",
+      "target": 11,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及工事",
+      "target": 12,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及工事",
+      "target": 14,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及工事",
+      "target": 16,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及组织",
+      "target": 82,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及组织",
+      "target": 84,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及组织",
+      "target": 86,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及装备",
+      "target": 1,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及装备",
+      "target": 27,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及装备",
+      "target": 81,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "涉及车辆",
+      "target": 33,
+      "properties": {}
+    },
+    {
+      "source": 55,
+      "relation": "风险等级",
+      "target": 103,
+      "properties": {}
+    },
+    {
+      "source": 56,
+      "relation": "包含行为",
+      "target": 57,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "发生地点",
+      "target": 98,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "发生时间",
+      "target": 5,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "涉及兵种",
+      "target": 32,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "涉及兵种",
+      "target": 60,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "涉及地点",
+      "target": 89,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "涉及工事",
+      "target": 23,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "涉及工事",
+      "target": 26,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "涉及组织",
+      "target": 83,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "涉及组织",
+      "target": 87,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "涉及装备",
+      "target": 31,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "涉及装备",
+      "target": 41,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "涉及车辆",
+      "target": 34,
+      "properties": {}
+    },
+    {
+      "source": 57,
+      "relation": "风险等级",
+      "target": 38,
+      "properties": {}
+    },
+    {
+      "source": 58,
+      "relation": "包含行为",
+      "target": 59,
+      "properties": {}
+    },
+    {
+      "source": 59,
+      "relation": "发生地点",
+      "target": 96,
+      "properties": {}
+    },
+    {
+      "source": 59,
+      "relation": "发生时间",
+      "target": 6,
+      "properties": {}
+    },
+    {
+      "source": 59,
+      "relation": "涉及兵种",
+      "target": 75,
+      "properties": {}
+    },
+    {
+      "source": 59,
+      "relation": "涉及地点",
+      "target": 37,
+      "properties": {}
+    },
+    {
+      "source": 59,
+      "relation": "涉及工事",
+      "target": 2,
+      "properties": {}
+    },
+    {
+      "source": 59,
+      "relation": "涉及工事",
+      "target": 9,
+      "properties": {}
+    },
+    {
+      "source": 59,
+      "relation": "涉及组织",
+      "target": 66,
+      "properties": {}
+    },
+    {
+      "source": 59,
+      "relation": "涉及组织",
+      "target": 85,
+      "properties": {}
+    },
+    {
+      "source": 59,
+      "relation": "涉及车辆",
+      "target": 29,
+      "properties": {}
+    },
+    {
+      "source": 59,
+      "relation": "涉及车辆",
+      "target": 63,
+      "properties": {}
+    },
+    {
+      "source": 59,
+      "relation": "风险等级",
+      "target": 38,
+      "properties": {}
+    },
+    {
+      "source": 60,
+      "relation": "位于",
+      "target": 23,
+      "properties": {}
+    },
+    {
+      "source": 63,
+      "relation": "位于",
+      "target": 61,
+      "properties": {}
+    },
+    {
+      "source": 66,
+      "relation": "位于",
+      "target": 97,
+      "properties": {}
+    },
+    {
+      "source": 66,
+      "relation": "隶属",
+      "target": 85,
+      "properties": {}
+    },
+    {
+      "source": 72,
+      "relation": "位于",
+      "target": 88,
+      "properties": {}
+    },
+    {
+      "source": 72,
+      "relation": "拥有",
+      "target": 15,
+      "properties": {}
+    },
+    {
+      "source": 72,
+      "relation": "拥有",
+      "target": 18,
+      "properties": {}
+    },
+    {
+      "source": 72,
+      "relation": "隶属",
+      "target": 84,
+      "properties": {}
+    },
+    {
+      "source": 75,
+      "relation": "位于",
+      "target": 96,
+      "properties": {}
+    },
+    {
+      "source": 75,
+      "relation": "隶属",
+      "target": 93,
+      "properties": {}
+    },
+    {
+      "source": 78,
+      "relation": "拥有",
+      "target": 30,
+      "properties": {}
+    },
+    {
+      "source": 81,
+      "relation": "位于",
+      "target": 10,
+      "properties": {}
+    },
+    {
+      "source": 82,
+      "relation": "位于",
+      "target": 79,
+      "properties": {}
+    },
+    {
+      "source": 82,
+      "relation": "拥有",
+      "target": 86,
+      "properties": {}
+    },
+    {
+      "source": 82,
+      "relation": "隶属",
+      "target": 50,
+      "properties": {}
+    },
+    {
+      "source": 83,
+      "relation": "位于",
+      "target": 98,
+      "properties": {}
+    },
+    {
+      "source": 83,
+      "relation": "拥有",
+      "target": 23,
+      "properties": {}
+    },
+    {
+      "source": 83,
+      "relation": "隶属",
+      "target": 50,
+      "properties": {}
+    },
+    {
+      "source": 84,
+      "relation": "位于",
+      "target": 42,
+      "properties": {}
+    },
+    {
+      "source": 84,
+      "relation": "位于",
+      "target": 76,
+      "properties": {}
+    },
+    {
+      "source": 84,
+      "relation": "拥有",
+      "target": 3,
+      "properties": {}
+    },
+    {
+      "source": 84,
+      "relation": "拥有",
+      "target": 13,
+      "properties": {}
+    },
+    {
+      "source": 84,
+      "relation": "拥有",
+      "target": 16,
+      "properties": {}
+    },
+    {
+      "source": 84,
+      "relation": "拥有",
+      "target": 33,
+      "properties": {}
+    },
+    {
+      "source": 84,
+      "relation": "拥有",
+      "target": 72,
+      "properties": {}
+    },
+    {
+      "source": 84,
+      "relation": "隶属",
+      "target": 50,
+      "properties": {}
+    },
+    {
+      "source": 85,
+      "relation": "位于",
+      "target": 101,
+      "properties": {}
+    },
+    {
+      "source": 85,
+      "relation": "拥有",
+      "target": 66,
+      "properties": {}
+    },
+    {
+      "source": 85,
+      "relation": "隶属",
+      "target": 50,
+      "properties": {}
+    },
+    {
+      "source": 86,
+      "relation": "位于",
+      "target": 74,
+      "properties": {}
+    },
+    {
+      "source": 86,
+      "relation": "隶属",
+      "target": 82,
+      "properties": {}
+    },
+    {
+      "source": 87,
+      "relation": "位于",
+      "target": 77,
+      "properties": {}
+    },
+    {
+      "source": 87,
+      "relation": "拥有",
+      "target": 34,
+      "properties": {}
+    },
+    {
+      "source": 87,
+      "relation": "装备",
+      "target": 34,
+      "properties": {}
+    },
+    {
+      "source": 87,
+      "relation": "隶属",
+      "target": 83,
+      "properties": {}
+    },
+    {
+      "source": 93,
+      "relation": "装备",
+      "target": 75,
+      "properties": {}
+    },
+    {
+      "source": 93,
+      "relation": "隶属",
+      "target": 50,
+      "properties": {}
+    },
+    {
+      "source": 99,
+      "relation": "包含行为",
+      "target": 100,
+      "properties": {}
+    },
+    {
+      "source": 100,
+      "relation": "发生地点",
+      "target": 70,
+      "properties": {}
+    },
+    {
+      "source": 100,
+      "relation": "发生时间",
+      "target": 8,
+      "properties": {}
+    },
+    {
+      "source": 100,
+      "relation": "涉及工事",
+      "target": 17,
+      "properties": {}
+    },
+    {
+      "source": 100,
+      "relation": "涉及工事",
+      "target": 19,
+      "properties": {}
+    },
+    {
+      "source": 100,
+      "relation": "涉及工事",
+      "target": 25,
+      "properties": {}
+    },
+    {
+      "source": 100,
+      "relation": "涉及组织",
+      "target": 51,
+      "properties": {}
+    },
+    {
+      "source": 100,
+      "relation": "涉及组织",
+      "target": 78,
+      "properties": {}
+    },
+    {
+      "source": 100,
+      "relation": "涉及装备",
+      "target": 30,
+      "properties": {}
+    },
+    {
+      "source": 100,
+      "relation": "涉及车辆",
+      "target": 22,
+      "properties": {}
+    },
+    {
+      "source": 100,
+      "relation": "涉及车辆",
+      "target": 28,
+      "properties": {}
+    },
+    {
+      "source": 100,
+      "relation": "风险等级",
+      "target": 103,
+      "properties": {}
+    }
+  ],
+  "links": [
+    {
+      "source": 1,
+      "target": 10,
+      "relation": "位于"
+    },
+    {
+      "source": 2,
+      "target": 36,
+      "relation": "位于"
+    },
+    {
+      "source": 3,
+      "target": 95,
+      "relation": "位于"
+    },
+    {
+      "source": 3,
+      "target": 90,
+      "relation": "部署于",
+      "properties": {
+        "结构": "梯形钢筋混凝土",
+        "间距": "1.5米",
+        "纵深": "120米",
+        "evidence": "新建1号反坦克锥群与2号反坦克锥群，采用梯形钢筋混凝土结构，间距1.5米，纵深达120米"
+      }
+    },
+    {
+      "source": 9,
+      "target": 43,
+      "relation": "位于"
+    },
+    {
+      "source": 9,
+      "target": 24,
+      "relation": "连接",
+      "properties": {
+        "evidence": "主防御阵地堑壕系统以26号主堑壕为核心，连接6条支壕"
+      }
+    },
+    {
+      "source": 10,
+      "target": 91,
+      "relation": "位于"
+    },
+    {
+      "source": 11,
+      "target": 74,
+      "relation": "位于"
+    },
+    {
+      "source": 11,
+      "target": 62,
+      "relation": "保障",
+      "properties": {
+        "容量": "40万升",
+        "evidence": "由地下管道向坦克加油点输送"
+      }
+    },
+    {
+      "source": 12,
+      "target": 64,
+      "relation": "位于"
+    },
+    {
+      "source": 13,
+      "target": 95,
+      "relation": "位于"
+    },
+    {
+      "source": 14,
+      "target": 71,
+      "relation": "位于"
+    },
+    {
+      "source": 15,
+      "target": 88,
+      "relation": "位于"
+    },
+    {
+      "source": 15,
+      "target": 69,
+      "relation": "支持",
+      "properties": {
+        "库容": "支持72小时持续作战",
+        "evidence": "库容分别可支持72小时持续作战"
+      }
+    },
+    {
+      "source": 16,
+      "target": 42,
+      "relation": "位于"
+    },
+    {
+      "source": 17,
+      "target": 94,
+      "relation": "位于"
+    },
+    {
+      "source": 18,
+      "target": 88,
+      "relation": "位于"
+    },
+    {
+      "source": 18,
+      "target": 92,
+      "relation": "支持",
+      "properties": {
+        "库容": "500辆次车辆加油",
+        "evidence": "库容分别可支持...500辆次车辆加油"
+      }
+    },
+    {
+      "source": 19,
+      "target": 94,
+      "relation": "位于"
+    },
+    {
+      "source": 20,
+      "target": 47,
+      "relation": "位于"
+    },
+    {
+      "source": 21,
+      "target": 47,
+      "relation": "位于"
+    },
+    {
+      "source": 22,
+      "target": 70,
+      "relation": "位于"
+    },
+    {
+      "source": 23,
+      "target": 49,
+      "relation": "位于"
+    },
+    {
+      "source": 25,
+      "target": 45,
+      "relation": "位于"
+    },
+    {
+      "source": 26,
+      "target": 48,
+      "relation": "位于"
+    },
+    {
+      "source": 27,
+      "target": 14,
+      "relation": "位于"
+    },
+    {
+      "source": 28,
+      "target": 102,
+      "relation": "位于"
+    },
+    {
+      "source": 29,
+      "target": 44,
+      "relation": "位于"
+    },
+    {
+      "source": 29,
+      "target": 22,
+      "relation": "同方协同",
+      "properties": {
+        "动作": "完成协同装卸载演练",
+        "evidence": "与63号至70号运输车完成协同装卸载演练"
+      }
+    },
+    {
+      "source": 30,
+      "target": 70,
+      "relation": "位于"
+    },
+    {
+      "source": 31,
+      "target": 26,
+      "relation": "位于"
+    },
+    {
+      "source": 32,
+      "target": 23,
+      "relation": "位于"
+    },
+    {
+      "source": 33,
+      "target": 42,
+      "relation": "位于"
+    },
+    {
+      "source": 34,
+      "target": 67,
+      "relation": "位于"
+    },
+    {
+      "source": 34,
+      "target": 87,
+      "relation": "隶属"
+    },
+    {
+      "source": 35,
+      "target": 2,
+      "relation": "拥有"
+    },
+    {
+      "source": 39,
+      "target": 40,
+      "relation": "拥有"
+    },
+    {
+      "source": 40,
+      "target": 80,
+      "relation": "位于"
+    },
+    {
+      "source": 41,
+      "target": 89,
+      "relation": "位于"
+    },
+    {
+      "source": 41,
+      "target": 73,
+      "relation": "协同",
+      "properties": {
+        "方式": "无人机校射",
+        "evidence": "在无人机校射下对15公里外模拟指挥所实施精确打击"
+      }
+    },
+    {
+      "source": 50,
+      "target": 1,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 9,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 10,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 11,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 12,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 14,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 17,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 19,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 20,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 21,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 22,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 25,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 26,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 27,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 28,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 29,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 31,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 32,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 41,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 51,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 60,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 63,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 75,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 78,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 81,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 82,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 83,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 84,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 85,
+      "relation": "拥有"
+    },
+    {
+      "source": 50,
+      "target": 87,
+      "relation": "拥有"
+    },
+    {
+      "source": 51,
+      "target": 70,
+      "relation": "位于"
+    },
+    {
+      "source": 51,
+      "target": 50,
+      "relation": "隶属"
+    },
+    {
+      "source": 52,
+      "target": 53,
+      "relation": "包含行为"
+    },
+    {
+      "source": 53,
+      "target": 68,
+      "relation": "发生地点"
+    },
+    {
+      "source": 53,
+      "target": 4,
+      "relation": "发生时间"
+    },
+    {
+      "source": 53,
+      "target": 46,
+      "relation": "涉及地点"
+    },
+    {
+      "source": 53,
+      "target": 76,
+      "relation": "涉及地点"
+    },
+    {
+      "source": 53,
+      "target": 90,
+      "relation": "涉及地点"
+    },
+    {
+      "source": 53,
+      "target": 3,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 53,
+      "target": 13,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 53,
+      "target": 15,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 53,
+      "target": 18,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 53,
+      "target": 21,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 53,
+      "target": 20,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 53,
+      "target": 40,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 53,
+      "target": 72,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 53,
+      "target": 84,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 53,
+      "target": 38,
+      "relation": "风险等级"
+    },
+    {
+      "source": 54,
+      "target": 55,
+      "relation": "包含行为"
+    },
+    {
+      "source": 55,
+      "target": 74,
+      "relation": "发生地点"
+    },
+    {
+      "source": 55,
+      "target": 7,
+      "relation": "发生时间"
+    },
+    {
+      "source": 55,
+      "target": 65,
+      "relation": "涉及地点"
+    },
+    {
+      "source": 55,
+      "target": 71,
+      "relation": "涉及地点"
+    },
+    {
+      "source": 55,
+      "target": 10,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 55,
+      "target": 11,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 55,
+      "target": 12,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 55,
+      "target": 14,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 55,
+      "target": 16,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 55,
+      "target": 82,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 55,
+      "target": 84,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 55,
+      "target": 86,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 55,
+      "target": 1,
+      "relation": "涉及装备"
+    },
+    {
+      "source": 55,
+      "target": 27,
+      "relation": "涉及装备"
+    },
+    {
+      "source": 55,
+      "target": 81,
+      "relation": "涉及装备"
+    },
+    {
+      "source": 55,
+      "target": 33,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 55,
+      "target": 103,
+      "relation": "风险等级"
+    },
+    {
+      "source": 56,
+      "target": 57,
+      "relation": "包含行为"
+    },
+    {
+      "source": 57,
+      "target": 98,
+      "relation": "发生地点"
+    },
+    {
+      "source": 57,
+      "target": 5,
+      "relation": "发生时间"
+    },
+    {
+      "source": 57,
+      "target": 32,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 57,
+      "target": 60,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 57,
+      "target": 89,
+      "relation": "涉及地点"
+    },
+    {
+      "source": 57,
+      "target": 23,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 57,
+      "target": 26,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 57,
+      "target": 83,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 57,
+      "target": 87,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 57,
+      "target": 31,
+      "relation": "涉及装备"
+    },
+    {
+      "source": 57,
+      "target": 41,
+      "relation": "涉及装备"
+    },
+    {
+      "source": 57,
+      "target": 34,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 57,
+      "target": 38,
+      "relation": "风险等级"
+    },
+    {
+      "source": 58,
+      "target": 59,
+      "relation": "包含行为"
+    },
+    {
+      "source": 59,
+      "target": 96,
+      "relation": "发生地点"
+    },
+    {
+      "source": 59,
+      "target": 6,
+      "relation": "发生时间"
+    },
+    {
+      "source": 59,
+      "target": 75,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 59,
+      "target": 37,
+      "relation": "涉及地点"
+    },
+    {
+      "source": 59,
+      "target": 2,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 59,
+      "target": 9,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 59,
+      "target": 66,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 59,
+      "target": 85,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 59,
+      "target": 29,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 59,
+      "target": 63,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 59,
+      "target": 38,
+      "relation": "风险等级"
+    },
+    {
+      "source": 60,
+      "target": 23,
+      "relation": "位于"
+    },
+    {
+      "source": 63,
+      "target": 61,
+      "relation": "位于"
+    },
+    {
+      "source": 66,
+      "target": 97,
+      "relation": "位于"
+    },
+    {
+      "source": 66,
+      "target": 85,
+      "relation": "隶属"
+    },
+    {
+      "source": 72,
+      "target": 88,
+      "relation": "位于"
+    },
+    {
+      "source": 72,
+      "target": 15,
+      "relation": "拥有"
+    },
+    {
+      "source": 72,
+      "target": 18,
+      "relation": "拥有"
+    },
+    {
+      "source": 72,
+      "target": 84,
+      "relation": "隶属"
+    },
+    {
+      "source": 75,
+      "target": 96,
+      "relation": "位于"
+    },
+    {
+      "source": 75,
+      "target": 93,
+      "relation": "隶属"
+    },
+    {
+      "source": 78,
+      "target": 30,
+      "relation": "拥有"
+    },
+    {
+      "source": 81,
+      "target": 10,
+      "relation": "位于"
+    },
+    {
+      "source": 82,
+      "target": 79,
+      "relation": "位于"
+    },
+    {
+      "source": 82,
+      "target": 86,
+      "relation": "拥有"
+    },
+    {
+      "source": 82,
+      "target": 50,
+      "relation": "隶属"
+    },
+    {
+      "source": 83,
+      "target": 98,
+      "relation": "位于"
+    },
+    {
+      "source": 83,
+      "target": 23,
+      "relation": "拥有"
+    },
+    {
+      "source": 83,
+      "target": 50,
+      "relation": "隶属"
+    },
+    {
+      "source": 84,
+      "target": 42,
+      "relation": "位于"
+    },
+    {
+      "source": 84,
+      "target": 76,
+      "relation": "位于"
+    },
+    {
+      "source": 84,
+      "target": 3,
+      "relation": "拥有"
+    },
+    {
+      "source": 84,
+      "target": 13,
+      "relation": "拥有"
+    },
+    {
+      "source": 84,
+      "target": 16,
+      "relation": "拥有"
+    },
+    {
+      "source": 84,
+      "target": 33,
+      "relation": "拥有"
+    },
+    {
+      "source": 84,
+      "target": 72,
+      "relation": "拥有"
+    },
+    {
+      "source": 84,
+      "target": 50,
+      "relation": "隶属"
+    },
+    {
+      "source": 85,
+      "target": 101,
+      "relation": "位于"
+    },
+    {
+      "source": 85,
+      "target": 66,
+      "relation": "拥有"
+    },
+    {
+      "source": 85,
+      "target": 50,
+      "relation": "隶属"
+    },
+    {
+      "source": 86,
+      "target": 74,
+      "relation": "位于"
+    },
+    {
+      "source": 86,
+      "target": 82,
+      "relation": "隶属"
+    },
+    {
+      "source": 87,
+      "target": 77,
+      "relation": "位于"
+    },
+    {
+      "source": 87,
+      "target": 34,
+      "relation": "拥有"
+    },
+    {
+      "source": 87,
+      "target": 34,
+      "relation": "装备"
+    },
+    {
+      "source": 87,
+      "target": 83,
+      "relation": "隶属"
+    },
+    {
+      "source": 93,
+      "target": 75,
+      "relation": "装备"
+    },
+    {
+      "source": 93,
+      "target": 50,
+      "relation": "隶属"
+    },
+    {
+      "source": 99,
+      "target": 100,
+      "relation": "包含行为"
+    },
+    {
+      "source": 100,
+      "target": 70,
+      "relation": "发生地点"
+    },
+    {
+      "source": 100,
+      "target": 8,
+      "relation": "发生时间"
+    },
+    {
+      "source": 100,
+      "target": 17,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 100,
+      "target": 19,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 100,
+      "target": 25,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 100,
+      "target": 51,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 100,
+      "target": 78,
+      "relation": "涉及组织"
+    },
+    {
+      "source": 100,
+      "target": 30,
+      "relation": "涉及装备"
+    },
+    {
+      "source": 100,
+      "target": 22,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 100,
+      "target": 28,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 100,
+      "target": 103,
+      "relation": "风险等级"
+    }
+  ]
+}

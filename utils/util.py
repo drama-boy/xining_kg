@@ -45,15 +45,13 @@ def normalize_suffixes(values: Iterable[Any]) -> Tuple[str, ...]:
     return tuple(suffixes)
 
 
-DEFAULT_SUPPORTED_SUFFIXES = normalize_suffixes(KG_CONFIG.get("supported_suffixes", [".csv", ".docx", ".json", ".pdf", ".txt"]))
-JSON_SOURCE_SUFFIXES = normalize_suffixes(KG_CONFIG.get("json_suffixes", [".json"]))
-TEXT_SOURCE_SUFFIXES = normalize_suffixes(KG_CONFIG.get("text_suffixes", [".txt", ".csv", ".pdf", ".docx"]))
+DEFAULT_SUPPORTED_SUFFIXES = normalize_suffixes(KG_CONFIG.get("supported_suffixes", [".csv", ".docx", ".pdf", ".txt", ".png", ".jpg", ".jpeg"]))
+TEXT_SOURCE_SUFFIXES = normalize_suffixes(KG_CONFIG.get("text_suffixes", [".txt", ".md", ".csv", ".pdf", ".docx"]))
 IMAGE_SOURCE_SUFFIXES = normalize_suffixes(KG_CONFIG.get("image_suffixes", [".png", ".jpg", ".jpeg"]))
 AUDIO_SOURCE_SUFFIXES = normalize_suffixes(KG_CONFIG.get("audio_suffixes", [".mp3", ".wav", ".m4a"]))
 VIDEO_SOURCE_SUFFIXES = normalize_suffixes(KG_CONFIG.get("video_suffixes", [".mp4", ".avi", ".mov", ".mkv"]))
 SUPPORTED_SOURCE_SUFFIXES = tuple(dict.fromkeys(
     DEFAULT_SUPPORTED_SUFFIXES
-    + JSON_SOURCE_SUFFIXES
     + TEXT_SOURCE_SUFFIXES
     + IMAGE_SOURCE_SUFFIXES
     + AUDIO_SOURCE_SUFFIXES
@@ -155,7 +153,6 @@ PROPERTY_KEY_MAP = {
     "型号": "model",
     "事件主题": "event_topic",
     "核心行为": "core_behavior",
-    "述谓结构": "predicate",
     "目标体系": "target_system",
     "地点信息": "location_info",
     "地点列表": "location_list",
@@ -309,11 +306,6 @@ def edge_to_link(edge: Dict[str, Any]) -> Dict[str, Any]:
     return link
 
 
-def load_json(path: Path) -> Any:
-    with path.open("r", encoding="utf-8") as file:
-        return json.load(file)
-
-
 def write_json(path: Path, data: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as file:
@@ -453,12 +445,6 @@ def make_news_chunks(source_name: str, text: str) -> List[Dict[str, str]]:
     ]
 
 
-def is_mechanism_event(record: Any) -> bool:
-    if not isinstance(record, dict):
-        return False
-    return any(key in record for key in ("述谓结构", "目标体系", "地点信息", "核心行为", "风险等级"))
-
-
 def extract_json_records(data: Any) -> List[Dict[str, Any]]:
     if isinstance(data, list):
         return [item for item in data if isinstance(item, dict)]
@@ -469,26 +455,6 @@ def extract_json_records(data: Any) -> List[Dict[str, Any]]:
                 return [item for item in value if isinstance(item, dict)]
         return [data]
     return []
-
-
-def json_data_to_text(data: Any) -> str:
-    records = extract_json_records(data)
-    if not records:
-        return json.dumps(data, ensure_ascii=False, indent=2)
-
-    sections: List[str] = []
-    for index, record in enumerate(records, start=1):
-        title = clean_text(record.get("title")) or clean_text(record.get("标题")) or f"record {index}"
-        content = (
-            clean_text(record.get("content"))
-            or clean_text(record.get("text"))
-            or clean_text(record.get("正文"))
-            or clean_text(record.get("内容"))
-        )
-        if not content:
-            content = json.dumps(record, ensure_ascii=False)
-        sections.append(f"{title}\n{content}")
-    return "\n\n".join(sections)
 
 
 def attach_source(events: List[Dict[str, Any]], source_name: str) -> List[Dict[str, Any]]:
@@ -520,18 +486,6 @@ def events_from_text_file(path: Path, source_name: str) -> Tuple[List[Dict[str, 
     return attach_source(events, source_name), len(news_listdict_in)
 
 
-def events_from_json_file(path: Path, source_name: str) -> Tuple[List[Dict[str, Any]], int]:
-    data = load_json(path)
-    records = extract_json_records(data)
-    mechanism_events = attach_source([item for item in records if is_mechanism_event(item)], source_name)
-    if mechanism_events:
-        return mechanism_events, 0
-
-    news_listdict_in = make_news_chunks(source_name, json_data_to_text(data))
-    events = extract_events_with_grapher(news_listdict_in)
-    return attach_source(events, source_name), len(news_listdict_in)
-
-
 def call_converter(module_name: str, function_names: Iterable[str], path: Path) -> Any:
     try:
         module = importlib.import_module(module_name)
@@ -552,16 +506,12 @@ def normalize_converter_output(output: Any, source_name: str) -> Tuple[List[Dict
     if isinstance(output, tuple) and output:
         output = output[0]
 
-    records = extract_json_records(output)
-    mechanism_events = [item for item in records if is_mechanism_event(item)]
-    if mechanism_events:
-        return attach_source(mechanism_events, source_name), chunks_count
-
     if isinstance(output, str):
         news_listdict_in = make_news_chunks(source_name, output)
         chunks_count = len(news_listdict_in)
         return attach_source(extract_events_with_grapher(news_listdict_in), source_name), chunks_count
 
+    records = extract_json_records(output)
     if records:
         if all("content" in item for item in records):
             news_listdict_in = [
@@ -575,16 +525,13 @@ def normalize_converter_output(output: Any, source_name: str) -> Tuple[List[Dict
             chunks_count = len(news_listdict_in)
             return attach_source(extract_events_with_grapher(news_listdict_in), source_name), chunks_count
 
-        text = json_data_to_text(records)
-        news_listdict_in = make_news_chunks(source_name, text)
-        chunks_count = len(news_listdict_in)
-        return attach_source(extract_events_with_grapher(news_listdict_in), source_name), chunks_count
+        return attach_source(records, source_name), chunks_count
 
     return [], chunks_count
 
 
 def events_from_image_file(path: Path, source_name: str) -> Tuple[List[Dict[str, Any]], int]:
-    output = call_converter("utils.images_to_json", ("images_to_json", "image_to_json", "convert"), path)
+    output = call_converter("utils.image_to_json", ("images_to_json", "image_to_json", "convert"), path)
     return normalize_converter_output(output, source_name)
 
 
@@ -602,8 +549,6 @@ def file_to_mechanism_events(path: Path) -> Tuple[List[Dict[str, Any]], int]:
     suffix = path.suffix.lower()
     source_name = path.name
 
-    if suffix in JSON_SOURCE_SUFFIXES:
-        return events_from_json_file(path, source_name)
     if suffix in TEXT_SOURCE_SUFFIXES:
         return events_from_text_file(path, source_name)
     if suffix in IMAGE_SOURCE_SUFFIXES:
@@ -792,6 +737,151 @@ def normalize_text(value: Any) -> str:
     if value is None:
         return ""
     return str(value).strip()
+
+
+def truncate_text(value: Any, max_chars: int = 240) -> str:
+    text = normalize_text(value)
+    if max_chars <= 0 or len(text) <= max_chars:
+        return text
+    omitted = len(text) - max_chars
+    return f"{text[:max_chars]}...(已截断{omitted}字)"
+
+
+def compact_for_prompt(
+    value: Any,
+    max_list_items: int = 10,
+    max_dict_items: int = 16,
+    max_text_chars: int = 240,
+    max_depth: int = 4,
+    _depth: int = 0,
+) -> Any:
+    if value in (None, "", [], {}):
+        return value
+    if _depth >= max_depth:
+        if isinstance(value, (dict, list)):
+            return truncate_text(json.dumps(value, ensure_ascii=False, separators=(",", ":")), max_text_chars)
+        return truncate_text(value, max_text_chars) if isinstance(value, str) else value
+    if isinstance(value, str):
+        return truncate_text(value, max_text_chars)
+    if isinstance(value, (int, float, bool)):
+        return value
+    if isinstance(value, list):
+        limit = max(int(max_list_items), 0)
+        output = [
+            compact_for_prompt(
+                item,
+                max_list_items=max_list_items,
+                max_dict_items=max_dict_items,
+                max_text_chars=max_text_chars,
+                max_depth=max_depth,
+                _depth=_depth + 1,
+            )
+            for item in value[:limit]
+        ]
+        omitted = len(value) - limit
+        if omitted > 0:
+            output.append({"_omitted_count": omitted})
+        return output
+    if isinstance(value, dict):
+        limit = max(int(max_dict_items), 0)
+        output: Dict[str, Any] = {}
+        for index, (key, item) in enumerate(value.items()):
+            if index >= limit:
+                break
+            output[str(key)] = compact_for_prompt(
+                item,
+                max_list_items=max_list_items,
+                max_dict_items=max_dict_items,
+                max_text_chars=max_text_chars,
+                max_depth=max_depth,
+                _depth=_depth + 1,
+            )
+        omitted = len(value) - limit
+        if omitted > 0:
+            output["_omitted_count"] = omitted
+        return output
+    return truncate_text(value, max_text_chars)
+
+
+def compact_properties_for_prompt(
+    properties: Dict[str, Any],
+    preferred_keys: Optional[Iterable[str]] = None,
+    max_items: int = 12,
+    max_text_chars: int = 160,
+) -> Dict[str, Any]:
+    if not isinstance(properties, dict) or not properties:
+        return {}
+
+    default_keys = (
+        "name",
+        "type",
+        "model",
+        "quantity",
+        "side",
+        "organization",
+        "location",
+        "event_topic",
+        "core_behavior",
+        "time",
+        "coordinates",
+        "altitude",
+        "mission",
+        "status",
+        "purpose",
+        "risk_level",
+        "desc",
+    )
+    selected_keys: List[str] = []
+    for key in list(preferred_keys or default_keys) + list(default_keys) + list(properties.keys()):
+        if key in properties and key not in selected_keys and properties.get(key) not in ("", None, [], {}):
+            selected_keys.append(key)
+        if len(selected_keys) >= max_items:
+            break
+
+    compacted = {
+        key: compact_for_prompt(
+            properties[key],
+            max_list_items=5,
+            max_dict_items=6,
+            max_text_chars=max_text_chars,
+            max_depth=2,
+        )
+        for key in selected_keys
+    }
+    omitted = len([key for key, item in properties.items() if item not in ("", None, [], {})]) - len(selected_keys)
+    if omitted > 0:
+        compacted["_omitted_property_count"] = omitted
+    return compacted
+
+
+def compact_json_dumps(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+
+
+def fit_prompt_context(value: Any, max_chars: int = 18000) -> Any:
+    profiles = (
+        (12, 16, 220, 4),
+        (8, 12, 160, 4),
+        (5, 8, 120, 3),
+        (3, 6, 80, 3),
+        (2, 4, 60, 2),
+    )
+    for max_list_items, max_dict_items, max_text_chars, max_depth in profiles:
+        compacted = compact_for_prompt(
+            value,
+            max_list_items=max_list_items,
+            max_dict_items=max_dict_items,
+            max_text_chars=max_text_chars,
+            max_depth=max_depth,
+        )
+        if len(compact_json_dumps(compacted)) <= max_chars:
+            return compacted
+
+    text = compact_json_dumps(compacted)
+    return {
+        "_truncated": True,
+        "summary": truncate_text(text, max(max_chars - 100, 100)),
+    }
 
 
 def parse_json_object(text: str) -> Dict[str, Any]:

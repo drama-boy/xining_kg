@@ -21,3 +21,4 @@ tokenizers
 tqdm
 transformers
 uvicorn
+ultralytics

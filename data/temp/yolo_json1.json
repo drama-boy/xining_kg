@@ -1,0 +1,60 @@
+{
+    "type": "global_targets",
+    "task_id": "4f1cb586-8f57-4273-a199-c7acfd6b7ec6",
+    "timestamp": "2026-05-25T11:35:31.399075",
+    "vis_url": "http://localhost:5000/static/tasks/mission_20260521_001/frames/images/frame_sim_drone_1_56.jpg",
+    "process_url": "http://localhost:5000/static/tasks/mission_20260521_001/frames/processed_images/frame_sim_drone_1_56.jpg",
+    "targets": [
+        {
+            "global_target_id": 1,
+            "display_name": "command_vehicle1",
+            "best_latitude": 29.25093650817871,
+            "best_longitude": 113.12726593017578,
+            "best_altitude": 0,
+            "best_confidence": 0.5414322018623352,
+            "best_class_id": 4,
+            "best_class_name": "command_vehicle",
+            "best_bbox": [
+                987,
+                438,
+                1003,
+                470
+            ],
+            "best_speed": 0.0,
+            "best_crop_path": "http://localhost:5000/static/crops/drone_sim_drone_1_f42_id1_20260525_113530_322978.jpg",
+            "best_frame_index": 3,
+            "best_frame_timestamp": 3.908724,
+            "last_time": "2026-05-25T11:35:30.231649",
+            "observations": [
+                {
+                    "drone_id": "sim_drone_1",
+                    "local_track_id": 1,
+                    "confidence": 0.5414322018623352,
+                    "class_id": 4,
+                    "class_name": "command_vehicle",
+                    "display_name": "command_vehicle",
+                    "bbox": [
+                        985,
+                        382,
+                        1000,
+                        415
+                    ],
+                    "speed_mps": 1.8446826343882663,
+                    "latitude": 29.250955351417886,
+                    "longitude": 113.1271821790373,
+                    "altitude": 0,
+                    "timestamp": "2026-05-25T11:35:31.213877",
+                    "crop_path": "http://localhost:5000/static/crops/drone_sim_drone_1_f56_id1_20260525_113531_351985.jpg",
+                    "frame_index": 4,
+                    "frame_timestamp": 4.937696,
+                    "image_url": "http://localhost:5000/static/crops/drone_sim_drone_1_f56_id1_20260525_113531_351985.jpg"
+                }
+            ],
+            "display_id": "command_vehicle_1",
+            "image_url": "http://localhost:5000/static/crops/drone_sim_drone_1_f42_id1_20260525_113530_322978.jpg",
+            "frame_index": 3,
+            "timestamp_seconds": 3.908724,
+            "timestamp": "0:03"
+        }
+    ]
+}

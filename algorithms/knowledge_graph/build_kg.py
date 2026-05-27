@@ -129,7 +129,6 @@ class MechanismKGBuilder:
     LABELS = {
         "event": "事件",
         "behavior": "行为",
-        "predicate": "述谓结构",
         "time": "时间",
         "place": "地点",
         "person": "人员",
@@ -237,7 +236,7 @@ class MechanismKGBuilder:
 
     def _add_mechanism_event(self, event: Dict[str, Any], index: int) -> None:
         topic = clean_text(event.get("事件主题")) or f"事件{index}"
-        behavior_text = clean_text(event.get("核心行为")) or clean_text(event.get("述谓结构")) or topic
+        behavior_text = clean_text(event.get("核心行为")) or topic
         behavior_name = f"{topic}-{behavior_text}"
 
         event_id = self._node_id("event", topic)
@@ -265,21 +264,6 @@ class MechanismKGBuilder:
             },
         )
         self.add_edge(event_id, "包含行为", behavior_id)
-
-        predicate = clean_text(event.get("述谓结构"))
-        if predicate:
-            predicate_id = self._node_id("predicate", predicate)
-            self.add_node(
-                predicate_id,
-                self.LABELS["predicate"],
-                predicate,
-                {
-                    "name": predicate,
-                    "desc": predicate,
-                    "event_topic": topic,
-                },
-            )
-            self.add_edge(behavior_id, "具有述谓结构", predicate_id)
 
         for item in as_list(event.get("时间")):
             time_text = clean_text(item)
@@ -1077,7 +1061,7 @@ def kg_wrapper(input_paths: Iterable[Any]) -> Dict[str, Any]:
 
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="构建机理思维知识图谱")
-    parser.add_argument("--input-files", type=Path, nargs="+", required=True, help="csv/txt/pdf/docx/json 输入文件路径")
+    parser.add_argument("--input-files", type=Path, nargs="+", required=True, help="csv/txt/pdf/docx/md/markdown/图片/音视频 输入文件路径")
     return parser
 
 

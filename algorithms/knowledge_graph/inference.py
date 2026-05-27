@@ -18,8 +18,11 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from config import init_config, logger
-from utils.myllm import llm_gemma_31b
+from utils.myllm import llm_gemma
 from utils.util import (
+    compact_json_dumps,
+    compact_properties_for_prompt,
+    fit_prompt_context,
     dedup_list,
     extract_place_name,
     format_mapping,
@@ -41,6 +44,11 @@ DEFAULT_USE_LLM = bool(TUILI_CONFIG.get("use_llm", True))
 DEFAULT_NEO4J_URL = str(NEO4J_CONFIG.get("url", "bolt://localhost:7687"))
 DEFAULT_NEO4J_USER = str(NEO4J_CONFIG.get("user", "neo4j"))
 DEFAULT_NEO4J_PASSWORD = str(NEO4J_CONFIG.get("password", "12345678"))
+LLM_CONTEXT_MAX_CHARS = int(TUILI_CONFIG.get("llm_context_max_chars", 18000))
+LLM_NEIGHBOR_EDGE_LIMIT = int(TUILI_CONFIG.get("llm_neighbor_edge_limit", 16))
+LLM_EVENT_CONTEXT_LIMIT = int(TUILI_CONFIG.get("llm_event_context_limit", 20))
+LLM_TIMELINE_LIMIT = int(TUILI_CONFIG.get("llm_timeline_limit", 20))
+LLM_RELATION_PATH_LIMIT = int(TUILI_CONFIG.get("llm_relation_path_limit", 20))
 
 
 HIGH_RISK_KEYWORDS = (
@@ -365,18 +373,40 @@ class KGInferenceEngine:
         if matched_entity:
             graph_context = self._collect_neighbor_context(str(matched_entity.get("id", "")))
 
-        return {
+        context = {
             "target": result.target,
-            "matched_entities": result.matched_entities,
+            "matched_entities": [
+                {
+                    "id": item.get("id", ""),
+                    "name": item.get("name", ""),
+                    "label": item.get("label", ""),
+                    "score": item.get("score", 0),
+                    "properties": compact_properties_for_prompt(item.get("properties", {}), max_items=10, max_text_chars=120),
+                }
+                for item in result.matched_entities[:3]
+            ],
             "risk_level": result.risk_level,
             "risk_reason": result.risk_reason,
             "graph_context": graph_context,
-            "event_context": self._collect_event_context_for_result(result),
-            "timeline": result.associations.get("timeline", []),
-            "relation_paths": result.associations.get("relation_paths", []),
-            "activity_statistics": result.activity_patterns,
+            "event_context": [
+                self._compact_event_context(item)
+                for item in self._collect_event_context_for_result(result)[:LLM_EVENT_CONTEXT_LIMIT]
+            ],
+            "timeline": result.associations.get("timeline", [])[:LLM_TIMELINE_LIMIT],
+            "relation_paths": result.associations.get("relation_paths", [])[:LLM_RELATION_PATH_LIMIT],
+            "activity_statistics": {
+                "frequencies": dict(
+                    sorted(
+                        (result.activity_patterns.get("frequencies", {}) or {}).items(),
+                        key=lambda item: (-item[1], item[0]),
+                    )[:10]
+                ),
+                "locations": (result.activity_patterns.get("locations", []) or [])[:10],
+                "times": (result.activity_patterns.get("times", []) or [])[:10],
+            },
             "prediction_seed": result.prediction,
         }
+        return fit_prompt_context(context, max_chars=LLM_CONTEXT_MAX_CHARS)
 
     def _collect_neighbor_context(self, node_id: str) -> Dict[str, Any]:
         node = self.node_by_id.get(node_id)
@@ -386,36 +416,40 @@ class KGInferenceEngine:
         incoming = []
         outgoing = []
         neighbor_ids = set()
-        for edge in self.in_edges[node.id]:
+        incoming_edges = self._rank_edges_for_prompt(self.in_edges[node.id], node.id)[:LLM_NEIGHBOR_EDGE_LIMIT]
+        outgoing_edges = self._rank_edges_for_prompt(self.out_edges[node.id], node.id)[:LLM_NEIGHBOR_EDGE_LIMIT]
+        for edge in incoming_edges:
             source = self.node_by_id.get(edge.source)
             if not source:
                 continue
             neighbor_ids.add(source.id)
             incoming.append({
-                "from": self._node_brief(source),
+                "from": self._node_prompt_brief(source),
                 "relation": edge.relation,
-                "to": self._node_brief(node),
-                "properties": edge.properties,
+                "to": self._node_prompt_brief(node),
+                "properties": compact_properties_for_prompt(edge.properties, max_items=6, max_text_chars=80),
             })
 
-        for edge in self.out_edges[node.id]:
+        for edge in outgoing_edges:
             target = self.node_by_id.get(edge.target)
             if not target:
                 continue
             neighbor_ids.add(target.id)
             outgoing.append({
-                "from": self._node_brief(node),
+                "from": self._node_prompt_brief(node),
                 "relation": edge.relation,
-                "to": self._node_brief(target),
-                "properties": edge.properties,
+                "to": self._node_prompt_brief(target),
+                "properties": compact_properties_for_prompt(edge.properties, max_items=6, max_text_chars=80),
             })
 
         return {
-            "target_node": self._node_brief(node),
+            "target_node": self._node_prompt_brief(node),
             "incoming_edges": incoming,
+            "incoming_edges_omitted": max(len(self.in_edges[node.id]) - len(incoming_edges), 0),
             "outgoing_edges": outgoing,
+            "outgoing_edges_omitted": max(len(self.out_edges[node.id]) - len(outgoing_edges), 0),
             "neighbor_nodes": [
-                self._node_brief(self.node_by_id[neighbor_id])
+                self._node_prompt_brief(self.node_by_id[neighbor_id])
                 for neighbor_id in sorted(neighbor_ids)
                 if neighbor_id in self.node_by_id
             ],
@@ -438,6 +472,40 @@ class KGInferenceEngine:
             "name": node.name,
             "properties": node.properties,
         }
+
+    @staticmethod
+    def _node_prompt_brief(node: GraphEntity) -> Dict[str, Any]:
+        return {
+            "id": node.id,
+            "label": node.label,
+            "name": node.name,
+            "properties": compact_properties_for_prompt(node.properties, max_items=8, max_text_chars=120),
+        }
+
+    @staticmethod
+    def _compact_event_context(context: Dict[str, Any]) -> Dict[str, Any]:
+        relations = context.get("relations", []) or []
+        return {
+            "event": context.get("event", ""),
+            "behavior": context.get("behavior", ""),
+            "relation": context.get("relation", ""),
+            "times": (context.get("times", []) or [])[:5],
+            "locations": (context.get("locations", []) or [])[:5],
+            "targets": (context.get("targets", []) or [])[:8],
+            "relations": relations[:5],
+            "relations_omitted": max(len(relations) - 5, 0),
+        }
+
+    def _rank_edges_for_prompt(self, edges: Sequence[GraphEdge], center_id: str) -> List[GraphEdge]:
+        def key(edge: GraphEdge) -> Tuple[int, int, str, str]:
+            other_id = edge.source if edge.target == center_id else edge.target
+            other = self.node_by_id.get(other_id)
+            relation_rank = 0 if edge.relation in TARGET_RELATIONS or edge.relation in ALLY_RELATIONS or edge.relation in OPPONENT_RELATIONS else 1
+            label_rank = self._node_priority(other) if other else 9
+            path_name = other.name if other else ""
+            return (relation_rank, label_rank, edge.relation, path_name)
+
+        return sorted(edges, key=key)
 
     def _attach_report(self, result: InferenceResult) -> None:
         sections = self.build_report_sections(result)
@@ -723,7 +791,7 @@ class KGInferenceEngine:
 
     def build_llm_summary(self, result: InferenceResult) -> Dict[str, Any]:
         result_dict = self.build_result_dict(result)
-        if llm_gemma_31b is None:
+        if llm_gemma is None:
             return result_dict
         llm_input = self.build_llm_context(result)
         prompt = (
@@ -736,10 +804,10 @@ class KGInferenceEngine:
             "4. forecast 的值必须是一段话，基于图谱中的最近时间、地点、行为、关联装备和prediction_seed推断下一步可能行动。\n"
             "5. 两个键的值都必须是字符串，不能是字典或列表。\n"
             "6. 不要编造与图谱明显无关的目标、地点、时间；如果图谱信息不足，请写“图谱信息不足，暂无法判断”。\n\n"
-            f"图谱上下文：{json.dumps(llm_input, ensure_ascii=False, indent=2)}"
+            f"图谱上下文：{compact_json_dumps(llm_input)}"
         )
         try:
-            llm_text = (llm_gemma_31b(prompt) or "").strip()
+            llm_text = (llm_gemma(prompt) or "").strip()
             llm_fields = parse_json_object(llm_text)
             huodonguilv = normalize_text(llm_fields.get("activitypattern"))
             forecast = normalize_text(llm_fields.get("forecast"))
@@ -748,9 +816,55 @@ class KGInferenceEngine:
             if forecast:
                 result_dict["forecast"] = forecast
             result_dict["llm_summary"] = llm_text
-        except Exception:
+        except Exception as exc:
+            logger.warning("接口二LLM摘要生成失败，使用规则结果兜底: {}", exc)
             result_dict["llm_summary"] = ""
+        if not normalize_text(result_dict.get("activitypattern")):
+            result_dict["activitypattern"] = self._fallback_activitypattern(result)
+        if not normalize_text(result_dict.get("forecast")):
+            result_dict["forecast"] = self._fallback_forecast(result)
         return result_dict
+
+    @staticmethod
+    def _fallback_activitypattern(result: InferenceResult) -> str:
+        timeline = result.associations.get("timeline", []) or []
+        locations = result.activity_patterns.get("locations", []) or []
+        frequencies = result.activity_patterns.get("frequencies", {}) or {}
+        times = [item.get("time", "") for item in timeline if item.get("time")]
+        location_names = [item.get("name", "") for item in locations[:3] if item.get("name")]
+        top_behaviors = [name for name, _ in sorted(frequencies.items(), key=lambda item: (-item[1], item[0]))[:3]]
+
+        parts = []
+        if times:
+            parts.append(f"时间范围集中在{times[0]}至{times[-1]}")
+        if location_names:
+            parts.append(f"高频地点包括{'、'.join(location_names)}")
+        if top_behaviors:
+            parts.append(f"主要活动类型为{'、'.join(top_behaviors)}")
+        if result.associations.get("team"):
+            parts.append(f"关联队友包括{'、'.join(result.associations.get('team', [])[:3])}")
+        if result.associations.get("opponent"):
+            parts.append(f"关联对手包括{'、'.join(result.associations.get('opponent', [])[:3])}")
+        if not parts:
+            return "图谱信息不足，暂无法判断。"
+        return f"{result.target}在图谱中的活动规律显示，" + "，".join(parts) + "。"
+
+    @staticmethod
+    def _fallback_forecast(result: InferenceResult) -> str:
+        prediction = result.prediction or {}
+        next_action = normalize_text(prediction.get("next_action"))
+        time_window = normalize_text(prediction.get("time_window"))
+        location = normalize_text(prediction.get("location"))
+        basis = []
+        if next_action:
+            basis.append(f"下一步可能{next_action}")
+        if time_window:
+            basis.append(f"时间窗口为{time_window}")
+        if location:
+            basis.append(f"重点位置为{location}")
+        if not basis:
+            return "图谱信息不足，暂无法判断。"
+        return f"基于既有关联事件、地点频次和行为统计，{result.target}" + "，".join(basis) + "。"
 
     def _match_score(self, norm_target: str, node: GraphEntity) -> int:
         name = normalize_name(node.name)
@@ -1042,7 +1156,7 @@ class KGInferenceEngine:
     def _is_association_object(self, node: Optional[GraphEntity], relation: str = "") -> bool:
         if not node:
             return False
-        if node.label in {"地点", "时间", "风险等级", "事件", "行为", "述谓结构", "组织机构", "人员"}:
+        if node.label in {"地点", "时间", "风险等级", "事件", "行为", "组织机构", "人员"}:
             return False
         if node.label in ASSOCIATION_OBJECT_LABELS:
             return True

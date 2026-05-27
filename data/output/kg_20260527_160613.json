@@ -1,0 +1,226 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "兵种",
+      "labels": [
+        "兵种"
+      ],
+      "name": "步兵小组",
+      "properties": {
+        "name": "步兵小组",
+        "type": "步兵",
+        "quantity": "装甲车周围有5个",
+        "quantity_value": 5,
+        "quantity_unit": "个",
+        "location": "装甲车周围",
+        "mission": "警戒与火力掩护",
+        "event_topic": "武装人员与装甲车辆协同作战部署",
+        "from_file": "upload_00a6dccbe453459b8dec9a400f70e115.jpeg",
+        "desc": "兵种节点：步兵小组；类型步兵；位置装甲车周围；数量装甲车周围有5个；任务警戒与火力掩护；事件武装人员与装甲车辆协同作战部署"
+      }
+    },
+    {
+      "id": 2,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "武装人员与装甲车辆协同作战部署",
+      "properties": {
+        "name": "武装人员与装甲车辆协同作战部署",
+        "event_topic": "武装人员与装甲车辆协同作战部署",
+        "from_file": "upload_00a6dccbe453459b8dec9a400f70e115.jpeg",
+        "type": "事件",
+        "desc": "事件节点：武装人员与装甲车辆协同作战部署"
+      }
+    },
+    {
+      "id": 3,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "武装人员与装甲车辆协同作战部署-部署",
+      "properties": {
+        "name": "武装人员与装甲车辆协同作战部署-部署",
+        "event_topic": "武装人员与装甲车辆协同作战部署",
+        "core_behavior": "部署",
+        "risk_level": "高危",
+        "type": "行为",
+        "from_file": "upload_00a6dccbe453459b8dec9a400f70e115.jpeg",
+        "desc": "行为节点：武装人员与装甲车辆协同作战部署-部署；事件武装人员与装甲车辆协同作战部署"
+      }
+    },
+    {
+      "id": 4,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "画面前景及中景",
+      "properties": {
+        "name": "画面前景及中景",
+        "normalized_place": "画面前景及中景",
+        "event_topic": "武装人员与装甲车辆协同作战部署",
+        "type": "地点",
+        "from_file": "upload_00a6dccbe453459b8dec9a400f70e115.jpeg",
+        "desc": "地点节点：画面前景及中景；事件武装人员与装甲车辆协同作战部署"
+      }
+    },
+    {
+      "id": 5,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "装甲车1",
+      "properties": {
+        "name": "装甲车1",
+        "type": "装甲车",
+        "quantity": "画面前景及中景有2辆",
+        "quantity_value": 2,
+        "quantity_unit": "辆",
+        "location": "画面前景及中景",
+        "mission": "火力支援与人员运输",
+        "status": "停放/部署",
+        "event_topic": "武装人员与装甲车辆协同作战部署",
+        "from_file": "upload_00a6dccbe453459b8dec9a400f70e115.jpeg",
+        "desc": "车辆节点：装甲车1；类型装甲车；位置画面前景及中景；数量画面前景及中景有2辆；任务火力支援与人员运输；状态停放/部署；事件武装人员与装甲车辆协同作战部署"
+      }
+    },
+    {
+      "id": 6,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "装甲车周围",
+      "properties": {
+        "name": "装甲车周围",
+        "normalized_place": "装甲车周围",
+        "event_topic": "武装人员与装甲车辆协同作战部署",
+        "type": "地点",
+        "from_file": "upload_00a6dccbe453459b8dec9a400f70e115.jpeg",
+        "desc": "地点节点：装甲车周围；事件武装人员与装甲车辆协同作战部署"
+      }
+    },
+    {
+      "id": 7,
+      "label": "风险等级",
+      "labels": [
+        "风险等级"
+      ],
+      "name": "高危",
+      "properties": {
+        "name": "高危",
+        "level": "高危",
+        "type": "风险等级",
+        "from_file": "upload_00a6dccbe453459b8dec9a400f70e115.jpeg",
+        "desc": "风险等级节点：高危"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": 1,
+      "relation": "位于",
+      "target": 6,
+      "properties": {}
+    },
+    {
+      "source": 1,
+      "relation": "协同部署于",
+      "target": 5,
+      "properties": {
+        "evidence": "人员围绕装甲车采取战斗姿态"
+      }
+    },
+    {
+      "source": 2,
+      "relation": "包含行为",
+      "target": 3,
+      "properties": {}
+    },
+    {
+      "source": 3,
+      "relation": "涉及兵种",
+      "target": 1,
+      "properties": {}
+    },
+    {
+      "source": 3,
+      "relation": "涉及车辆",
+      "target": 5,
+      "properties": {}
+    },
+    {
+      "source": 3,
+      "relation": "风险等级",
+      "target": 7,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "位于",
+      "target": 4,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "提供掩护",
+      "target": 1,
+      "properties": {
+        "evidence": "人员利用车辆侧面进行掩护"
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": 1,
+      "target": 6,
+      "relation": "位于"
+    },
+    {
+      "source": 1,
+      "target": 5,
+      "relation": "协同部署于",
+      "properties": {
+        "evidence": "人员围绕装甲车采取战斗姿态"
+      }
+    },
+    {
+      "source": 2,
+      "target": 3,
+      "relation": "包含行为"
+    },
+    {
+      "source": 3,
+      "target": 1,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 3,
+      "target": 5,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 3,
+      "target": 7,
+      "relation": "风险等级"
+    },
+    {
+      "source": 5,
+      "target": 4,
+      "relation": "位于"
+    },
+    {
+      "source": 5,
+      "target": 1,
+      "relation": "提供掩护",
+      "properties": {
+        "evidence": "人员利用车辆侧面进行掩护"
+      }
+    }
+  ]
+}

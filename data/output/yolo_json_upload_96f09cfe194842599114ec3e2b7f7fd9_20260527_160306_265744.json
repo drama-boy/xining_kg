@@ -1,0 +1,10 @@
+{
+  "type": "global_targets",
+  "task_id": "upload_96f09cfe194842599114ec3e2b7f7fd9",
+  "timestamp": "2026-05-27T16:03:07.734398",
+  "image_path": "data\\upload\\upload_96f09cfe194842599114ec3e2b7f7fd9.png",
+  "model_path": "C:\\Users\\nuc\\Desktop\\xining_kg\\utils\\image_model.pt",
+  "detected_class_names": [],
+  "detected_classes": [],
+  "targets": []
+}

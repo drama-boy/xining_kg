@@ -35,7 +35,7 @@ for directory in (UPLOAD_DIR, OUTPUT_DIR, STATIC_DIR, LOG_DIR):
 
 app = FastAPI(
     title="知识图谱算法 API",
-    description="搭建知识图谱，图谱推理检索算法封装服务",
+    description="知识图谱搭建,推理,检索算法封装服务",
     version="0.1.0",
 )
 app.openapi_version = "3.0.2"
@@ -71,7 +71,7 @@ async def startup_event() -> None:
     logger.info("输出目录: {}", OUTPUT_DIR)
 
 
-@app.post("/api/knowledge_graph/construction",description="支持的文件格式: txt, markdown, docx, pdf, csv, json\n")
+@app.post("/api/knowledge_graph/construction",description="支持的文件格式: txt, markdown, docx, pdf, csv, png, jpg, jpeg\n")
 async def knowledge_graph_construction_api(files: List[UploadFile] = File(...)) -> dict:
     if not files:
         raise HTTPException(status_code=400, detail="请上传至少一个文件，字段名为 files")

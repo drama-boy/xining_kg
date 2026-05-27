@@ -1,0 +1,654 @@
+{
+  "type": "global_targets",
+  "task_id": "upload_2e7cbd7929db47c58708fa3eea2da3ea",
+  "timestamp": "2026-05-27T15:27:20.916740",
+  "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+  "model_path": "C:\\Users\\nuc\\Desktop\\xining_kg\\utils\\model_11_22_1280_kjg.pt",
+  "detected_class_names": [
+    "camp",
+    "tank",
+    "trunk",
+    "bunker",
+    "car"
+  ],
+  "detected_classes": [
+    {
+      "class_name": "camp",
+      "count": 3,
+      "max_confidence": 0.7817602753639221
+    },
+    {
+      "class_name": "tank",
+      "count": 1,
+      "max_confidence": 0.7775450944900513
+    },
+    {
+      "class_name": "trunk",
+      "count": 2,
+      "max_confidence": 0.7719255685806274
+    },
+    {
+      "class_name": "bunker",
+      "count": 6,
+      "max_confidence": 0.7582822442054749
+    },
+    {
+      "class_name": "car",
+      "count": 1,
+      "max_confidence": 0.5815865993499756
+    }
+  ],
+  "targets": [
+    {
+      "global_target_id": 1,
+      "display_name": "camp1",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.7817602753639221,
+      "best_class_id": 0,
+      "best_class_name": "camp",
+      "best_bbox": [
+        918,
+        564,
+        942,
+        590
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.7817602753639221,
+          "class_id": 0,
+          "class_name": "camp",
+          "display_name": "camp",
+          "bbox": [
+            918,
+            564,
+            942,
+            590
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "camp_1",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 2,
+      "display_name": "tank2",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.7775450944900513,
+      "best_class_id": 2,
+      "best_class_name": "tank",
+      "best_bbox": [
+        973,
+        580,
+        1013,
+        605
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.7775450944900513,
+          "class_id": 2,
+          "class_name": "tank",
+          "display_name": "tank",
+          "bbox": [
+            973,
+            580,
+            1013,
+            605
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "tank_2",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 3,
+      "display_name": "trunk3",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.7719255685806274,
+      "best_class_id": 3,
+      "best_class_name": "trunk",
+      "best_bbox": [
+        973,
+        539,
+        1000,
+        555
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.7719255685806274,
+          "class_id": 3,
+          "class_name": "trunk",
+          "display_name": "trunk",
+          "bbox": [
+            973,
+            539,
+            1000,
+            555
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "trunk_3",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 4,
+      "display_name": "camp4",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.7671666741371155,
+      "best_class_id": 0,
+      "best_class_name": "camp",
+      "best_bbox": [
+        902,
+        527,
+        929,
+        556
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.7671666741371155,
+          "class_id": 0,
+          "class_name": "camp",
+          "display_name": "camp",
+          "bbox": [
+            902,
+            527,
+            929,
+            556
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "camp_4",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 5,
+      "display_name": "bunker5",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.7582822442054749,
+      "best_class_id": 10,
+      "best_class_name": "bunker",
+      "best_bbox": [
+        927,
+        659,
+        939,
+        674
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.7582822442054749,
+          "class_id": 10,
+          "class_name": "bunker",
+          "display_name": "bunker",
+          "bbox": [
+            927,
+            659,
+            939,
+            674
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "bunker_5",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 6,
+      "display_name": "bunker6",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.7478708624839783,
+      "best_class_id": 10,
+      "best_class_name": "bunker",
+      "best_bbox": [
+        1034,
+        614,
+        1045,
+        628
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.7478708624839783,
+          "class_id": 10,
+          "class_name": "bunker",
+          "display_name": "bunker",
+          "bbox": [
+            1034,
+            614,
+            1045,
+            628
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "bunker_6",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 7,
+      "display_name": "camp7",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.7428864240646362,
+      "best_class_id": 0,
+      "best_class_name": "camp",
+      "best_bbox": [
+        932,
+        606,
+        960,
+        634
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.7428864240646362,
+          "class_id": 0,
+          "class_name": "camp",
+          "display_name": "camp",
+          "bbox": [
+            932,
+            606,
+            960,
+            634
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "camp_7",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 8,
+      "display_name": "bunker8",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.7242472171783447,
+      "best_class_id": 10,
+      "best_class_name": "bunker",
+      "best_bbox": [
+        997,
+        494,
+        1005,
+        506
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.7242472171783447,
+          "class_id": 10,
+          "class_name": "bunker",
+          "display_name": "bunker",
+          "bbox": [
+            997,
+            494,
+            1005,
+            506
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "bunker_8",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 9,
+      "display_name": "trunk9",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.7033371925354004,
+      "best_class_id": 3,
+      "best_class_name": "trunk",
+      "best_bbox": [
+        972,
+        561,
+        1003,
+        578
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.7033371925354004,
+          "class_id": 3,
+          "class_name": "trunk",
+          "display_name": "trunk",
+          "bbox": [
+            972,
+            561,
+            1003,
+            578
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "trunk_9",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 10,
+      "display_name": "bunker10",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.6996872425079346,
+      "best_class_id": 10,
+      "best_class_name": "bunker",
+      "best_bbox": [
+        1015,
+        555,
+        1029,
+        585
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.6996872425079346,
+          "class_id": 10,
+          "class_name": "bunker",
+          "display_name": "bunker",
+          "bbox": [
+            1015,
+            555,
+            1029,
+            585
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "bunker_10",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 11,
+      "display_name": "bunker11",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.6620727777481079,
+      "best_class_id": 10,
+      "best_class_name": "bunker",
+      "best_bbox": [
+        894,
+        585,
+        907,
+        612
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.6620727777481079,
+          "class_id": 10,
+          "class_name": "bunker",
+          "display_name": "bunker",
+          "bbox": [
+            894,
+            585,
+            907,
+            612
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "bunker_11",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 12,
+      "display_name": "car12",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.5815865993499756,
+      "best_class_id": 1,
+      "best_class_name": "car",
+      "best_bbox": [
+        968,
+        509,
+        994,
+        522
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.5815865993499756,
+          "class_id": 1,
+          "class_name": "car",
+          "display_name": "car",
+          "bbox": [
+            968,
+            509,
+            994,
+            522
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "car_12",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    },
+    {
+      "global_target_id": 13,
+      "display_name": "bunker13",
+      "best_latitude": null,
+      "best_longitude": null,
+      "best_altitude": null,
+      "best_confidence": 0.5363724231719971,
+      "best_class_id": 10,
+      "best_class_name": "bunker",
+      "best_bbox": [
+        859,
+        515,
+        871,
+        530
+      ],
+      "best_speed": null,
+      "best_frame_index": 0,
+      "best_frame_timestamp": 0.0,
+      "last_time": "2026-05-27T15:27:20.916740",
+      "observations": [
+        {
+          "confidence": 0.5363724231719971,
+          "class_id": 10,
+          "class_name": "bunker",
+          "display_name": "bunker",
+          "bbox": [
+            859,
+            515,
+            871,
+            530
+          ],
+          "speed_mps": null,
+          "latitude": null,
+          "longitude": null,
+          "altitude": null,
+          "timestamp": "2026-05-27T15:27:20.916740",
+          "frame_index": 0,
+          "frame_timestamp": 0.0,
+          "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg"
+        }
+      ],
+      "display_id": "bunker_13",
+      "image_path": "data\\upload\\upload_2e7cbd7929db47c58708fa3eea2da3ea.jpg",
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "timestamp": "0:00"
+    }
+  ]
+}

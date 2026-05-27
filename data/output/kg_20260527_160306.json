@@ -1,0 +1,313 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "风险等级",
+      "labels": [
+        "风险等级"
+      ],
+      "name": "中危",
+      "properties": {
+        "name": "中危",
+        "level": "中危",
+        "type": "风险等级",
+        "from_file": "upload_96f09cfe194842599114ec3e2b7f7fd9.png",
+        "desc": "风险等级节点：中危"
+      }
+    },
+    {
+      "id": 2,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "军事飞行区域",
+      "properties": {
+        "name": "军事飞行区域",
+        "normalized_place": "军事飞行区域",
+        "event_topic": "武装直升机在军事基地或机场区域飞行",
+        "type": "地点",
+        "from_file": "upload_96f09cfe194842599114ec3e2b7f7fd9.png",
+        "desc": "地点节点：军事飞行区域；事件武装直升机在军事基地或机场区域飞行"
+      }
+    },
+    {
+      "id": 3,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "地面草坪区域",
+      "properties": {
+        "name": "地面草坪区域",
+        "normalized_place": "地面草坪区域",
+        "event_topic": "武装直升机在军事基地或机场区域飞行",
+        "type": "地点",
+        "from_file": "upload_96f09cfe194842599114ec3e2b7f7fd9.png",
+        "desc": "地点节点：地面草坪区域；事件武装直升机在军事基地或机场区域飞行"
+      }
+    },
+    {
+      "id": 4,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "掩体上方",
+      "properties": {
+        "name": "掩体上方",
+        "normalized_place": "掩体上方",
+        "event_topic": "武装直升机在军事基地或机场区域飞行",
+        "type": "地点",
+        "from_file": "upload_96f09cfe194842599114ec3e2b7f7fd9.png",
+        "desc": "地点节点：掩体上方；事件武装直升机在军事基地或机场区域飞行"
+      }
+    },
+    {
+      "id": 5,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "掩体设施",
+      "properties": {
+        "name": "掩体设施",
+        "type": "有限掩体",
+        "quantity": "地面草坪区域有3个",
+        "quantity_value": 3,
+        "quantity_unit": "个",
+        "location": "地面草坪区域",
+        "status": "部署中",
+        "purpose": "防御或装备存放",
+        "event_topic": "武装直升机在军事基地或机场区域飞行",
+        "from_file": "upload_96f09cfe194842599114ec3e2b7f7fd9.png",
+        "desc": "工事节点：掩体设施；类型有限掩体；位置地面草坪区域；数量地面草坪区域有3个；状态部署中；用途防御或装备存放；事件武装直升机在军事基地或机场区域飞行"
+      }
+    },
+    {
+      "id": 6,
+      "label": "航空器",
+      "labels": [
+        "航空器"
+      ],
+      "name": "武装直升机",
+      "properties": {
+        "name": "武装直升机",
+        "type": "武装直升机",
+        "quantity": "空中有1架",
+        "quantity_value": 1,
+        "quantity_unit": "架",
+        "location": "空中",
+        "mission": "飞行/巡逻",
+        "status": "飞行中",
+        "event_topic": "武装直升机在军事基地或机场区域飞行",
+        "from_file": "upload_96f09cfe194842599114ec3e2b7f7fd9.png",
+        "desc": "航空器节点：武装直升机；位置空中；数量空中有1架；任务飞行/巡逻；状态飞行中；事件武装直升机在军事基地或机场区域飞行"
+      }
+    },
+    {
+      "id": 7,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "武装直升机在军事基地或机场区域飞行",
+      "properties": {
+        "name": "武装直升机在军事基地或机场区域飞行",
+        "event_topic": "武装直升机在军事基地或机场区域飞行",
+        "from_file": "upload_96f09cfe194842599114ec3e2b7f7fd9.png",
+        "type": "事件",
+        "desc": "事件节点：武装直升机在军事基地或机场区域飞行"
+      }
+    },
+    {
+      "id": 8,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "武装直升机在军事基地或机场区域飞行-飞行",
+      "properties": {
+        "name": "武装直升机在军事基地或机场区域飞行-飞行",
+        "event_topic": "武装直升机在军事基地或机场区域飞行",
+        "core_behavior": "飞行",
+        "risk_level": "中危",
+        "type": "行为",
+        "from_file": "upload_96f09cfe194842599114ec3e2b7f7fd9.png",
+        "desc": "行为节点：武装直升机在军事基地或机场区域飞行-飞行；事件武装直升机在军事基地或机场区域飞行"
+      }
+    },
+    {
+      "id": 9,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "空中",
+      "properties": {
+        "name": "空中",
+        "normalized_place": "空中",
+        "event_topic": "武装直升机在军事基地或机场区域飞行",
+        "type": "地点",
+        "from_file": "upload_96f09cfe194842599114ec3e2b7f7fd9.png",
+        "desc": "地点节点：空中；事件武装直升机在军事基地或机场区域飞行"
+      }
+    },
+    {
+      "id": 10,
+      "label": "装备设备",
+      "labels": [
+        "装备设备"
+      ],
+      "name": "雷达/通信设备",
+      "properties": {
+        "name": "雷达/通信设备",
+        "type": "装备设备",
+        "quantity": "掩体上方有2套",
+        "quantity_value": 2,
+        "quantity_unit": "套",
+        "location": "掩体上方",
+        "status": "部署",
+        "purpose": "侦察或通信",
+        "event_topic": "武装直升机在军事基地或机场区域飞行",
+        "from_file": "upload_96f09cfe194842599114ec3e2b7f7fd9.png",
+        "desc": "装备设备节点：雷达/通信设备；位置掩体上方；数量掩体上方有2套；状态部署；用途侦察或通信；事件武装直升机在军事基地或机场区域飞行"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": 5,
+      "relation": "位于",
+      "target": 3,
+      "properties": {}
+    },
+    {
+      "source": 6,
+      "relation": "位于",
+      "target": 2,
+      "properties": {
+        "evidence": "直升机在开阔的跑道/草坪区域上方飞行"
+      }
+    },
+    {
+      "source": 6,
+      "relation": "位于",
+      "target": 9,
+      "properties": {}
+    },
+    {
+      "source": 7,
+      "relation": "包含行为",
+      "target": 8,
+      "properties": {}
+    },
+    {
+      "source": 8,
+      "relation": "涉及地点",
+      "target": 2,
+      "properties": {}
+    },
+    {
+      "source": 8,
+      "relation": "涉及工事",
+      "target": 5,
+      "properties": {}
+    },
+    {
+      "source": 8,
+      "relation": "涉及航空器",
+      "target": 6,
+      "properties": {}
+    },
+    {
+      "source": 8,
+      "relation": "涉及装备",
+      "target": 10,
+      "properties": {}
+    },
+    {
+      "source": 8,
+      "relation": "风险等级",
+      "target": 1,
+      "properties": {}
+    },
+    {
+      "source": 10,
+      "relation": "位于",
+      "target": 4,
+      "properties": {}
+    },
+    {
+      "source": 10,
+      "relation": "部署于",
+      "target": 5,
+      "properties": {
+        "evidence": "设备放置在伪装网覆盖的掩体结构上"
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": 5,
+      "target": 3,
+      "relation": "位于"
+    },
+    {
+      "source": 6,
+      "target": 2,
+      "relation": "位于",
+      "properties": {
+        "evidence": "直升机在开阔的跑道/草坪区域上方飞行"
+      }
+    },
+    {
+      "source": 6,
+      "target": 9,
+      "relation": "位于"
+    },
+    {
+      "source": 7,
+      "target": 8,
+      "relation": "包含行为"
+    },
+    {
+      "source": 8,
+      "target": 2,
+      "relation": "涉及地点"
+    },
+    {
+      "source": 8,
+      "target": 5,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 8,
+      "target": 6,
+      "relation": "涉及航空器"
+    },
+    {
+      "source": 8,
+      "target": 10,
+      "relation": "涉及装备"
+    },
+    {
+      "source": 8,
+      "target": 1,
+      "relation": "风险等级"
+    },
+    {
+      "source": 10,
+      "target": 4,
+      "relation": "位于"
+    },
+    {
+      "source": 10,
+      "target": 5,
+      "relation": "部署于",
+      "properties": {
+        "evidence": "设备放置在伪装网覆盖的掩体结构上"
+      }
+    }
+  ]
+}

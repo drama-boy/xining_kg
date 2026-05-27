@@ -1,0 +1,473 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "设施",
+      "labels": [
+        "设施"
+      ],
+      "name": "军事营地",
+      "properties": {
+        "name": "军事营地",
+        "type": "camp",
+        "quantity": "山地开阔地有3个",
+        "quantity_value": 3,
+        "quantity_unit": "个",
+        "location": "山地开阔地",
+        "purpose": "驻扎/集结",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "设施节点：军事营地；类型camp；位置山地开阔地；数量山地开阔地有3个；用途驻扎/集结；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 2,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "坦克",
+      "properties": {
+        "name": "坦克",
+        "type": "坦克",
+        "quantity": "营地核心区有1辆",
+        "quantity_value": 1,
+        "quantity_unit": "辆",
+        "location": "营地核心区",
+        "status": "停放",
+        "purpose": "作战/防御",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "车辆节点：坦克；位置营地核心区；数量营地核心区有1辆；状态停放；用途作战/防御；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 3,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "坦克附近",
+      "properties": {
+        "name": "坦克附近",
+        "normalized_place": "坦克附近",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "type": "地点",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "地点节点：坦克附近；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 4,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "山地军事营地与装甲目标集结",
+      "properties": {
+        "name": "山地军事营地与装甲目标集结",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "type": "事件",
+        "desc": "事件节点：山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 5,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "山地军事营地与装甲目标集结-集结与部署",
+      "properties": {
+        "name": "山地军事营地与装甲目标集结-集结与部署",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "core_behavior": "集结与部署",
+        "risk_level": "高危",
+        "type": "行为",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "行为节点：山地军事营地与装甲目标集结-集结与部署；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 6,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "山地开阔地",
+      "properties": {
+        "name": "山地开阔地",
+        "normalized_place": "山地开阔地",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "type": "地点",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "地点节点：山地开阔地；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 7,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "山地营地区域",
+      "properties": {
+        "name": "山地营地区域",
+        "normalized_place": "山地营地区域",
+        "direction": "画面中心及右侧",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "type": "地点",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "地点节点：山地营地区域；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 8,
+      "label": "工事",
+      "labels": [
+        "工事"
+      ],
+      "name": "掩体设施",
+      "properties": {
+        "name": "掩体设施",
+        "type": "bunker",
+        "quantity": "营地周边有6个",
+        "quantity_value": 6,
+        "quantity_unit": "个",
+        "location": "营地周边",
+        "status": "静态部署",
+        "purpose": "防御与掩护",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "工事节点：掩体设施；类型bunker；位置营地周边；数量营地周边有6个；状态静态部署；用途防御与掩护；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 9,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "未知山地区域",
+      "properties": {
+        "name": "未知山地区域",
+        "normalized_place": "未知山地区域",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "type": "地点",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "地点节点：未知山地区域；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 10,
+      "label": "装备设备",
+      "labels": [
+        "装备设备"
+      ],
+      "name": "物资/装备箱",
+      "properties": {
+        "name": "物资/装备箱",
+        "type": "trunk",
+        "quantity": "坦克附近有2个",
+        "quantity_value": 2,
+        "quantity_unit": "个",
+        "location": "坦克附近",
+        "status": "存放",
+        "purpose": "后勤保障",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "装备设备节点：物资/装备箱；类型trunk；位置坦克附近；数量坦克附近有2个；状态存放；用途后勤保障；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 11,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "营地周边",
+      "properties": {
+        "name": "营地周边",
+        "normalized_place": "营地周边",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "type": "地点",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "地点节点：营地周边；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 12,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "营地核心区",
+      "properties": {
+        "name": "营地核心区",
+        "normalized_place": "营地核心区",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "type": "地点",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "地点节点：营地核心区；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 13,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "营地边缘",
+      "properties": {
+        "name": "营地边缘",
+        "normalized_place": "营地边缘",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "type": "地点",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "地点节点：营地边缘；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 14,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "车辆",
+      "properties": {
+        "name": "车辆",
+        "type": "car",
+        "quantity": "营地边缘有1辆",
+        "quantity_value": 1,
+        "quantity_unit": "辆",
+        "location": "营地边缘",
+        "status": "停放",
+        "event_topic": "山地军事营地与装甲目标集结",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "车辆节点：车辆；类型car；位置营地边缘；数量营地边缘有1辆；状态停放；事件山地军事营地与装甲目标集结"
+      }
+    },
+    {
+      "id": 15,
+      "label": "风险等级",
+      "labels": [
+        "风险等级"
+      ],
+      "name": "高危",
+      "properties": {
+        "name": "高危",
+        "level": "高危",
+        "type": "风险等级",
+        "from_file": "upload_cc9fe11248f14501b4a1a582d62690a5.jpg",
+        "desc": "风险等级节点：高危"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": 1,
+      "relation": "位于",
+      "target": 6,
+      "properties": {}
+    },
+    {
+      "source": 2,
+      "relation": "位于",
+      "target": 12,
+      "properties": {}
+    },
+    {
+      "source": 2,
+      "relation": "部署于",
+      "target": 1,
+      "properties": {
+        "evidence": "YOLO检测tank与camp空间接近"
+      }
+    },
+    {
+      "source": 4,
+      "relation": "包含行为",
+      "target": 5,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "发生地点",
+      "target": 9,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "涉及地点",
+      "target": 7,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "涉及工事",
+      "target": 8,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "涉及装备",
+      "target": 10,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "涉及设施",
+      "target": 1,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "涉及车辆",
+      "target": 2,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "涉及车辆",
+      "target": 14,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "风险等级",
+      "target": 15,
+      "properties": {}
+    },
+    {
+      "source": 8,
+      "relation": "位于",
+      "target": 11,
+      "properties": {}
+    },
+    {
+      "source": 8,
+      "relation": "防护",
+      "target": 1,
+      "properties": {
+        "evidence": "bunker分布在camp周边"
+      }
+    },
+    {
+      "source": 10,
+      "relation": "位于",
+      "target": 2,
+      "properties": {
+        "evidence": "trunk与tankbbox高度重合"
+      }
+    },
+    {
+      "source": 10,
+      "relation": "位于",
+      "target": 3,
+      "properties": {}
+    },
+    {
+      "source": 14,
+      "relation": "位于",
+      "target": 13,
+      "properties": {}
+    }
+  ],
+  "links": [
+    {
+      "source": 1,
+      "target": 6,
+      "relation": "位于"
+    },
+    {
+      "source": 2,
+      "target": 12,
+      "relation": "位于"
+    },
+    {
+      "source": 2,
+      "target": 1,
+      "relation": "部署于",
+      "properties": {
+        "evidence": "YOLO检测tank与camp空间接近"
+      }
+    },
+    {
+      "source": 4,
+      "target": 5,
+      "relation": "包含行为"
+    },
+    {
+      "source": 5,
+      "target": 9,
+      "relation": "发生地点"
+    },
+    {
+      "source": 5,
+      "target": 7,
+      "relation": "涉及地点"
+    },
+    {
+      "source": 5,
+      "target": 8,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 5,
+      "target": 10,
+      "relation": "涉及装备"
+    },
+    {
+      "source": 5,
+      "target": 1,
+      "relation": "涉及设施"
+    },
+    {
+      "source": 5,
+      "target": 2,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 5,
+      "target": 14,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 5,
+      "target": 15,
+      "relation": "风险等级"
+    },
+    {
+      "source": 8,
+      "target": 11,
+      "relation": "位于"
+    },
+    {
+      "source": 8,
+      "target": 1,
+      "relation": "防护",
+      "properties": {
+        "evidence": "bunker分布在camp周边"
+      }
+    },
+    {
+      "source": 10,
+      "target": 2,
+      "relation": "位于",
+      "properties": {
+        "evidence": "trunk与tankbbox高度重合"
+      }
+    },
+    {
+      "source": 10,
+      "target": 3,
+      "relation": "位于"
+    },
+    {
+      "source": 14,
+      "target": 13,
+      "relation": "位于"
+    }
+  ]
+}

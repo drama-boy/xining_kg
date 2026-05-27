@@ -1,0 +1,689 @@
+2026-05-26 14:14:40.939 | INFO     | app_server:startup_event:69 - 服务启动完成
+2026-05-26 14:14:40.940 | INFO     | app_server:startup_event:70 - 上传目录: data\upload
+2026-05-26 14:14:40.940 | INFO     | app_server:startup_event:71 - 输出目录: data\output
+2026-05-26 14:16:44.538 | INFO     | app_server:startup_event:69 - 服务启动完成
+2026-05-26 14:16:44.538 | INFO     | app_server:startup_event:70 - 上传目录: data\upload
+2026-05-26 14:16:44.538 | INFO     | app_server:startup_event:71 - 输出目录: data\output
+2026-05-26 14:16:54.416 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:17 - 开始搜索数据库，输入: 105mm国产轻型榴弹炮
+2026-05-26 14:16:54.433 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:25 - 任务完成，查询目标=105mm国产轻型榴弹炮, 耗时=13.993263244628906
+2026-05-26 14:17:22.477 | INFO     | app_server:knowledge_graph_construction_api:82 - 收到文件: name=example.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-26 14:17:22.479 | INFO     | app_server:knowledge_graph_construction_api:85 - 文件已保存: data\upload\upload_43a226ede9464487a3ff837f80269ad2.docx
+2026-05-26 14:17:22.479 | INFO     | app_server:knowledge_graph_construction_api:82 - 收到文件: name=news.json, type=application/json
+2026-05-26 14:17:22.481 | INFO     | app_server:knowledge_graph_construction_api:85 - 文件已保存: data\upload\upload_ab590a5aaea040619202c98483e77d5f.json
+2026-05-26 14:19:40.059 | ERROR    | utils.myllm:llm_gemma:24 - LLM 调用失败
+Traceback (most recent call last):
+
+  File "C:\Users\nuc\Desktop\xining_kg\app_server.py", line 188, in <module>
+    uvicorn.run("app_server:app", host=APP_HOST, port=APP_PORT, reload=False)
+    │       │                          │              └ 5000
+    │       │                          └ '0.0.0.0'
+    │       └ <function run at 0x0000020AE5FB2830>
+    └ <module 'uvicorn' from 'D:\\software\\Anaconda3\\envs\\xn\\lib\\site-packages\\uvicorn\\__init__.py'>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\uvicorn\main.py", line 620, in run
+    server.run()
+    │      └ <function Server.run at 0x0000020AE5F903A0>
+    └ <uvicorn.server.Server object at 0x0000020AE5F96950>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\uvicorn\server.py", line 75, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           │           │    │             │                      │    │      └ <function Config.get_loop_factory at 0x0000020AE5F61480>
+           │           │    │             │                      │    └ <uvicorn.config.Config object at 0x0000020AE5DCD9C0>
+           │           │    │             │                      └ <uvicorn.server.Server object at 0x0000020AE5F96950>
+           │           │    │             └ None
+           │           │    └ <function Server.serve at 0x0000020AE5F90430>
+           │           └ <uvicorn.server.Server object at 0x0000020AE5F96950>
+           └ <function asyncio_run at 0x0000020AE5F3AC20>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\uvicorn\_compat.py", line 60, in asyncio_run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object Server.serve at 0x0000020AE5F72CE0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x0000020AE3419A20>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "D:\software\Anaconda3\envs\xn\lib\asyncio\base_events.py", line 636, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x0000020AE4C86CB0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "D:\software\Anaconda3\envs\xn\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "D:\software\Anaconda3\envs\xn\lib\asyncio\base_events.py", line 603, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000020AE341B490>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "D:\software\Anaconda3\envs\xn\lib\asyncio\base_events.py", line 1909, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000020AE33C2CB0>
+    └ <Handle <TaskStepMethWrapper object at 0x0000020AEBD4AE00>()>
+
+  File "D:\software\Anaconda3\envs\xn\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle <TaskStepMethWrapper object at 0x0000020AEBD4AE00>()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle <TaskStepMethWrapper object at 0x0000020AEBD4AE00>()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle <TaskStepMethWrapper object at 0x0000020AEBD4AE00>()>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 415, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000020AE61222C0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 56, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B340>>
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x0000020AE5DCDD80>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000020AE61222C0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B340>>
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B340>>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000020AE618D0F0>
+          └ <fastapi.applications.FastAPI object at 0x0000020AE5DCDD80>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000020AEBD23640>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000020AE618D0C0>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000020AE618D0F0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000020AEBD23640>
+          │                            │    │    │     │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+          │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │                            │    │    └ <starlette.requests.Request object at 0x0000020AEB169BD0>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000020AE618D060>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000020AE618D0C0>
+          └ <function wrap_app_handling_exceptions at 0x0000020AE5BCCC10>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD237F0>
+          │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000020AE618D060>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD237F0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x0000020AE5F96AA0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000020AE618D060>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD237F0>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x0000020AE5F96AA0>>
+          └ <fastapi.routing.APIRouter object at 0x0000020AE5F96AA0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD237F0>
+          │     │      │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │     └ <function Route.handle at 0x0000020AE5BCE290>
+          └ APIRoute(path='/api/knowledge_graph/inference', name='knowledge_graph_inference_api', methods=['POST'])
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD237F0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x0000020AE5FBC0D0>
+          └ APIRoute(path='/api/knowledge_graph/inference', name='knowledge_graph_inference_api', methods=['POST'])
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD237F0>
+          │                            │    │        │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+          │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │                            │    └ <starlette.requests.Request object at 0x0000020AEB16AF20>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000020AEBD232E0>
+          └ <function wrap_app_handling_exceptions at 0x0000020AE5BCCC10>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD236D0>
+          │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AEBD4B...
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          └ <function request_response.<locals>.app.<locals>.app at 0x0000020AEBD232E0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000020AEB16AF20>
+                     └ <function get_request_handler.<locals>.app at 0x0000020AE5FBC040>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000020AE5BCFEB0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\routing.py", line 290, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'target': 'T-90S'}
+                 │         └ <function knowledge_graph_inference_api at 0x0000020AE5FB3AC0>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Form(Pydant...
+
+  File "C:\Users\nuc\Desktop\xining_kg\app_server.py", line 122, in knowledge_graph_inference_api
+    result = inference_wrapper(target)
+             │                 └ 'T-90S'
+             └ <function inference_wrapper at 0x0000020AE61963B0>
+
+  File "C:\Users\nuc\Desktop\xining_kg\algorithms\knowledge_graph\inference.py", line 1144, in inference_wrapper
+    resultall = engine.infer(target, use_llm=DEFAULT_USE_LLM)
+                │      │     │               └ True
+                │      │     └ 'T-90S'
+                │      └ <function KGInferenceEngine.infer at 0x0000020AE6D88310>
+                └ <algorithms.knowledge_graph.inference.KGInferenceEngine object at 0x0000020AEBD493F0>
+
+  File "C:\Users\nuc\Desktop\xining_kg\algorithms\knowledge_graph\inference.py", line 290, in infer
+    self._attach_result_dict(result, use_llm=use_llm)
+    │    │                   │               └ True
+    │    │                   └ InferenceResult(target='T-90S', matched_entities=[{'score': 320, 'id': '58', 'label': '车辆', 'name': 'T-90S', 'properties': {'...
+    │    └ <function KGInferenceEngine._attach_result_dict at 0x0000020AE6D883A0>
+    └ <algorithms.knowledge_graph.inference.KGInferenceEngine object at 0x0000020AEBD493F0>
+
+  File "C:\Users\nuc\Desktop\xining_kg\algorithms\knowledge_graph\inference.py", line 296, in _attach_result_dict
+    result.result = self.build_llm_summary(result)
+    │      │        │    │                 └ InferenceResult(target='T-90S', matched_entities=[{'score': 320, 'id': '58', 'label': '车辆', 'name': 'T-90S', 'properties': {'...
+    │      │        │    └ <function KGInferenceEngine.build_llm_summary at 0x0000020AE6D88DC0>
+    │      │        └ <algorithms.knowledge_graph.inference.KGInferenceEngine object at 0x0000020AEBD493F0>
+    │      └ {}
+    └ InferenceResult(target='T-90S', matched_entities=[{'score': 320, 'id': '58', 'label': '车辆', 'name': 'T-90S', 'properties': {'...
+
+  File "C:\Users\nuc\Desktop\xining_kg\algorithms\knowledge_graph\inference.py", line 742, in build_llm_summary
+    llm_text = (llm_gemma(prompt) or "").strip()
+                │         └ '你是一个军事知识图谱推理助手。下面给出的是目标实体在Neo4j知识图谱中的相关节点、入边、出边、关联路径、事件上下文和统计信息。\n请根据这些图谱信息生成两个中文自然语言字段，不要使用固定模板照抄，也不要输出分析过程。\n要求：\n1. 只输出JS...
+                └ <function llm_gemma at 0x0000020AE61979A0>
+
+> File "C:\Users\nuc\Desktop\xining_kg\utils\myllm.py", line 16, in llm_gemma
+    response = client.chat.completions.create(
+               │      │    │           └ <function Completions.create at 0x0000020AEB337880>
+               │      │    └ <openai.resources.chat.completions.completions.Completions object at 0x0000020AEBCAFE50>
+               │      └ <openai.resources.chat.chat.Chat object at 0x0000020AEBCAFCA0>
+               └ <openai.OpenAI object at 0x0000020AEBCAFC40>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           │     │       └ {'model': '/mnt/gemma-4-26B-A4B-it', 'messages': [{'role': 'user', 'content': '你是一个军事知识图谱推理助手。下面给出的是目标实体在Neo4j知识图谱中的相关节点、入边、出...
+           │     └ (<openai.resources.chat.completions.completions.Completions object at 0x0000020AEBCAFE50>,)
+           └ <function Completions.create at 0x0000020AEB3377F0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\openai\resources\chat\completions\completions.py", line 1215, in create
+    return self._post(
+           │    └ <bound method SyncAPIClient.post of <openai.OpenAI object at 0x0000020AEBCAFC40>>
+           └ <openai.resources.chat.completions.completions.Completions object at 0x0000020AEBCAFE50>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+           │    │          │    │       │        │            │                  └ openai.Stream[openai.types.chat.chat_completion_chunk.ChatCompletionChunk]
+           │    │          │    │       │        │            └ False
+           │    │          │    │       │        └ FinalRequestOptions(method='post', url='/chat/completions', params={}, headers=NOT_GIVEN, max_retries=NOT_GIVEN, timeout=NOT_...
+           │    │          │    │       └ <class 'openai.types.chat.chat_completion.ChatCompletion'>
+           │    │          │    └ <function SyncAPIClient.request at 0x0000020AE6BE8F70>
+           │    │          └ <openai.OpenAI object at 0x0000020AEBCAFC40>
+           │    └ ~ResponseT
+           └ <function cast at 0x0000020AE2B51360>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+          │    └ <function BaseClient._make_status_error_from_response at 0x0000020AE6BDBA30>
+          └ <openai.OpenAI object at 0x0000020AEBCAFC40>
+
+openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 32768 tokens. However, you requested 0 output tokens and your prompt contains at least 32769 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=32769)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+2026-05-26 14:19:51.062 | ERROR    | utils.myllm:llm_gemma:24 - LLM 调用失败
+Traceback (most recent call last):
+
+  File "C:\Users\nuc\Desktop\xining_kg\app_server.py", line 188, in <module>
+    uvicorn.run("app_server:app", host=APP_HOST, port=APP_PORT, reload=False)
+    │       │                          │              └ 5000
+    │       │                          └ '0.0.0.0'
+    │       └ <function run at 0x0000020AE5FB2830>
+    └ <module 'uvicorn' from 'D:\\software\\Anaconda3\\envs\\xn\\lib\\site-packages\\uvicorn\\__init__.py'>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\uvicorn\main.py", line 620, in run
+    server.run()
+    │      └ <function Server.run at 0x0000020AE5F903A0>
+    └ <uvicorn.server.Server object at 0x0000020AE5F96950>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\uvicorn\server.py", line 75, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           │           │    │             │                      │    │      └ <function Config.get_loop_factory at 0x0000020AE5F61480>
+           │           │    │             │                      │    └ <uvicorn.config.Config object at 0x0000020AE5DCD9C0>
+           │           │    │             │                      └ <uvicorn.server.Server object at 0x0000020AE5F96950>
+           │           │    │             └ None
+           │           │    └ <function Server.serve at 0x0000020AE5F90430>
+           │           └ <uvicorn.server.Server object at 0x0000020AE5F96950>
+           └ <function asyncio_run at 0x0000020AE5F3AC20>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\uvicorn\_compat.py", line 60, in asyncio_run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object Server.serve at 0x0000020AE5F72CE0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x0000020AE3419A20>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "D:\software\Anaconda3\envs\xn\lib\asyncio\base_events.py", line 636, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x0000020AE4C86CB0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "D:\software\Anaconda3\envs\xn\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "D:\software\Anaconda3\envs\xn\lib\asyncio\base_events.py", line 603, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000020AE341B490>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "D:\software\Anaconda3\envs\xn\lib\asyncio\base_events.py", line 1909, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000020AE33C2CB0>
+    └ <Handle <TaskStepMethWrapper object at 0x0000020AE618D7E0>()>
+
+  File "D:\software\Anaconda3\envs\xn\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle <TaskStepMethWrapper object at 0x0000020AE618D7E0>()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle <TaskStepMethWrapper object at 0x0000020AE618D7E0>()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle <TaskStepMethWrapper object at 0x0000020AE618D7E0>()>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 415, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000020AE61222C0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 56, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618DA50>>
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x0000020AE5DCDD80>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000020AE61222C0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618DA50>>
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618DA50>>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000020AE618D0F0>
+          └ <fastapi.applications.FastAPI object at 0x0000020AE5DCDD80>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000020AEBD228C0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000020AE618D0C0>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000020AE618D0F0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000020AEBD228C0>
+          │                            │    │    │     │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+          │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │                            │    │    └ <starlette.requests.Request object at 0x0000020AEB168850>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000020AE618D060>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000020AE618D0C0>
+          └ <function wrap_app_handling_exceptions at 0x0000020AE5BCCC10>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD231C0>
+          │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000020AE618D060>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD231C0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x0000020AE5F96AA0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000020AE618D060>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD231C0>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x0000020AE5F96AA0>>
+          └ <fastapi.routing.APIRouter object at 0x0000020AE5F96AA0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD231C0>
+          │     │      │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │     └ <function Route.handle at 0x0000020AE5BCE290>
+          └ APIRoute(path='/api/knowledge_graph/inference', name='knowledge_graph_inference_api', methods=['POST'])
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD231C0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x0000020AE5FBC0D0>
+          └ APIRoute(path='/api/knowledge_graph/inference', name='knowledge_graph_inference_api', methods=['POST'])
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD231C0>
+          │                            │    │        │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+          │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          │                            │    └ <starlette.requests.Request object at 0x0000020AEBB46740>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000020AEBD237F0>
+          └ <function wrap_app_handling_exceptions at 0x0000020AE5BCCC10>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020AEBD23A30>
+          │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000020AE618D...
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 5000), 'cl...
+          └ <function request_response.<locals>.app.<locals>.app at 0x0000020AEBD237F0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000020AEBB46740>
+                     └ <function get_request_handler.<locals>.app at 0x0000020AE5FBC040>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000020AE5BCFEB0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\fastapi\routing.py", line 290, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'target': 'T-90S'}
+                 │         └ <function knowledge_graph_inference_api at 0x0000020AE5FB3AC0>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Form(Pydant...
+
+  File "C:\Users\nuc\Desktop\xining_kg\app_server.py", line 122, in knowledge_graph_inference_api
+    result = inference_wrapper(target)
+             │                 └ 'T-90S'
+             └ <function inference_wrapper at 0x0000020AE61963B0>
+
+  File "C:\Users\nuc\Desktop\xining_kg\algorithms\knowledge_graph\inference.py", line 1144, in inference_wrapper
+    resultall = engine.infer(target, use_llm=DEFAULT_USE_LLM)
+                │      │     │               └ True
+                │      │     └ 'T-90S'
+                │      └ <function KGInferenceEngine.infer at 0x0000020AE6D88310>
+                └ <algorithms.knowledge_graph.inference.KGInferenceEngine object at 0x0000020AE618DE70>
+
+  File "C:\Users\nuc\Desktop\xining_kg\algorithms\knowledge_graph\inference.py", line 290, in infer
+    self._attach_result_dict(result, use_llm=use_llm)
+    │    │                   │               └ True
+    │    │                   └ InferenceResult(target='T-90S', matched_entities=[{'score': 320, 'id': '58', 'label': '车辆', 'name': 'T-90S', 'properties': {'...
+    │    └ <function KGInferenceEngine._attach_result_dict at 0x0000020AE6D883A0>
+    └ <algorithms.knowledge_graph.inference.KGInferenceEngine object at 0x0000020AE618DE70>
+
+  File "C:\Users\nuc\Desktop\xining_kg\algorithms\knowledge_graph\inference.py", line 296, in _attach_result_dict
+    result.result = self.build_llm_summary(result)
+    │      │        │    │                 └ InferenceResult(target='T-90S', matched_entities=[{'score': 320, 'id': '58', 'label': '车辆', 'name': 'T-90S', 'properties': {'...
+    │      │        │    └ <function KGInferenceEngine.build_llm_summary at 0x0000020AE6D88DC0>
+    │      │        └ <algorithms.knowledge_graph.inference.KGInferenceEngine object at 0x0000020AE618DE70>
+    │      └ {}
+    └ InferenceResult(target='T-90S', matched_entities=[{'score': 320, 'id': '58', 'label': '车辆', 'name': 'T-90S', 'properties': {'...
+
+  File "C:\Users\nuc\Desktop\xining_kg\algorithms\knowledge_graph\inference.py", line 742, in build_llm_summary
+    llm_text = (llm_gemma(prompt) or "").strip()
+                │         └ '你是一个军事知识图谱推理助手。下面给出的是目标实体在Neo4j知识图谱中的相关节点、入边、出边、关联路径、事件上下文和统计信息。\n请根据这些图谱信息生成两个中文自然语言字段，不要使用固定模板照抄，也不要输出分析过程。\n要求：\n1. 只输出JS...
+                └ <function llm_gemma at 0x0000020AE61979A0>
+
+> File "C:\Users\nuc\Desktop\xining_kg\utils\myllm.py", line 16, in llm_gemma
+    response = client.chat.completions.create(
+               │      │    │           └ <function Completions.create at 0x0000020AEB337880>
+               │      │    └ <openai.resources.chat.completions.completions.Completions object at 0x0000020AEBD4DE10>
+               │      └ <openai.resources.chat.chat.Chat object at 0x0000020AEBD4DC60>
+               └ <openai.OpenAI object at 0x0000020AEBD4DC00>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           │     │       └ {'model': '/mnt/gemma-4-26B-A4B-it', 'messages': [{'role': 'user', 'content': '你是一个军事知识图谱推理助手。下面给出的是目标实体在Neo4j知识图谱中的相关节点、入边、出...
+           │     └ (<openai.resources.chat.completions.completions.Completions object at 0x0000020AEBD4DE10>,)
+           └ <function Completions.create at 0x0000020AEB3377F0>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\openai\resources\chat\completions\completions.py", line 1215, in create
+    return self._post(
+           │    └ <bound method SyncAPIClient.post of <openai.OpenAI object at 0x0000020AEBD4DC00>>
+           └ <openai.resources.chat.completions.completions.Completions object at 0x0000020AEBD4DE10>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+           │    │          │    │       │        │            │                  └ openai.Stream[openai.types.chat.chat_completion_chunk.ChatCompletionChunk]
+           │    │          │    │       │        │            └ False
+           │    │          │    │       │        └ FinalRequestOptions(method='post', url='/chat/completions', params={}, headers=NOT_GIVEN, max_retries=NOT_GIVEN, timeout=NOT_...
+           │    │          │    │       └ <class 'openai.types.chat.chat_completion.ChatCompletion'>
+           │    │          │    └ <function SyncAPIClient.request at 0x0000020AE6BE8F70>
+           │    │          └ <openai.OpenAI object at 0x0000020AEBD4DC00>
+           │    └ ~ResponseT
+           └ <function cast at 0x0000020AE2B51360>
+
+  File "D:\software\Anaconda3\envs\xn\lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+          │    └ <function BaseClient._make_status_error_from_response at 0x0000020AE6BDBA30>
+          └ <openai.OpenAI object at 0x0000020AEBD4DC00>
+
+openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 32768 tokens. However, you requested 0 output tokens and your prompt contains at least 32769 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=32769)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+2026-05-26 14:20:10.666 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:17 - 开始搜索数据库，输入: T-90S
+2026-05-26 14:20:10.770 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:25 - 任务完成，查询目标=T-90S, 耗时=100.57687759399414
+2026-05-26 15:03:08.136 | INFO     | app_server:startup_event:69 - 服务启动完成
+2026-05-26 15:03:08.137 | INFO     | app_server:startup_event:70 - 上传目录: data\upload
+2026-05-26 15:03:08.137 | INFO     | app_server:startup_event:71 - 输出目录: data\output
+2026-05-26 15:03:22.929 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:17 - 开始搜索数据库，输入: T-90S
+2026-05-26 15:03:23.002 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:25 - 任务完成，查询目标=T-90S, 耗时=68.76683235168457
+2026-05-26 15:25:06.190 | INFO     | app_server:startup_event:68 - 服务启动完成
+2026-05-26 15:25:06.190 | INFO     | app_server:startup_event:69 - 上传目录: data\upload
+2026-05-26 15:25:06.190 | INFO     | app_server:startup_event:70 - 输出目录: data\output
+2026-05-26 15:25:15.526 | INFO     | app_server:knowledge_graph_construction_api:81 - 收到文件: name=example.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-26 15:25:15.527 | INFO     | app_server:knowledge_graph_construction_api:84 - 文件已保存: data\upload\upload_1990d0e1ded64c2d9c09a16079ddbd55.docx
+2026-05-26 15:25:15.528 | INFO     | app_server:knowledge_graph_construction_api:81 - 收到文件: name=news.json, type=application/json
+2026-05-26 15:25:15.529 | INFO     | app_server:knowledge_graph_construction_api:84 - 文件已保存: data\upload\upload_5415db35661f49e78e5e9741c474964a.json
+2026-05-26 15:25:23.711 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 25 column 15 (char 877), 原始内容: [
+  {
+    "事件主题": "拉达克地区中印边境对峙升级",
+    "时间": ["2026-05-12 08:30"],
+    "地点信息": {
+      "规范化地名": "拉达克
+2026-05-26 15:25:23.712 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 53 column 15 (char 936), 原始内容: [
+  {
+    "事件主题": "拉达克纵深炮兵阵地威慑",
+    "时间": [],
+    "地点信息": {
+      "规范化地名": "拉达克纵深固定炮兵阵地",
+      "经纬
+2026-05-26 15:25:23.713 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 67 column 8 (char 1156), 原始内容: [
+  {
+    "事件主题": "锡金高地模拟突击演习",
+    "时间": [
+      "2023-03-21"
+    ],
+    "地点信息": {
+      "规范化地名": "
+2026-05-26 15:25:23.714 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 61 column 8 (char 1048), 原始内容: [
+  {
+    "事件主题": "印军第254装甲旅战术前移",
+    "时间": [
+      "2024-05-21"
+    ],
+    "地点信息": {
+      "规范化地名"
+2026-05-26 15:25:28.154 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 46 column 6 (char 789), 原始内容: [
+  {
+    "事件主题": "拉达克地区中印边境对峙升级",
+    "时间": [
+      "2026-05-12 08:30"
+    ],
+    "地点信息": {
+      "
+2026-05-26 15:25:55.412 | INFO     | app_server:knowledge_graph_construction_api:81 - 收到文件: name=example.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-26 15:25:55.414 | INFO     | app_server:knowledge_graph_construction_api:84 - 文件已保存: data\upload\upload_debd202a6ef5459f9df07f784ff437a9.docx
+2026-05-26 15:25:55.414 | INFO     | app_server:knowledge_graph_construction_api:81 - 收到文件: name=news.json, type=application/json
+2026-05-26 15:25:55.415 | INFO     | app_server:knowledge_graph_construction_api:84 - 文件已保存: data\upload\upload_ed702d3c00ff491d8c36b640d030fdf9.json
+2026-05-26 15:26:01.823 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 67 column 8 (char 1156), 原始内容: [
+  {
+    "事件主题": "锡金高地模拟突击演习",
+    "时间": [
+      "2023-03-21"
+    ],
+    "地点信息": {
+      "规范化地名": "
+2026-05-26 15:26:01.824 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 66 column 15 (char 1128), 原始内容: [
+  {
+    "事件主题": "印军第254装甲旅战术前移",
+    "时间": [
+      "2024-05-21"
+    ],
+    "地点信息": {
+      "规范化地名"
+2026-05-26 15:26:01.826 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 56 column 8 (char 923), 原始内容: [
+  {
+    "事件主题": "拉达克火箭炮打击与车队移动",
+    "时间": [
+      "2024-03-08"
+    ],
+    "地点信息": {
+      "规范化地名"
+2026-05-26 15:26:01.829 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 26 column 15 (char 907), 原始内容: [
+  {
+    "事件主题": "拉达克地区中印边境对峙升级",
+    "时间": ["2026-05-12 08:30"],
+    "地点信息": {
+      "规范化地名": "拉达克
+2026-05-26 15:26:06.137 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 46 column 6 (char 867), 原始内容: [
+  {
+    "事件主题": "拉达克地区中印边境对峙升级",
+    "时间": ["2026-05-12 08:30"],
+    "地点信息": {
+      "规范化地名": "拉达克
+2026-05-26 15:28:53.099 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 56 column 8 (char 923), 原始内容: [
+  {
+    "事件主题": "拉达克纵深炮兵阵地演习",
+    "时间": [
+      "未知"
+    ],
+    "地点信息": {
+      "规范化地名": "拉达克纵深固定
+2026-05-26 15:28:53.100 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 24 column 15 (char 907), 原始内容: [
+  {
+    "事件主题": "拉达克地区中印边境对峙升级",
+    "时间": ["2026-05-12 08:30"],
+    "地点信息": {
+      "规范化地名": "拉达克
+2026-05-26 15:28:53.101 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 68 column 8 (char 1198), 原始内容: [
+  {
+    "事件主题": "锡金高地模拟突击演习",
+    "时间": [
+      "2023-03-21"
+    ],
+    "地点信息": {
+      "规范化地名": "
+2026-05-26 15:28:53.102 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 48 column 15 (char 758), 原始内容: [
+  {
+    "事件主题": "印军第254装甲旅战术前移",
+    "时间": [
+      "2024-05-21"
+    ],
+    "地点信息": {
+      "规范化地名"
+2026-05-26 15:29:01.326 | WARNING  | utils.txt_to_json:llmstr2list:48 - JSON解析失败: Expecting ',' delimiter: line 46 column 6 (char 867), 原始内容: [
+  {
+    "事件主题": "拉达克地区中印边境对峙升级",
+    "时间": ["2026-05-12 08:30"],
+    "地点信息": {
+      "规范化地名": "拉达克
+2026-05-26 15:32:19.571 | WARNING  | utils.txt_to_json:llmstr2list:49 - JSON解析失败: Expecting ',' delimiter: line 462 column 15 (char 8875), 原始内容: [
+  {
+    "事件主题": "拉达克地区中印边境对峙升级",
+    "时间": ["2026-05-12 08:30"],
+    "地点信息": {
+      "规范化地名": "拉达克
+2026-05-26 15:32:20.051 | WARNING  | utils.txt_to_json:llmstr2list:49 - JSON解析失败: Expecting ',' delimiter: line 453 column 15 (char 8667), 原始内容: [
+  {
+    "事件主题": "拉达克地区中印边境对峙升级",
+    "时间": ["2026-05-12 08:30"],
+    "地点信息": {
+      "规范化地名": "拉达克
+2026-05-26 15:32:20.052 | WARNING  | utils.txt_to_json:llmstr2list:49 - JSON解析失败: Expecting ',' delimiter: line 528 column 25 (char 9653), 原始内容: [
+  {
+    "事件主题": "拉达克纵深炮兵火力打击模拟",
+    "时间": [],
+    "地点信息": {
+      "规范化地名": "拉达克纵深固定炮兵阵地",
+      "
+2026-05-26 15:33:51.547 | WARNING  | utils.txt_to_json:llmstr2list:49 - JSON解析失败: Expecting ',' delimiter: line 438 column 15 (char 8422), 原始内容: [
+  {
+    "事件主题": "拉达克地区中印边境对峙升级",
+    "时间": [
+      "2026-05-12 08:30"
+    ],
+    "地点信息": {
+      "
+2026-05-26 15:46:59.422 | INFO     | app_server:startup_event:68 - 服务启动完成
+2026-05-26 15:46:59.423 | INFO     | app_server:startup_event:69 - 上传目录: data\upload
+2026-05-26 15:46:59.423 | INFO     | app_server:startup_event:70 - 输出目录: data\output
+2026-05-26 15:47:13.221 | INFO     | app_server:knowledge_graph_construction_api:81 - 收到文件: name=example.json, type=application/json
+2026-05-26 15:47:13.223 | INFO     | app_server:knowledge_graph_construction_api:84 - 文件已保存: data\upload\upload_67a5b09544d040a79117006fbbb7cfb9.json
+2026-05-26 15:54:30.646 | INFO     | app_server:knowledge_graph_construction_api:81 - 收到文件: name=example.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-26 15:54:30.647 | INFO     | app_server:knowledge_graph_construction_api:84 - 文件已保存: data\upload\upload_6b1218b6f0654ce09585b1f74fe82326.docx
+2026-05-26 15:55:51.049 | WARNING  | utils.txt_to_json:llmstr2list:49 - JSON解析失败: Expecting ',' delimiter: line 452 column 15 (char 8443), 原始内容: [
+  {
+    "事件主题": "拉达克地区中印边境对峙升级",
+    "时间": [
+      "2026-05-12 08:30"
+    ],
+    "地点信息": {
+      "
+2026-05-26 15:55:51.050 | WARNING  | utils.txt_to_json:llmstr2list:49 - JSON解析失败: Expecting ',' delimiter: line 536 column 15 (char 9258), 原始内容: [
+  {
+    "事件主题": "拉达克纵深炮兵火力打击模拟",
+    "时间": [
+      "未知"
+    ],
+    "地点信息": {
+      "规范化地名": "拉达克西段
+2026-05-26 15:55:51.078 | WARNING  | utils.txt_to_json:llmstr2list:49 - JSON解析失败: Expecting ',' delimiter: line 518 column 15 (char 9046), 原始内容: [
+  {
+    "事件主题": "印军第254装甲旅战术前移",
+    "时间": [
+      "2024-05-21"
+    ],
+    "地点信息": {
+      "规范化地名"
+2026-05-26 16:13:03.671 | INFO     | app_server:startup_event:69 - 服务启动完成
+2026-05-26 16:13:03.671 | INFO     | app_server:startup_event:70 - 上传目录: data\upload
+2026-05-26 16:13:03.672 | INFO     | app_server:startup_event:71 - 输出目录: data\output
+2026-05-26 16:15:57.716 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:17 - 开始搜索数据库，输入: 火箭炮
+2026-05-26 16:15:57.809 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:25 - 任务完成，查询目标=火箭炮, 耗时=85.72030067443848
+2026-05-26 16:41:55.691 | INFO     | app_server:startup_event:69 - 服务启动完成
+2026-05-26 16:41:55.692 | INFO     | app_server:startup_event:70 - 上传目录: data\upload
+2026-05-26 16:41:55.692 | INFO     | app_server:startup_event:71 - 输出目录: data\output
+2026-05-26 16:42:07.157 | INFO     | app_server:knowledge_graph_construction_api:82 - 收到文件: name=example.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-26 16:42:07.159 | INFO     | app_server:knowledge_graph_construction_api:85 - 文件已保存: data\upload\upload_5a6660e4f6ca44729d41467327489a30.docx
+2026-05-26 16:46:29.780 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:17 - 开始搜索数据库，输入: T-90S
+2026-05-26 16:46:29.875 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:25 - 任务完成，查询目标=T-90S, 耗时=91.7055606842041
+2026-05-26 16:46:41.731 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:17 - 开始搜索数据库，输入: T-90S
+2026-05-26 16:46:41.761 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:25 - 任务完成，查询目标=T-90S, 耗时=25.330066680908203

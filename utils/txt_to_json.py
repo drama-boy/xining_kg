@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
+import argparse
 import json
 import concurrent.futures
 from functools import partial
+from pathlib import Path
 from tqdm import tqdm
 
 from config import init_config, logger
-from utils.myllm import llm_gemma_31b
+from utils.myllm import llm_gemma
 
 KG_CONFIG = init_config.get("knowledge_graph", {})
 DEFAULT_MAX_WORKERS = int(KG_CONFIG.get("max_workers", 5))
@@ -51,7 +53,7 @@ class graph_cls():
     def _process_passage(self, passage):
         """
         【核心修改】重写提示词：适配军事机理知识图谱抽取
-        严格匹配你的需求：实体类型、全面属性、显式关系、经纬度、风险等级、时空信息
+        严格匹配：实体类型、全面属性、显式关系、经纬度、风险等级、时空信息
         """
         prompt = f'''
         你是军事机理知识图谱抽取助手。请从下面文本中抽取事件、实体、属性和关系。
@@ -66,6 +68,11 @@ class graph_cls():
         6. 列表字段没有内容时输出 []；不要保留空模板对象。
         7. “类型”字段优先使用以下13个标准类别：反坦克锥、弹药库、油库、指挥部、有限掩体、加农炮、圆周掩体、坦克、正方型掩体、C型掩体、装甲车、运输车、堑壕。
            如果标准类别与其他类型存在包含关系、并列关系或重合关系，必须以这13个标准类别为准；不冲突的其他类型可保留为更细补充。
+        8. “风险等级”必须按以下依据判别：
+           - 高危：文本明示攻击、打击、开火、命中、伏击、战斗部署、火力引导、交战、摧毁等行为；或出现坦克、装甲车、火炮、导弹、弹药库、油库、指挥部等关键武器/高价值目标；或多个武装目标集中并形成明显作战威胁。
+           - 中危：文本描述侦察、巡逻、集结、运输、营地、防御工事、掩体、车辆停放、保障补给、阵地建设等军事活动或潜在威胁，但没有明确攻击行为。
+           - 低危：仅有静态、零散、低威胁目标或背景设施，缺少武装行动、敏感目标和紧张态势。
+           - 证据不足时选择较低等级，不要无依据升高风险。
 
         每个事件对象必须包含以下字段：
         {{
@@ -114,7 +121,6 @@ class graph_cls():
           "关联关系": [
             {{"头实体": "", "关系": "", "尾实体": "", "属性": {{}}, "证据": ""}}
           ],
-          "述谓结构": "主体 谓词 客体；如：99AE坦克 精确打击 模拟目标",
           "核心行为": "事件核心动作，如部署、侦察、打击、协同、指挥、前移、伏击、救援",
           "风险等级": "高危/中危/低危"
         }}
@@ -137,7 +143,7 @@ class graph_cls():
         {passage}
         '''
         try:
-            llmresult = llm_gemma_31b(prompt)
+            llmresult = llm_gemma(prompt)
             return self.llmstr2list(llmresult)
         except Exception as e:
             logger.exception("处理文本失败: {}", e)
@@ -164,11 +170,16 @@ class graph_cls():
 
 
 if __name__ == "__main__":
-    filepath = "./data/news.json"
-    with open(filepath, "r", encoding="utf-8") as f:
-        news_listdict_in = json.load(f)
+    parser = argparse.ArgumentParser(description="从文本文件抽取知识图谱事件 JSON")
+    parser.add_argument("path", type=Path, help="txt/md/csv 等文本文件路径")
+    parser.add_argument("--output", type=Path, default=Path("./data/out-5.20.2.json"))
+    args = parser.parse_args()
+
+    with args.path.open("r", encoding="utf-8") as f:
+        news_listdict_in = [{"title": args.path.name, "content": f.read()}]
     grapher = graph_cls()
     abstract_listdict = grapher.graph_main(news_listdict_in)
-    with open("./data/out-5.20.2.json", "w", encoding="utf-8") as f:
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    with args.output.open("w", encoding="utf-8") as f:
         json.dump(abstract_listdict, f, ensure_ascii=False, indent=1)
 

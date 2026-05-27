@@ -1,0 +1,286 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "风险等级",
+      "labels": [
+        "风险等级"
+      ],
+      "name": "中危",
+      "properties": {
+        "name": "中危",
+        "level": "中危",
+        "type": "风险等级",
+        "from_file": "upload_b243df5a1d3a45d581ee0d762d2d1253.jpg",
+        "desc": "风险等级节点：中危"
+      }
+    },
+    {
+      "id": 2,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "单辆多管火箭炮车辆停放",
+      "properties": {
+        "name": "单辆多管火箭炮车辆停放",
+        "event_topic": "单辆多管火箭炮车辆停放",
+        "from_file": "upload_b243df5a1d3a45d581ee0d762d2d1253.jpg",
+        "type": "事件",
+        "desc": "事件节点：单辆多管火箭炮车辆停放"
+      }
+    },
+    {
+      "id": 3,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "单辆多管火箭炮车辆停放-停放",
+      "properties": {
+        "name": "单辆多管火箭炮车辆停放-停放",
+        "event_topic": "单辆多管火箭炮车辆停放",
+        "core_behavior": "停放",
+        "risk_level": "中危",
+        "type": "行为",
+        "from_file": "upload_b243df5a1d3a45d581ee0d762d2d1253.jpg",
+        "desc": "行为节点：单辆多管火箭炮车辆停放-停放；事件单辆多管火箭炮车辆停放"
+      }
+    },
+    {
+      "id": 4,
+      "label": "装备设备",
+      "labels": [
+        "装备设备"
+      ],
+      "name": "多管火箭发射装置",
+      "properties": {
+        "name": "多管火箭发射装置",
+        "type": "装备设备",
+        "quantity": "车辆后部有1个",
+        "quantity_value": 1,
+        "quantity_unit": "个",
+        "location": "车辆后部",
+        "status": "待发",
+        "purpose": "远程打击",
+        "event_topic": "单辆多管火箭炮车辆停放",
+        "from_file": "upload_b243df5a1d3a45d581ee0d762d2d1253.jpg",
+        "desc": "装备设备节点：多管火箭发射装置；位置车辆后部；数量车辆后部有1个；状态待发；用途远程打击；事件单辆多管火箭炮车辆停放"
+      }
+    },
+    {
+      "id": 5,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "棚架下方",
+      "properties": {
+        "name": "棚架下方",
+        "normalized_place": "棚架下方",
+        "event_topic": "单辆多管火箭炮车辆停放",
+        "type": "地点",
+        "from_file": "upload_b243df5a1d3a45d581ee0d762d2d1253.jpg",
+        "desc": "地点节点：棚架下方；事件单辆多管火箭炮车辆停放"
+      }
+    },
+    {
+      "id": 6,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "火箭炮车辆",
+      "properties": {
+        "name": "火箭炮车辆",
+        "type": "运输车",
+        "quantity": "棚架下方有1辆",
+        "quantity_value": 1,
+        "quantity_unit": "辆",
+        "location": "棚架下方",
+        "status": "停放",
+        "purpose": "火力支援",
+        "speed": "0",
+        "event_topic": "单辆多管火箭炮车辆停放",
+        "from_file": "upload_b243df5a1d3a45d581ee0d762d2d1253.jpg",
+        "desc": "车辆节点：火箭炮车辆；类型运输车；位置棚架下方；数量棚架下方有1辆；状态停放；用途火力支援；事件单辆多管火箭炮车辆停放"
+      }
+    },
+    {
+      "id": 7,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "车辆上方",
+      "properties": {
+        "name": "车辆上方",
+        "normalized_place": "车辆上方",
+        "event_topic": "单辆多管火箭炮车辆停放",
+        "type": "地点",
+        "from_file": "upload_b243df5a1d3a45d581ee0d762d2d1253.jpg",
+        "desc": "地点节点：车辆上方；事件单辆多管火箭炮车辆停放"
+      }
+    },
+    {
+      "id": 8,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "车辆后部",
+      "properties": {
+        "name": "车辆后部",
+        "normalized_place": "车辆后部",
+        "event_topic": "单辆多管火箭炮车辆停放",
+        "type": "地点",
+        "from_file": "upload_b243df5a1d3a45d581ee0d762d2d1253.jpg",
+        "desc": "地点节点：车辆后部；事件单辆多管火箭炮车辆停放"
+      }
+    },
+    {
+      "id": 9,
+      "label": "设施",
+      "labels": [
+        "设施"
+      ],
+      "name": "遮蔽棚",
+      "properties": {
+        "name": "遮蔽棚",
+        "type": "设施",
+        "quantity": "车辆上方有1个",
+        "quantity_value": 1,
+        "quantity_unit": "个",
+        "location": "车辆上方",
+        "purpose": "车辆遮蔽",
+        "event_topic": "单辆多管火箭炮车辆停放",
+        "from_file": "upload_b243df5a1d3a45d581ee0d762d2d1253.jpg",
+        "desc": "设施节点：遮蔽棚；位置车辆上方；数量车辆上方有1个；用途车辆遮蔽；事件单辆多管火箭炮车辆停放"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": 2,
+      "relation": "包含行为",
+      "target": 3,
+      "properties": {}
+    },
+    {
+      "source": 3,
+      "relation": "涉及装备",
+      "target": 4,
+      "properties": {}
+    },
+    {
+      "source": 3,
+      "relation": "涉及设施",
+      "target": 9,
+      "properties": {}
+    },
+    {
+      "source": 3,
+      "relation": "涉及车辆",
+      "target": 6,
+      "properties": {}
+    },
+    {
+      "source": 3,
+      "relation": "风险等级",
+      "target": 1,
+      "properties": {}
+    },
+    {
+      "source": 4,
+      "relation": "位于",
+      "target": 8,
+      "properties": {}
+    },
+    {
+      "source": 4,
+      "relation": "安装于",
+      "target": 6,
+      "properties": {
+        "evidence": "发射装置集成在车辆底盘后部"
+      }
+    },
+    {
+      "source": 6,
+      "relation": "位于",
+      "target": 5,
+      "properties": {}
+    },
+    {
+      "source": 6,
+      "relation": "位于",
+      "target": 9,
+      "properties": {
+        "evidence": "车辆停放在金属框架棚架结构下方"
+      }
+    },
+    {
+      "source": 9,
+      "relation": "位于",
+      "target": 7,
+      "properties": {}
+    }
+  ],
+  "links": [
+    {
+      "source": 2,
+      "target": 3,
+      "relation": "包含行为"
+    },
+    {
+      "source": 3,
+      "target": 4,
+      "relation": "涉及装备"
+    },
+    {
+      "source": 3,
+      "target": 9,
+      "relation": "涉及设施"
+    },
+    {
+      "source": 3,
+      "target": 6,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 3,
+      "target": 1,
+      "relation": "风险等级"
+    },
+    {
+      "source": 4,
+      "target": 8,
+      "relation": "位于"
+    },
+    {
+      "source": 4,
+      "target": 6,
+      "relation": "安装于",
+      "properties": {
+        "evidence": "发射装置集成在车辆底盘后部"
+      }
+    },
+    {
+      "source": 6,
+      "target": 5,
+      "relation": "位于"
+    },
+    {
+      "source": 6,
+      "target": 9,
+      "relation": "位于",
+      "properties": {
+        "evidence": "车辆停放在金属框架棚架结构下方"
+      }
+    },
+    {
+      "source": 9,
+      "target": 7,
+      "relation": "位于"
+    }
+  ]
+}
