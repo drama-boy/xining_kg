@@ -1,0 +1,154 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "风险等级",
+      "labels": [
+        "风险等级"
+      ],
+      "name": "中危",
+      "properties": {
+        "name": "中危",
+        "level": "中危",
+        "type": "风险等级",
+        "from_file": "upload_fe32cd73347d4c69813cf4ddf3352b63.jpeg",
+        "desc": "风险等级节点：中危"
+      }
+    },
+    {
+      "id": 2,
+      "label": "兵种",
+      "labels": [
+        "兵种"
+      ],
+      "name": "步兵小组",
+      "properties": {
+        "name": "步兵小组",
+        "type": "步兵",
+        "quantity": "步兵小组数量5个",
+        "quantity_value": 5,
+        "quantity_unit": "个",
+        "mission": "警戒/战斗部署",
+        "event_topic": "武装人员与装甲车协同行动",
+        "from_file": "upload_fe32cd73347d4c69813cf4ddf3352b63.jpeg",
+        "desc": "兵种节点：步兵小组；类型步兵；数量步兵小组数量5个；任务警戒/战斗部署；事件武装人员与装甲车协同行动"
+      }
+    },
+    {
+      "id": 3,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "武装人员与装甲车协同行动",
+      "properties": {
+        "name": "武装人员与装甲车协同行动",
+        "event_topic": "武装人员与装甲车协同行动",
+        "from_file": "upload_fe32cd73347d4c69813cf4ddf3352b63.jpeg",
+        "type": "事件",
+        "desc": "事件节点：武装人员与装甲车协同行动"
+      }
+    },
+    {
+      "id": 4,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "武装人员与装甲车协同行动-战斗部署",
+      "properties": {
+        "name": "武装人员与装甲车协同行动-战斗部署",
+        "event_topic": "武装人员与装甲车协同行动",
+        "core_behavior": "战斗部署",
+        "risk_level": "中危",
+        "type": "行为",
+        "from_file": "upload_fe32cd73347d4c69813cf4ddf3352b63.jpeg",
+        "desc": "行为节点：武装人员与装甲车协同行动-战斗部署；事件武装人员与装甲车协同行动"
+      }
+    },
+    {
+      "id": 5,
+      "label": "车辆",
+      "labels": [
+        "车辆"
+      ],
+      "name": "装甲车",
+      "properties": {
+        "name": "装甲车",
+        "type": "装甲车",
+        "quantity": "装甲车数量2辆",
+        "quantity_value": 2,
+        "quantity_unit": "辆",
+        "mission": "掩护/机动",
+        "status": "停放/部署",
+        "event_topic": "武装人员与装甲车协同行动",
+        "from_file": "upload_fe32cd73347d4c69813cf4ddf3352b63.jpeg",
+        "desc": "车辆节点：装甲车；数量装甲车数量2辆；任务掩护/机动；状态停放/部署；事件武装人员与装甲车协同行动"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": 2,
+      "relation": "协同",
+      "target": 5,
+      "properties": {
+        "evidence": "人员围绕装甲车进行战斗姿态部署"
+      }
+    },
+    {
+      "source": 3,
+      "relation": "包含行为",
+      "target": 4,
+      "properties": {}
+    },
+    {
+      "source": 4,
+      "relation": "涉及兵种",
+      "target": 2,
+      "properties": {}
+    },
+    {
+      "source": 4,
+      "relation": "涉及车辆",
+      "target": 5,
+      "properties": {}
+    },
+    {
+      "source": 4,
+      "relation": "风险等级",
+      "target": 1,
+      "properties": {}
+    }
+  ],
+  "links": [
+    {
+      "source": 2,
+      "target": 5,
+      "relation": "协同",
+      "properties": {
+        "evidence": "人员围绕装甲车进行战斗姿态部署"
+      }
+    },
+    {
+      "source": 3,
+      "target": 4,
+      "relation": "包含行为"
+    },
+    {
+      "source": 4,
+      "target": 2,
+      "relation": "涉及兵种"
+    },
+    {
+      "source": 4,
+      "target": 5,
+      "relation": "涉及车辆"
+    },
+    {
+      "source": 4,
+      "target": 1,
+      "relation": "风险等级"
+    }
+  ]
+}

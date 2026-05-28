@@ -22,7 +22,7 @@ def retrieve_wrapper(query: str):
         logger.error("搜索数据库失败: {}", query)
         return None
 
-    logger.info("任务完成，查询目标={}, 耗时={}", result["target_entity"], result.get("processing_time_ms"))
+    logger.info("任务完成，查询目标={}, 耗时={}毫秒", result["target_entity"], result.get("processing_time_ms"))
     return {
         "target_entity": result["target_entity"],
         "entity_info": result.get("entity_info", ""),

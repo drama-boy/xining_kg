@@ -1,0 +1,357 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "装备设备",
+      "labels": [
+        "装备设备"
+      ],
+      "name": "120mm迫击炮炮弹",
+      "properties": {
+        "name": "120mm迫击炮炮弹",
+        "type": "弹药",
+        "model": "120mm迫击炮炮弹",
+        "quantity": "实控线附近有800门",
+        "quantity_value": 800,
+        "quantity_unit": "门",
+        "location": "实控线附近",
+        "mission": "存储",
+        "caliber": "120mm",
+        "event_topic": "前沿弹药库部署与物资存储",
+        "from_file": "upload_801f199c66f04274a6b92556ca341517.txt",
+        "desc": "装备设备节点：120mm迫击炮炮弹；类型弹药；位置实控线附近；数量实控线附近有800门；任务存储；事件前沿弹药库部署与物资存储"
+      }
+    },
+    {
+      "id": 2,
+      "label": "时间",
+      "labels": [
+        "时间"
+      ],
+      "name": "27号",
+      "properties": {
+        "name": "27号",
+        "time": "27号",
+        "type": "时间",
+        "from_file": "upload_801f199c66f04274a6b92556ca341517.txt",
+        "desc": "时间节点：27号"
+      }
+    },
+    {
+      "id": 3,
+      "label": "地点",
+      "labels": [
+        "地点",
+        "工事"
+      ],
+      "name": "前沿弹药库",
+      "properties": {
+        "name": "前沿弹药库",
+        "normalized_place": "前沿弹药库",
+        "direction": "距实控线11公里处",
+        "distance": "11公里",
+        "event_topic": "前沿弹药库部署与物资存储",
+        "type": [
+          "弹药库",
+          "地点"
+        ],
+        "from_file": "upload_801f199c66f04274a6b92556ca341517.txt",
+        "desc": "地点节点：前沿弹药库；类型弹药库、地点；位置距实控线11公里处；数量距实控线11公里处有1枚；状态部署中；用途存储120mm迫击炮炮弹及短号反坦克导弹；事件前沿弹药库部署与物资存储",
+        "quantity": "距实控线11公里处有1枚",
+        "quantity_value": 1,
+        "quantity_unit": "枚",
+        "location": "距实控线11公里处",
+        "status": "部署中",
+        "purpose": "存储120mm迫击炮炮弹及短号反坦克导弹"
+      }
+    },
+    {
+      "id": 4,
+      "label": "事件",
+      "labels": [
+        "事件"
+      ],
+      "name": "前沿弹药库部署与物资存储",
+      "properties": {
+        "name": "前沿弹药库部署与物资存储",
+        "event_topic": "前沿弹药库部署与物资存储",
+        "from_file": "upload_801f199c66f04274a6b92556ca341517.txt",
+        "type": "事件",
+        "desc": "事件节点：前沿弹药库部署与物资存储"
+      }
+    },
+    {
+      "id": 5,
+      "label": "行为",
+      "labels": [
+        "行为"
+      ],
+      "name": "前沿弹药库部署与物资存储-部署",
+      "properties": {
+        "name": "前沿弹药库部署与物资存储-部署",
+        "event_topic": "前沿弹药库部署与物资存储",
+        "core_behavior": "部署",
+        "risk_level": "高危",
+        "type": "行为",
+        "from_file": "upload_801f199c66f04274a6b92556ca341517.txt",
+        "desc": "行为节点：前沿弹药库部署与物资存储-部署；事件前沿弹药库部署与物资存储"
+      }
+    },
+    {
+      "id": 6,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "实控线",
+      "properties": {
+        "name": "实控线",
+        "normalized_place": "实控线",
+        "event_topic": "前沿弹药库部署与物资存储",
+        "type": "地点",
+        "from_file": "upload_801f199c66f04274a6b92556ca341517.txt",
+        "desc": "地点节点：实控线；事件前沿弹药库部署与物资存储"
+      }
+    },
+    {
+      "id": 7,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "实控线附近",
+      "properties": {
+        "name": "实控线附近",
+        "normalized_place": "实控线附近",
+        "event_topic": "前沿弹药库部署与物资存储",
+        "type": "地点",
+        "from_file": "upload_801f199c66f04274a6b92556ca341517.txt",
+        "desc": "地点节点：实控线附近；事件前沿弹药库部署与物资存储"
+      }
+    },
+    {
+      "id": 8,
+      "label": "装备设备",
+      "labels": [
+        "装备设备"
+      ],
+      "name": "短号",
+      "properties": {
+        "name": "短号",
+        "type": "导弹",
+        "model": "短号",
+        "quantity": "实控线附近有60枚",
+        "quantity_value": 60,
+        "quantity_unit": "枚",
+        "location": "实控线附近",
+        "mission": "存储",
+        "event_topic": "前沿弹药库部署与物资存储",
+        "from_file": "upload_801f199c66f04274a6b92556ca341517.txt",
+        "desc": "装备设备节点：短号；类型导弹；位置实控线附近；数量实控线附近有60枚；任务存储；事件前沿弹药库部署与物资存储"
+      }
+    },
+    {
+      "id": 9,
+      "label": "地点",
+      "labels": [
+        "地点"
+      ],
+      "name": "距实控线11公里处",
+      "properties": {
+        "name": "距实控线11公里处",
+        "normalized_place": "距实控线11公里处",
+        "event_topic": "前沿弹药库部署与物资存储",
+        "type": "地点",
+        "from_file": "upload_801f199c66f04274a6b92556ca341517.txt",
+        "desc": "地点节点：距实控线11公里处；事件前沿弹药库部署与物资存储"
+      }
+    },
+    {
+      "id": 10,
+      "label": "风险等级",
+      "labels": [
+        "风险等级"
+      ],
+      "name": "高危",
+      "properties": {
+        "name": "高危",
+        "level": "高危",
+        "type": "风险等级",
+        "from_file": "upload_801f199c66f04274a6b92556ca341517.txt",
+        "desc": "风险等级节点：高危"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": 1,
+      "relation": "位于",
+      "target": 7,
+      "properties": {}
+    },
+    {
+      "source": 3,
+      "relation": "位于",
+      "target": 9,
+      "properties": {}
+    },
+    {
+      "source": 3,
+      "relation": "存储",
+      "target": 1,
+      "properties": {
+        "数量": "800发",
+        "evidence": "内部存储120mm迫击炮炮弹800发"
+      }
+    },
+    {
+      "source": 3,
+      "relation": "存储",
+      "target": 8,
+      "properties": {
+        "数量": "60枚",
+        "evidence": "及短号反坦克导弹60枚"
+      }
+    },
+    {
+      "source": 4,
+      "relation": "包含行为",
+      "target": 5,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "发生地点",
+      "target": 7,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "发生时间",
+      "target": 2,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "涉及地点",
+      "target": 3,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "涉及地点",
+      "target": 6,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "涉及工事",
+      "target": 3,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "涉及装备",
+      "target": 1,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "涉及装备",
+      "target": 8,
+      "properties": {}
+    },
+    {
+      "source": 5,
+      "relation": "风险等级",
+      "target": 10,
+      "properties": {}
+    },
+    {
+      "source": 8,
+      "relation": "位于",
+      "target": 7,
+      "properties": {}
+    }
+  ],
+  "links": [
+    {
+      "source": 1,
+      "target": 7,
+      "relation": "位于"
+    },
+    {
+      "source": 3,
+      "target": 9,
+      "relation": "位于"
+    },
+    {
+      "source": 3,
+      "target": 1,
+      "relation": "存储",
+      "properties": {
+        "数量": "800发",
+        "evidence": "内部存储120mm迫击炮炮弹800发"
+      }
+    },
+    {
+      "source": 3,
+      "target": 8,
+      "relation": "存储",
+      "properties": {
+        "数量": "60枚",
+        "evidence": "及短号反坦克导弹60枚"
+      }
+    },
+    {
+      "source": 4,
+      "target": 5,
+      "relation": "包含行为"
+    },
+    {
+      "source": 5,
+      "target": 7,
+      "relation": "发生地点"
+    },
+    {
+      "source": 5,
+      "target": 2,
+      "relation": "发生时间"
+    },
+    {
+      "source": 5,
+      "target": 3,
+      "relation": "涉及地点"
+    },
+    {
+      "source": 5,
+      "target": 6,
+      "relation": "涉及地点"
+    },
+    {
+      "source": 5,
+      "target": 3,
+      "relation": "涉及工事"
+    },
+    {
+      "source": 5,
+      "target": 1,
+      "relation": "涉及装备"
+    },
+    {
+      "source": 5,
+      "target": 8,
+      "relation": "涉及装备"
+    },
+    {
+      "source": 5,
+      "target": 10,
+      "relation": "风险等级"
+    },
+    {
+      "source": 8,
+      "target": 7,
+      "relation": "位于"
+    }
+  ]
+}

@@ -1255,9 +1255,11 @@ def inference_wrapper(
         user=neo4j_user,
         password=neo4j_password,
     )
+    logger.info("开始进行关联分析，输入: {}", target)
     resultall = engine.infer(target, use_llm=DEFAULT_USE_LLM)
     t2 = time()
     resultall.result["processing_time_s"] = t2 - t1
+    logger.info("任务完成，耗时={}秒", resultall.result.get("processing_time_s"))
     return resultall.result
 
 
