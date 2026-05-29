@@ -3,3 +3,47 @@
 2026-05-29 09:33:53.599 | INFO     | app_server:startup_event:76 - 输出目录: data\output
 2026-05-29 09:34:06.242 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:58 - 开始搜索数据库，输入: 1111
 2026-05-29 09:34:06.828 | ERROR    | algorithms.knowledge_graph.retriever:retrieve_wrapper:62 - 搜索数据库失败: 1111
+2026-05-29 10:25:43.606 | INFO     | app_server:startup_event:74 - 服务启动完成
+2026-05-29 10:25:43.607 | INFO     | app_server:startup_event:75 - 上传目录: data\upload
+2026-05-29 10:25:43.607 | INFO     | app_server:startup_event:76 - 输出目录: data\output
+2026-05-29 10:26:43.414 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:58 - 开始搜索数据库，输入: T-90S主站坦克
+2026-05-29 10:26:43.608 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:65 - 任务完成，查询目标=T-90S, 耗时=0.07924294471740723秒
+2026-05-29 10:27:11.252 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:58 - 开始搜索数据库，输入: T-90S11
+2026-05-29 10:27:11.287 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:65 - 任务完成，查询目标=T-90S, 耗时=0.03388643264770508秒
+2026-05-29 11:11:02.795 | INFO     | app_server:startup_event:74 - 服务启动完成
+2026-05-29 11:11:02.795 | INFO     | app_server:startup_event:75 - 上传目录: data\upload
+2026-05-29 11:11:02.795 | INFO     | app_server:startup_event:76 - 输出目录: data\output
+2026-05-29 11:11:29.457 | INFO     | app_server:knowledge_graph_file_query_api:194 - 收到问询文件: name=INSAS突击步枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:11:57.758 | INFO     | app_server:knowledge_graph_file_query_api:194 - 收到问询文件: name=INSAS突击步枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:11:57.761 | INFO     | app_server:knowledge_graph_file_query_api:194 - 收到问询文件: name=INSAS LMG轻机枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:21:10.215 | INFO     | app_server:startup_event:74 - 服务启动完成
+2026-05-29 11:21:10.215 | INFO     | app_server:startup_event:75 - 上传目录: data\upload
+2026-05-29 11:21:10.216 | INFO     | app_server:startup_event:76 - 输出目录: data\output
+2026-05-29 11:21:14.711 | INFO     | app_server:knowledge_graph_file_query_api:194 - 收到查询文件: name=INSAS突击步枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:21:14.713 | INFO     | app_server:knowledge_graph_file_query_api:194 - 收到查询文件: name=INSAS LMG轻机枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:24:31.107 | INFO     | app_server:startup_event:74 - 服务启动完成
+2026-05-29 11:24:31.107 | INFO     | app_server:startup_event:75 - 上传目录: data\upload
+2026-05-29 11:24:31.108 | INFO     | app_server:startup_event:76 - 输出目录: data\output
+2026-05-29 11:24:32.570 | INFO     | app_server:knowledge_graph_file_query_api:194 - 收到查询文件: name=INSAS突击步枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:24:32.571 | INFO     | app_server:knowledge_graph_file_query_api:194 - 收到查询文件: name=INSAS LMG轻机枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:28:03.519 | INFO     | app_server:startup_event:74 - 服务启动完成
+2026-05-29 11:28:03.525 | INFO     | app_server:startup_event:75 - 上传目录: data\upload
+2026-05-29 11:28:03.555 | INFO     | app_server:startup_event:76 - 输出目录: data\output
+2026-05-29 11:28:07.476 | INFO     | app_server:knowledge_graph_file_query_api:194 - 收到查询文件: name=INSAS突击步枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:28:07.478 | INFO     | app_server:knowledge_graph_file_query_api:194 - 收到查询文件: name=INSAS LMG轻机枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:32:12.622 | INFO     | app_server:startup_event:74 - 服务启动完成
+2026-05-29 11:32:12.623 | INFO     | app_server:startup_event:75 - 上传目录: data\upload
+2026-05-29 11:32:12.623 | INFO     | app_server:startup_event:76 - 输出目录: data\output
+2026-05-29 11:32:16.443 | INFO     | app_server:knowledge_graph_file_query_api:194 - 收到查询文件: name=INSAS突击步枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:32:16.445 | INFO     | app_server:knowledge_graph_file_query_api:194 - 收到查询文件: name=INSAS LMG轻机枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:33:35.519 | INFO     | app_server:knowledge_graph_construction_api:88 - 收到文件: name=INSAS LMG轻机枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:33:35.523 | INFO     | app_server:knowledge_graph_construction_api:91 - 文件已保存: data\upload\upload_df5639b211a24a02a9ab642ac94a4fbc.docx
+2026-05-29 11:33:35.524 | INFO     | app_server:knowledge_graph_construction_api:88 - 收到文件: name=INSAS LMG轻机枪.docx, type=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+2026-05-29 11:33:35.525 | INFO     | app_server:knowledge_graph_construction_api:91 - 文件已保存: data\upload\upload_82dd91ae2b524984827db4816d152edd.docx
+2026-05-29 11:33:35.525 | INFO     | app_server:knowledge_graph_construction_api:88 - 收到文件: name=-_-_-_-_-21_-_-_-_-_-_-_jpeg_jpg.rf.c9e808ad43a1547ff01023378a532c7e.jpg, type=image/jpeg
+2026-05-29 11:33:35.526 | INFO     | app_server:knowledge_graph_construction_api:91 - 文件已保存: data\upload\upload_78d21de608af4af4b8a6d7b279b0dd4a.jpg
+2026-05-29 11:33:58.636 | INFO     | algorithms.knowledge_graph.build_kg:kg_wrapper:1141 - 知识图谱构建完成
+2026-05-29 11:34:13.695 | INFO     | algorithms.knowledge_graph.inference:inference_wrapper:1360 - 开始进行关联分析，输入: INSAS
+2026-05-29 11:34:15.950 | INFO     | algorithms.knowledge_graph.inference:inference_wrapper:1364 - 任务完成，耗时=2.360222101211548秒
+2026-05-29 11:34:21.607 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:58 - 开始搜索数据库，输入: INSAS
+2026-05-29 11:34:21.653 | INFO     | algorithms.knowledge_graph.retriever:retrieve_wrapper:65 - 任务完成，查询目标=INSAS LMG, 耗时=0.04186224937438965秒

@@ -177,6 +177,46 @@ async def knowledge_graph_retrieve_api(query: str = Form(...)) -> dict:
         raise HTTPException(status_code=500, detail=f"处理失败: {exc}") from exc
 
 
+@app.post("/api/knowledge_graph/file_query", description="支持的文件格式: csv, docx, txt, pdf, md\n")
+async def knowledge_graph_file_query_api(
+    request: str = Form(...),
+    files: List[UploadFile] = File(...),
+) -> dict:
+    """多文件内容问询接口。"""
+    if not request:
+        raise HTTPException(status_code=400, detail="缺少 request 参数")
+    if not files:
+        raise HTTPException(status_code=400, detail="请上传至少一个文件，字段名为 files")
+
+    saved_files: List[dict] = []
+    try:
+        for upload_file in files:
+            logger.info("收到查询文件: name={}, type={}", upload_file.filename, upload_file.content_type)
+            saved_path = await save_upload_file(upload_file, make_upload_path(upload_file))
+            saved_files.append({
+                "path": str(saved_path),
+                "filename": upload_file.filename or saved_path.name,
+            })
+
+        from algorithms.knowledge_graph.relevant import relevant_wrapper
+
+        result = await run_in_threadpool(relevant_wrapper, saved_files, request)
+        return {
+            "code": 200,
+            "msg": "success",
+            "request": result.get("request", request),
+            "files_count": result.get("files_count", len(saved_files)),
+            "results": result.get("results", []),
+            "failed_files": result.get("failed_files", []),
+            "processing_time_s": result.get("processing_time_s", ""),
+        }
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.exception("file_query 处理异常: {}", exc)
+        raise HTTPException(status_code=500, detail=f"处理失败: {exc}") from exc
+
+
 @app.get("/")
 async def root() -> Any:
     """返回首页或健康响应。"""
