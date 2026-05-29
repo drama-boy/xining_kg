@@ -5,9 +5,11 @@ import argparse
 import json
 import re
 import sys
+import threading
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
+from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 from time import time
@@ -30,6 +32,7 @@ from utils.util import (
     format_result,
     format_value_list,
     normalize_name,
+    normalize_entity_alias,
     normalize_text,
     parse_date_like,
     parse_json_object,
@@ -52,25 +55,65 @@ LLM_RELATION_PATH_LIMIT = int(TUILI_CONFIG.get("llm_relation_path_limit", 20))
 
 
 HIGH_RISK_KEYWORDS = (
+    "攻击",
+    "打击",
+    "开火",
+    "命中",
+    "伏击",
+    "战斗部署",
+    "交战",
+    "摧毁",
+    "击毁",
+    "火力打击",
+    "火力引导",
+    "作战威胁",
     "坦克",
     "主战坦克",
+    "轻型坦克",
     "装甲",
+    "装甲车",
+    "装甲车辆",
     "导弹",
     "火箭炮",
+    "火炮",
     "反坦克",
     "自行火炮",
     "步兵战车",
-    "攻击",
-    "打击",
+    "弹药库",
+    "油库",
+    "指挥部",
+    "指挥所",
+    "指挥中心",
+    "高价值目标",
 )
 MEDIUM_RISK_KEYWORDS = (
     "无人机",
     "侦察",
+    "巡逻",
+    "集结",
+    "运输",
+    "营地",
+    "防御工事",
+    "掩体",
+    "车辆停放",
     "防空",
     "保障",
+    "保障活动",
+    "补给",
+    "后勤",
+    "阵地",
+    "部署",
     "哨所",
     "工事",
     "指挥",
+)
+LOW_RISK_KEYWORDS = (
+    "静态",
+    "零散",
+    "低威胁",
+    "背景设施",
+    "民用",
+    "普通设施",
 )
 
 ALLY_RELATIONS = {
@@ -265,6 +308,7 @@ class KGInferenceEngine:
         return "Entity"
 
     def infer(self, target: str, use_llm: bool = True) -> InferenceResult:
+        """执行目标推理分析。"""
         matched = self.match_entities(target)
         if not matched:
             result = InferenceResult(
@@ -368,6 +412,7 @@ class KGInferenceEngine:
         return behavior_text
 
     def build_llm_context(self, result: InferenceResult) -> Dict[str, Any]:
+        """构造模型摘要上下文。"""
         matched_entity = result.matched_entities[0] if result.matched_entities else None
         graph_context = {}
         if matched_entity:
@@ -627,11 +672,14 @@ class KGInferenceEngine:
         return lines
 
     def match_entities(self, target: str) -> List[Dict[str, Any]]:
+        """匹配目标候选实体。"""
         norm = normalize_name(target)
+        alias = normalize_entity_alias(target)
         candidates: List[Tuple[int, GraphEntity]] = []
 
         for node in self.nodes:
             score = self._match_score(norm, node)
+            score += self._alias_match_score(alias, node)
             if score > 0:
                 candidates.append((score, node))
 
@@ -653,26 +701,76 @@ class KGInferenceEngine:
                 break
         return output
 
+    @staticmethod
+    def _alias_match_score(alias: str, node: GraphEntity) -> int:
+        """计算别名匹配分。"""
+        if not alias:
+            return 0
+        values = [
+            node.name,
+            node.properties.get("name", ""),
+            node.properties.get("model", ""),
+            node.properties.get("type", ""),
+            node.properties.get("person_name", ""),
+        ]
+        best = 0
+        for value in values:
+            candidate = normalize_entity_alias(value)
+            if not candidate:
+                continue
+            if alias == candidate:
+                best = max(best, 120)
+            elif alias in candidate or candidate in alias:
+                best = max(best, 85)
+            else:
+                ratio = SequenceMatcher(None, alias, candidate).ratio()
+                if ratio >= 0.72:
+                    best = max(best, int(ratio * 70))
+        return best
+
     def assess_risk(self, entity: Dict[str, Any]) -> Tuple[str, str]:
+        """按规则研判风险。"""
         properties = entity.get("properties", {})
         label = entity.get("label", "")
         name = entity.get("name", "")
         text = " ".join([str(label), str(name), json.dumps(properties, ensure_ascii=False)])
+        target_type = normalize_text(properties.get("类型")) or normalize_text(properties.get("type"))
+        high_hits = [keyword for keyword in HIGH_RISK_KEYWORDS if keyword in text]
+        medium_hits = [keyword for keyword in MEDIUM_RISK_KEYWORDS if keyword in text]
+        low_hits = [keyword for keyword in LOW_RISK_KEYWORDS if keyword in text]
 
-        if any(keyword in text for keyword in HIGH_RISK_KEYWORDS):
-            return "高危", "实体属性命中攻击性或打击性关键词，按逻辑链判为高危。"
-        if any(keyword in text for keyword in MEDIUM_RISK_KEYWORDS):
-            return "中危", "实体属性命中侦察、保障或防空相关关键词，按逻辑链判为中危。"
+        attack_hits = [
+            keyword
+            for keyword in ("攻击", "打击", "开火", "命中", "伏击", "战斗部署", "交战", "摧毁", "击毁", "火力打击", "火力引导")
+            if keyword in text
+        ]
+        high_value_hits = [
+            keyword
+            for keyword in ("坦克", "装甲车", "装甲车辆", "火炮", "导弹", "火箭炮", "弹药库", "油库", "指挥部", "指挥所", "指挥中心")
+            if keyword in text
+        ]
+        armed_target_count = sum(1 for keyword in ("坦克", "装甲", "火炮", "导弹", "火箭炮", "步兵战车", "弹药库", "油库", "指挥") if keyword in text)
 
-        target_type = normalize_text(properties.get("类型"))
-        if target_type and any(keyword in target_type for keyword in ("坦克", "导弹", "火箭炮", "步兵战车")):
-            return "高危", "类型属性显示为作战平台，按逻辑链判为高危。"
-        if target_type and any(keyword in target_type for keyword in ("无人机", "侦察", "防空", "保障")):
-            return "中危", "类型属性显示为侦察或保障平台，按逻辑链判为中危。"
+        if attack_hits:
+            return "高危", f"出现明确攻击/打击/开火/命中/伏击/战斗部署等行为特征：{', '.join(attack_hits[:5])}。"
+        if high_value_hits:
+            return "高危", f"出现关键武器或高价值军事目标：{', '.join(high_value_hits[:5])}。"
+        if armed_target_count >= 3:
+            return "高危", "多个武装目标或高价值目标集中出现，具有明显作战威胁。"
+        if target_type and any(keyword in target_type for keyword in ("坦克", "导弹", "火箭炮", "火炮", "弹药库", "油库", "指挥部", "步兵战车")):
+            return "高危", "类型属性显示为关键武器平台或高价值军事目标。"
 
-        return "低危", "未命中高危或中危特征，默认判为低危。"
+        if medium_hits:
+            return "中危", f"出现侦察、巡逻、集结、运输、营地、防御工事、掩体、保障等潜在威胁特征：{', '.join(medium_hits[:5])}。"
+        if target_type and any(keyword in target_type for keyword in ("无人机", "侦察", "防空", "保障", "工事", "掩体", "营地", "运输")):
+            return "中危", "类型属性显示为侦察、保障、防御或潜在威胁目标，但未见明确攻击行为。"
+
+        if low_hits:
+            return "低危", f"仅出现静态、零散、低威胁目标或背景设施特征：{', '.join(low_hits[:5])}。"
+        return "低危", "证据不足，未见明确攻击行为、敏感目标或紧张态势，按较低等级判为低危。"
 
     def analyze_associations(self, entity: Dict[str, Any]) -> Dict[str, Any]:
+        """分析关联对象关系。"""
         node = self.node_by_id.get(entity["id"])
         if not node:
             return {"team": [], "opponent": [], "events": [], "timeline": [], "co_targets": []}
@@ -725,6 +823,7 @@ class KGInferenceEngine:
         }
 
     def analyze_activity_patterns(self, entity: Dict[str, Any]) -> Dict[str, Any]:
+        """统计活动模式特征。"""
         node = self.node_by_id.get(entity["id"])
         if not node:
             return {"frequencies": {}, "locations": [], "times": []}
@@ -749,6 +848,7 @@ class KGInferenceEngine:
         }
 
     def predict_behavior(self, entity: Dict[str, Any], activity_patterns: Dict[str, Any]) -> Dict[str, Any]:
+        """预测后续行为趋势。"""
         node = self.node_by_id.get(entity["id"])
         if not node:
             return {"next_action": "", "time_window": "", "location": "", "confidence": 0.0}
@@ -790,6 +890,7 @@ class KGInferenceEngine:
         }
 
     def build_llm_summary(self, result: InferenceResult) -> Dict[str, Any]:
+        """生成LLM自然摘要。"""
         result_dict = self.build_result_dict(result)
         if llm_gemma is None:
             return result_dict
@@ -1249,8 +1350,9 @@ def inference_wrapper(
     neo4j_user: str = DEFAULT_NEO4J_USER,
     neo4j_password: str = DEFAULT_NEO4J_PASSWORD,
 ) -> Dict[str, Any]:
+    """推理接口包装入口。"""
     t1 = time()
-    engine = KGInferenceEngine.from_neo4j(
+    engine = get_cached_inference_engine(
         url=neo4j_url,
         user=neo4j_user,
         password=neo4j_password,
@@ -1261,6 +1363,34 @@ def inference_wrapper(
     resultall.result["processing_time_s"] = t2 - t1
     logger.info("任务完成，耗时={}秒", resultall.result.get("processing_time_s"))
     return resultall.result
+
+
+_INFERENCE_CACHE_LOCK = threading.Lock()
+_INFERENCE_ENGINE_CACHE: Dict[Tuple[str, str, str], KGInferenceEngine] = {}
+
+
+def get_cached_inference_engine(
+    url: str = DEFAULT_NEO4J_URL,
+    user: str = DEFAULT_NEO4J_USER,
+    password: str = DEFAULT_NEO4J_PASSWORD,
+) -> KGInferenceEngine:
+    """获取缓存推理引擎。"""
+    cache_key = (url, user, password)
+    engine = _INFERENCE_ENGINE_CACHE.get(cache_key)
+    if engine is not None:
+        return engine
+    with _INFERENCE_CACHE_LOCK:
+        engine = _INFERENCE_ENGINE_CACHE.get(cache_key)
+        if engine is None:
+            engine = KGInferenceEngine.from_neo4j(url=url, user=user, password=password)
+            _INFERENCE_ENGINE_CACHE[cache_key] = engine
+        return engine
+
+
+def refresh_inference_cache() -> None:
+    """清空推理图谱缓存。"""
+    with _INFERENCE_CACHE_LOCK:
+        _INFERENCE_ENGINE_CACHE.clear()
 
 
 def build_arg_parser() -> argparse.ArgumentParser:

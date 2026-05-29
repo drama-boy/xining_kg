@@ -9,11 +9,13 @@ from typing import Any, List, Optional
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.concurrency import run_in_threadpool
 
 from config import init_config, logger
 
 
 def get_config(path: List[str], default: Any = None) -> Any:
+    """按层级读取配置值。"""
     value: Any = init_config
     for key in path:
         if not isinstance(value, dict) or key not in value:
@@ -45,11 +47,13 @@ app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 
 def make_upload_path(upload_file: UploadFile) -> Path:
+    """生成唯一上传路径。"""
     suffix = Path(upload_file.filename or "").suffix
     return UPLOAD_DIR / f"upload_{uuid.uuid4().hex}{suffix}"
 
 
 async def save_upload_file(upload_file: UploadFile, destination: Path) -> Path:
+    """分块保存上传文件。"""
     try:
         destination.parent.mkdir(parents=True, exist_ok=True)
         with destination.open("wb") as buffer:
@@ -66,6 +70,7 @@ async def save_upload_file(upload_file: UploadFile, destination: Path) -> Path:
 
 @app.on_event("startup")
 async def startup_event() -> None:
+    """服务启动初始化日志。"""
     logger.info("服务启动完成")
     logger.info("上传目录: {}", UPLOAD_DIR)
     logger.info("输出目录: {}", OUTPUT_DIR)
@@ -73,6 +78,7 @@ async def startup_event() -> None:
 
 @app.post("/api/knowledge_graph/construction",description="支持的文件格式: txt, markdown, docx, pdf, csv, png, jpg, jpeg\n")
 async def knowledge_graph_construction_api(files: List[UploadFile] = File(...)) -> dict:
+    """构建知识图谱接口。"""
     if not files:
         raise HTTPException(status_code=400, detail="请上传至少一个文件，字段名为 files")
 
@@ -84,9 +90,9 @@ async def knowledge_graph_construction_api(files: List[UploadFile] = File(...)) 
             saved_paths.append(str(saved_path))
             logger.info("文件已保存: {}", saved_path)
 
-        from algorithms.knowledge_graph.build_kg import build_knowledge_graph
+        from algorithms.knowledge_graph.build_kg import kg_wrapper
 
-        result = build_knowledge_graph(saved_paths)
+        result = await run_in_threadpool(kg_wrapper, saved_paths)
         if not result:
             raise HTTPException(status_code=400, detail="知识图谱构建失败")
 
@@ -113,6 +119,7 @@ async def knowledge_graph_construction_api(files: List[UploadFile] = File(...)) 
 
 @app.post("/api/knowledge_graph/inference")
 async def knowledge_graph_inference_api(target: str = Form(...)) -> dict:
+    """图谱推理分析接口。"""
     if not target:
         raise HTTPException(status_code=400, detail="缺少 target 参数")
 
@@ -144,6 +151,7 @@ async def knowledge_graph_inference_api(target: str = Form(...)) -> dict:
 
 @app.post("/api/knowledge_graph/retrieve")
 async def knowledge_graph_retrieve_api(query: str = Form(...)) -> dict:
+    """图谱实体检索接口。"""
     if not query:
         raise HTTPException(status_code=400, detail="缺少 query 参数")
 
@@ -160,7 +168,7 @@ async def knowledge_graph_retrieve_api(query: str = Form(...)) -> dict:
             "target_entity": result.get("target_entity", query),
             "entity_info": result.get("entity_info", ""),
             "relationships": result.get("relationships", ""),
-            "processing_time_ms": result.get("processing_time_ms", ""),
+            "processing_time_s": result.get("processing_time_s", ""),
         }
     except HTTPException:
         raise
@@ -171,6 +179,7 @@ async def knowledge_graph_retrieve_api(query: str = Form(...)) -> dict:
 
 @app.get("/")
 async def root() -> Any:
+    """返回首页或健康响应。"""
     index_path = STATIC_DIR / "index.html"
     if index_path.exists():
         return FileResponse(str(index_path))
@@ -179,6 +188,7 @@ async def root() -> Any:
 
 @app.get("/healthz")
 async def health_check() -> dict:
+    """服务健康检查接口。"""
     return {"status": "healthy"}
 
 

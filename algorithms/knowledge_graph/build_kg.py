@@ -6,6 +6,7 @@ import re
 import sys
 import time
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
@@ -44,6 +45,7 @@ DEFAULT_OUTPUT_PREFIX = str(KG_CONFIG.get("output_prefix", "kg"))
 DEFAULT_EXTRACTED_PREFIX = str(KG_CONFIG.get("extracted_prefix", "extracted_"))
 DEFAULT_WRITE_TO_NEO4J = bool(KG_CONFIG.get("write_to_neo4j", True))
 DEFAULT_CLEAR_NEO4J = bool(KG_CONFIG.get("clear_neo4j", False))
+DEFAULT_MAX_WORKERS = max(int(KG_CONFIG.get("max_workers", 5)), 1)
 
 
 Node = Dict[str, Any]
@@ -51,6 +53,7 @@ Edge = Dict[str, Any]
 
 
 def make_output_file() -> Path:
+    """生成图谱输出文件。"""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     return OUTPUT_DIR / f"{DEFAULT_OUTPUT_PREFIX}_{timestamp}.json"
 
@@ -235,6 +238,7 @@ class MechanismKGBuilder:
         }
 
     def _add_mechanism_event(self, event: Dict[str, Any], index: int) -> None:
+        """写入单个事件节点。"""
         topic = clean_text(event.get("事件主题")) or f"事件{index}"
         behavior_text = clean_text(event.get("核心行为")) or topic
         behavior_name = f"{topic}-{behavior_text}"
@@ -877,6 +881,7 @@ class MechanismKGBuilder:
         return text
 
     def add_node(self, node_id: str, label: str, name: str, properties: Optional[Dict[str, Any]] = None) -> None:
+        """新增或合并节点。"""
         clean_properties = normalize_node_properties(normalize_properties(properties or {}), label, self.current_source_file)
         clean_properties["name"] = clean_text(clean_properties.get("name")) or name
         clean_properties["type"] = self._normalize_type_property(
@@ -926,6 +931,7 @@ class MechanismKGBuilder:
         target: str,
         properties: Optional[Dict[str, Any]] = None,
     ) -> None:
+        """新增去重关系边。"""
         if source not in self.nodes or target not in self.nodes:
             return
         if source == target:
@@ -960,6 +966,7 @@ class MechanismKGBuilder:
 def build_graph_from_files(
     input_paths: Iterable[Any],
 ) -> Tuple[Dict[str, List[Dict[str, Any]]], List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]]]:
+    """并发抽取并构图。"""
     mechanism_events: List[Dict[str, Any]] = []
     source_summaries: List[Dict[str, Any]] = []
     failed_files: List[Dict[str, Any]] = []
@@ -992,9 +999,79 @@ def build_graph_from_files(
     return graph_data, mechanism_events, source_summaries, failed_files
 
 
+def build_graph_from_files(
+    input_paths: Iterable[Any],
+) -> Tuple[Dict[str, List[Dict[str, Any]]], List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]]]:
+    mechanism_events: List[Dict[str, Any]] = []
+    source_summaries: List[Dict[str, Any]] = []
+    failed_files: List[Dict[str, Any]] = []
+    input_paths = list(input_paths)
+    progress = None
+    if input_paths:
+        try:
+            from tqdm import tqdm
+
+            progress = tqdm(
+                total=len(input_paths),
+                desc="文本抽取",
+                unit="file",
+                dynamic_ncols=True,
+            )
+        except Exception:
+            progress = None
+
+    def load_one(input_path: Any) -> Tuple[List[Dict[str, Any]], Optional[Dict[str, Any]], Optional[Dict[str, Any]]]:
+        """读取单文件事件。"""
+        path = Path(input_path)
+        try:
+            file_mechanism_events, summary = load_mechanism_events(path)
+            return file_mechanism_events, summary, None
+        except Exception as exc:
+            logger.exception("处理输入文件失败: {}", path)
+            return [], None, {
+                "source_file": str(path),
+                "error": str(exc),
+            }
+
+    if len(input_paths) > 1 and DEFAULT_MAX_WORKERS > 1:
+        try:
+            with ThreadPoolExecutor(max_workers=min(DEFAULT_MAX_WORKERS, len(input_paths))) as executor:
+                loaded_results = executor.map(load_one, input_paths)
+                for file_mechanism_events, summary, failed_file in loaded_results:
+                    mechanism_events.extend(file_mechanism_events)
+                    if summary:
+                        source_summaries.append(summary)
+                    if failed_file:
+                        failed_files.append(failed_file)
+                    if progress:
+                        progress.update(1)
+        finally:
+            if progress:
+                progress.close()
+    else:
+        try:
+            for input_path in input_paths:
+                file_mechanism_events, summary, failed_file = load_one(input_path)
+                mechanism_events.extend(file_mechanism_events)
+                if summary:
+                    source_summaries.append(summary)
+                if failed_file:
+                    failed_files.append(failed_file)
+                if progress:
+                    progress.update(1)
+        finally:
+            if progress:
+                progress.close()
+
+    builder = MechanismKGBuilder()
+    graph_data = builder.build(mechanism_events=mechanism_events)
+    return graph_data, mechanism_events, source_summaries, failed_files
+
+
 def build_knowledge_graph(
     input_paths: Iterable[Any],
 ) -> Dict[str, Any]:
+    """构建并写入图谱。"""
     start_time = time.time()
     input_paths = list(input_paths)
     if not input_paths:
@@ -1023,8 +1100,16 @@ def build_knowledge_graph(
             clear=clear_neo4j,
         )
         imported_to_neo4j = True
+        try:
+            from algorithms.knowledge_graph.inference import refresh_inference_cache
+            from algorithms.knowledge_graph.retriever import clear_retrieve_cache
 
-    processing_time_ms = (time.time() - start_time)
+            refresh_inference_cache()
+            clear_retrieve_cache()
+        except Exception as exc:
+            logger.warning("刷新图谱缓存失败: {}", exc)
+
+    processing_time_s = time.time() - start_time
     return {
         "output_file": str(output_path),
         "extracted_file": str(extracted_path),
@@ -1037,7 +1122,7 @@ def build_knowledge_graph(
         "nodes": graph_data["nodes"],
         "edges": graph_data["edges"],
         "links": graph_data["links"],
-        "processing_time_ms": processing_time_ms,
+        "processing_time_s": processing_time_s,
         "evaluation": {
             "source_files": source_summaries,
             "failed_files": failed_files,
@@ -1050,9 +1135,10 @@ def build_knowledge_graph(
 
 
 def kg_wrapper(input_paths: Iterable[Any]) -> Dict[str, Any]:
+    """构建接口包装器。"""
     try:
         result = build_knowledge_graph(input_paths)
-        logger.info("知识图谱构建完成: {}", result)
+        logger.info("知识图谱构建完成")
         return result
     except Exception as exc:
         logger.exception("知识图谱构建失败: {}", exc)
@@ -1060,12 +1146,14 @@ def kg_wrapper(input_paths: Iterable[Any]) -> Dict[str, Any]:
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
+    """构建命令行参数。"""
     parser = argparse.ArgumentParser(description="构建机理思维知识图谱")
     parser.add_argument("--input-files", type=Path, nargs="+", required=True, help="csv/txt/pdf/docx/md/markdown/图片/音视频 输入文件路径")
     return parser
 
 
 def main() -> None:
+    """命令行构建入口。"""
     args = build_arg_parser().parse_args()
     result = build_knowledge_graph(args.input_files)
     logger.info("知识图谱构建完成：{}", result["output_file"])

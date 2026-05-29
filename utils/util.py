@@ -6,6 +6,7 @@ import json
 import re
 import sys
 import time
+from difflib import SequenceMatcher
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
@@ -24,6 +25,7 @@ SPLITTER_CONFIG = KG_CONFIG.get("splitter", {})
 
 
 def resolve_path(value: Any, fallback: Path) -> Path:
+    """解析相对或绝对路径。"""
     if value in (None, ""):
         return fallback
     path = Path(str(value))
@@ -64,6 +66,7 @@ DEFAULT_SPLITTER_SEPARATORS = tuple(SPLITTER_CONFIG.get("separators", ["\n", "�
 
 
 def get_neo4j_config() -> Dict[str, str]:
+    """读取Neo4j连接配置。"""
     return {
         "url": str(NEO4J_CONFIG.get("url", "bolt://localhost:7687")),
         "user": str(NEO4J_CONFIG.get("user", "neo4j")),
@@ -108,6 +111,7 @@ def normalize_scalar(value: Any) -> Any:
 
 
 def normalize_properties(properties: Dict[str, Any]) -> Dict[str, Any]:
+    """清洗属性空白值。"""
     normalized: Dict[str, Any] = {}
     for key, value in properties.items():
         if value == "":
@@ -122,6 +126,7 @@ def normalize_properties(properties: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def merge_values(left: Any, right: Any) -> Any:
+    """合并去重属性值。"""
     values: List[Any] = []
     for item in as_list(left) + as_list(right):
         if item in ("", None, []):
@@ -227,6 +232,7 @@ def _description_value(value: Any) -> str:
 
 
 def build_node_description(properties: Dict[str, Any], label: str = "") -> str:
+    """生成节点描述文本。"""
     props = properties or {}
     existing = clean_text(props.get("desc")) or clean_text(props.get("description"))
     if existing:
@@ -267,6 +273,7 @@ def normalize_property_key(key: Any) -> str:
 
 
 def normalize_node_properties(properties: Dict[str, Any], label: str, source_file: str) -> Dict[str, Any]:
+    """规范化节点属性键。"""
 
     result: Dict[str, Any] = {}
     for key, value in (properties or {}).items():
@@ -307,6 +314,7 @@ def edge_to_link(edge: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def write_json(path: Path, data: Any) -> None:
+    """写入格式化JSON。"""
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as file:
         json.dump(data, file, ensure_ascii=False, indent=2)
@@ -373,6 +381,7 @@ def read_docx_file(path: Path) -> str:
 
 
 def read_source_file(path: Path) -> str:
+    """按类型读取文本源。"""
     suffix = path.suffix.lower()
     if suffix in {".txt", ".md", ".markdown"}:
         return read_text_file(path)
@@ -392,6 +401,7 @@ def split_text(
     chunk_overlap: int = DEFAULT_CHUNK_OVERLAP,
     separators: Optional[Iterable[str]] = None,
 ) -> List[str]:
+    """按配置切分文本。"""
     text = re.sub(r"\r\n?", "\n", clean_text(text))
     text = re.sub(r"[ \t]+", " ", text)
     if not text:
@@ -430,6 +440,7 @@ def split_text(
 
 
 def make_news_chunks(source_name: str, text: str) -> List[Dict[str, str]]:
+    """生成抽取文本块。"""
     chunks = split_text(
         text,
         chunk_size=int(SPLITTER_CONFIG.get("chunk_size", DEFAULT_CHUNK_SIZE)),
@@ -446,6 +457,7 @@ def make_news_chunks(source_name: str, text: str) -> List[Dict[str, str]]:
 
 
 def extract_json_records(data: Any) -> List[Dict[str, Any]]:
+    """提取JSON记录列表。"""
     if isinstance(data, list):
         return [item for item in data if isinstance(item, dict)]
     if isinstance(data, dict):
@@ -457,19 +469,60 @@ def extract_json_records(data: Any) -> List[Dict[str, Any]]:
     return []
 
 
-def attach_source(events: List[Dict[str, Any]], source_name: str) -> List[Dict[str, Any]]:
-    output = []
-    for event in events:
+def _is_empty_extracted_value(value: Any) -> bool:
+    return value in ("", None, [], {})
+
+
+def _clean_extracted_value(value: Any) -> Any:
+    if isinstance(value, dict):
+        cleaned: Dict[str, Any] = {}
+        for key, item in value.items():
+            cleaned_item = _clean_extracted_value(item)
+            if not _is_empty_extracted_value(cleaned_item):
+                cleaned[key] = cleaned_item
+        return cleaned
+    if isinstance(value, list):
+        cleaned_items = [_clean_extracted_value(item) for item in value]
+        return [item for item in cleaned_items if not _is_empty_extracted_value(item)]
+    if isinstance(value, str):
+        return value.strip()
+    return value
+
+
+def validate_mechanism_events(events: Iterable[Any], source_name: str = "") -> List[Dict[str, Any]]:
+    """校验清洗抽取事件。"""
+    valid_events: List[Dict[str, Any]] = []
+    for index, event in enumerate(events or [], start=1):
         if not isinstance(event, dict):
             continue
-        item = dict(event)
-        item.setdefault("来源文件", source_name)
-        item.setdefault("from_file", source_name)
-        output.append(item)
-    return output
+        cleaned = _clean_extracted_value(event)
+        if not isinstance(cleaned, dict) or not cleaned:
+            continue
+        if source_name:
+            cleaned.setdefault("来源文件", source_name)
+            cleaned.setdefault("from_file", source_name)
+        topic = clean_text(cleaned.get("事件主题")) or clean_text(cleaned.get("event_topic"))
+        behavior = clean_text(cleaned.get("核心行为")) or clean_text(cleaned.get("core_behavior"))
+        if not topic:
+            cleaned["事件主题"] = behavior or f"{source_name or 'source'}#{index}"
+        if not behavior:
+            cleaned["核心行为"] = clean_text(cleaned.get("事件主题"))
+        if "目标体系" in cleaned and not isinstance(cleaned.get("目标体系"), dict):
+            cleaned["目标体系"] = {}
+        for list_key in ("时间", "地点列表", "人员信息", "组织机构", "关联关系"):
+            if list_key in cleaned and not isinstance(cleaned[list_key], list):
+                cleaned[list_key] = as_list(cleaned[list_key])
+        valid_events.append(cleaned)
+    return valid_events
+
+
+def attach_source(events: List[Dict[str, Any]], source_name: str) -> List[Dict[str, Any]]:
+    """补充事件来源文件。"""
+    return validate_mechanism_events(events, source_name)
 
 
 def extract_events_with_grapher(news_listdict_in: List[Dict[str, str]]) -> List[Dict[str, Any]]:
+    """调用文本抽取模型。"""
     if not news_listdict_in:
         return []
     from utils.txt_to_json import graph_cls
@@ -502,6 +555,7 @@ def call_converter(module_name: str, function_names: Iterable[str], path: Path) 
 
 
 def normalize_converter_output(output: Any, source_name: str) -> Tuple[List[Dict[str, Any]], int]:
+    """统一转换器输出格式。"""
     chunks_count = 0
     if isinstance(output, tuple) and output:
         output = output[0]
@@ -546,6 +600,7 @@ def events_from_video_file(path: Path, source_name: str) -> Tuple[List[Dict[str,
 
 
 def file_to_mechanism_events(path: Path) -> Tuple[List[Dict[str, Any]], int]:
+    """按文件类型抽取事件。"""
     suffix = path.suffix.lower()
     source_name = path.name
 
@@ -563,6 +618,7 @@ def file_to_mechanism_events(path: Path) -> Tuple[List[Dict[str, Any]], int]:
 
 
 def load_mechanism_events(path: Path) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """加载文件事件和摘要。"""
     if not path.exists():
         raise FileNotFoundError(f"输入文件不存在: {path}")
 
@@ -584,6 +640,7 @@ def load_mechanism_events(path: Path) -> Tuple[List[Dict[str, Any]], Dict[str, A
 
 
 def import_to_neo4j(graph_data: Dict[str, List[Dict[str, Any]]], url: str, user: str, password: str, clear: bool = False) -> None:
+    """批量导入Neo4j。"""
     from py2neo import Graph, Node as NeoNode, Relationship
 
     graph = Graph(url, auth=(user, password))
@@ -657,7 +714,53 @@ def get_entity_info(graph: Any, entity_name: str) -> Dict[str, Any]:
     return result[0]["props"] if result else {}
 
 
+def normalize_entity_alias(value: Any) -> str:
+    """归一化实体查询别名。"""
+    text = normalize_name(value)
+    text = re.sub(r"[\s\-_./()（）【】\[\]{}]+", "", text)
+    for pattern in (
+        r"(ak\d{2,3}[a-z]*)",
+        r"(t\d{2,3}[a-z]*)",
+        r"(vt\d{1,3}[a-z]*)",
+        r"(ztz\d{2,3}[a-z]*)",
+        r"(m\d{1,4}[a-z]*)",
+        r"(mq\d{1,3}[a-z]*)",
+        r"(phl\d{1,3}[a-z]*)",
+        r"(plz\d{1,3}[a-z]*)",
+        r"(zbd\d{1,3}[a-z]*)",
+        r"(zbl\d{1,3}[a-z]*)",
+    ):
+        model_match = re.search(pattern, text, flags=re.IGNORECASE)
+        if model_match:
+            return model_match.group(1).lower()
+    generic_model = re.search(r"([a-z]{1,5}\d{1,4}[a-z]*)", text, flags=re.IGNORECASE)
+    if generic_model:
+        return generic_model.group(1).lower()
+    text = re.sub(
+        r"(突击步枪|自动步枪|狙击步枪|步枪|机枪|轻机枪|通用机枪|冲锋枪|手枪|榴弹发射器|火箭筒|主战坦克|轻型坦克|坦克|装甲车|装甲车辆|步兵战车|战车|无人机|导弹|火箭炮|火炮|系统|装备|设备|车辆|型号|类型|型|式)$",
+        "",
+        text,
+    )
+    return text
+
+
+def relation_rank(relation: Any, other_labels: Optional[Iterable[str]] = None) -> int:
+    """计算关系排序权重。"""
+    text = clean_text(relation)
+    labels = set(other_labels or [])
+    important_tokens = (
+        "事件", "行为", "时间", "地点", "位于", "所属方",
+        "所属组织", "隶属", "装备", "涉及", "发生", "包含",
+        "event", "time", "place", "location", "organization", "equipment",
+    )
+    important_labels = {"事件", "行为", "时间", "地点", "组织机构", "装备设备", "车辆"}
+    if any(token in text for token in important_tokens) or labels.intersection(important_labels):
+        return 0
+    return 1
+
+
 def search_knowledge(graph: Any, entity_name: str) -> Dict[str, Any]:
+    """旧版精确实体检索。"""
     start_time = time.time()
     result = {
         "target_entity": entity_name,
@@ -665,7 +768,7 @@ def search_knowledge(graph: Any, entity_name: str) -> Dict[str, Any]:
         "related_entities": [],
         "relationships": [],
         "triples": [],
-        "processing_time_ms": None,
+        "processing_time_s": None,
     }
 
     query = """
@@ -719,7 +822,141 @@ def search_knowledge(graph: Any, entity_name: str) -> Dict[str, Any]:
                     "direction": "incoming",
                 })
 
-    result["processing_time_ms"] = (time.time() - start_time) * 1000
+    result["processing_time_s"] = time.time() - start_time
+    return result
+
+
+def search_knowledge(graph: Any, entity_name: str) -> Dict[str, Any]:
+    """增强实体模糊检索。"""
+    start_time = time.time()
+    result = {
+        "target_entity": entity_name,
+        "entity_info": None,
+        "related_entities": [],
+        "relationships": [],
+        "triples": [],
+        "processing_time_s": None,
+    }
+    alias = normalize_entity_alias(entity_name)
+
+    query = """
+    MATCH (n)
+    WHERE n.name = $name OR replace(replace(toLower(n.name), '-', ''), ' ', '') = $alias
+    OPTIONAL MATCH (n)-[r_out]->(m_out)
+    OPTIONAL MATCH (m_in)-[r_in]->(n)
+    RETURN
+        labels(n) as target_labels,
+        n as target,
+        collect(DISTINCT {type: type(r_out), to: m_out.name, labels: labels(m_out), direction: 'outgoing'}) as outgoing,
+        collect(DISTINCT {type: type(r_in), from: m_in.name, labels: labels(m_in), direction: 'incoming'}) as incoming
+    LIMIT 1
+    """
+    result_data = graph.run(query, name=entity_name, alias=alias).data()
+
+    if not result_data or not result_data[0]["target"]:
+        candidates_query = """
+        MATCH (n)
+        WHERE n.name IS NOT NULL
+        RETURN n.name AS name, labels(n) AS labels, properties(n) AS properties
+        LIMIT 1000
+        """
+        candidates = []
+        for record in graph.run(candidates_query).data():
+            name = clean_text(record.get("name"))
+            if not name:
+                continue
+            candidate_alias = normalize_entity_alias(name)
+            score = SequenceMatcher(None, alias, candidate_alias).ratio()
+            if alias and (alias in candidate_alias or candidate_alias in alias):
+                score += 0.35
+            if score > 0:
+                candidates.append((score, record))
+        candidates.sort(key=lambda item: (-item[0], item[1].get("name", "")))
+        if not candidates:
+            result["error"] = f"未找到实体 {entity_name}"
+            return result
+        best_score, best = candidates[0]
+        result["candidate"] = {
+            "name": best.get("name"),
+            "labels": best.get("labels") or [],
+            "score": round(best_score, 3),
+        }
+        if best_score < 0.45:
+            result["candidates"] = [result["candidate"]]
+            result["error"] = f"未找到实体 {entity_name}"
+            return result
+        result_data = graph.run(
+            query,
+            name=best.get("name"),
+            alias=normalize_entity_alias(best.get("name")),
+        ).data()
+        if not result_data or not result_data[0]["target"]:
+            result["error"] = f"未找到实体 {entity_name}"
+            return result
+
+    target = result_data[0]["target"]
+    target_name = target.get("name") or entity_name
+    result["target_entity"] = target_name
+    result["entity_info"] = {
+        "name": target_name,
+        "labels": list(target.labels) if hasattr(target, "labels") else ["Entity"],
+        "properties": dict(target),
+    }
+
+    related_set = set()
+    for rel in result_data[0]["outgoing"]:
+        if rel.get("to"):
+            triple = {
+                "from": target_name,
+                "type": rel["type"],
+                "to": rel["to"],
+                "direction": "outgoing",
+                "labels": rel.get("labels") or [],
+            }
+            result["relationships"].append(triple)
+            if rel["to"] not in related_set:
+                related_set.add(rel["to"])
+                result["related_entities"].append({
+                    "name": rel["to"],
+                    "properties": get_entity_info(graph, rel["to"]),
+                    "relation": rel["type"],
+                })
+
+    for rel in result_data[0]["incoming"]:
+        if rel.get("from"):
+            triple = {
+                "from": rel["from"],
+                "type": rel["type"],
+                "to": target_name,
+                "direction": "incoming",
+                "labels": rel.get("labels") or [],
+            }
+            result["relationships"].append(triple)
+            if rel["from"] not in related_set:
+                related_set.add(rel["from"])
+                result["related_entities"].append({
+                    "name": rel["from"],
+                    "properties": get_entity_info(graph, rel["from"]),
+                    "relation": rel["type"],
+                    "direction": "incoming",
+                })
+
+    result["relationships"].sort(key=lambda item: (
+        relation_rank(item.get("type"), item.get("labels") or []),
+        item.get("type") or "",
+        item.get("from") or "",
+        item.get("to") or "",
+    ))
+    result["relationships"] = [
+        {
+            "from": item.get("from", ""),
+            "type": item.get("type", ""),
+            "to": item.get("to", ""),
+        }
+        for item in result["relationships"]
+    ]
+    result["triples"] = result["relationships"]
+    result["processing_time_s"] = time.time() - start_time
     return result
 
 
@@ -885,6 +1122,7 @@ def fit_prompt_context(value: Any, max_chars: int = 18000) -> Any:
 
 
 def parse_json_object(text: str) -> Dict[str, Any]:
+    """解析文本中的JSON对象。"""
     raw = normalize_text(text)
     if not raw:
         return {}

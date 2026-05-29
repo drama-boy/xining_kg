@@ -5,7 +5,7 @@ import traceback
 from config import init_config, logger
 
 
-def llm_gemma(prompt):     #model in ['qw1.5-32b','qw2-72b-int4','qw2-72b-fp16','qw2-110b-int4','qw2.5-72b']
+def llm_gemma(prompt):    
     answer=''
     try:
         llm_config = init_config.get("llm", {})
