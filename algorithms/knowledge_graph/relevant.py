@@ -13,13 +13,13 @@ from utils.myllm import llm_gemma
 from utils.util import clean_text, read_source_file, split_text
 
 
-SUPPORTED_QUERY_SUFFIXES = {".csv", ".docx", ".txt", ".pdf", ".md", ".markdown"}
-MAX_BATCH_CHARS = 12000
-MAX_CONTENT_CHARS = 100
-MAX_RESULTS = 6
+SUPPORTED_QUERY_SUFFIXES = init_config.get("related_data", {}).get("supported_query_suffixes", [".csv", ".docx", ".txt", ".pdf", ".md"])
+MAX_BATCH_CHARS = init_config.get("related_data", {}).get("max_batch_chars", 12000)
+MAX_CONTENT_CHARS = init_config.get("related_data", {}).get("max_content_chars", 100)
+MAX_RESULTS = init_config.get("related_data", {}).get("max_results", 3)
 KG_CONFIG = init_config.get("knowledge_graph", {})
-MAX_FILE_WORKERS = max(int(KG_CONFIG.get("max_workers", 5)), 1)
-MAX_LLM_WORKERS = max(min(int(KG_CONFIG.get("query_llm_workers", 3)), MAX_FILE_WORKERS), 1)
+MAX_FILE_WORKERS = KG_CONFIG.get("max_workers", 5)
+MAX_LLM_WORKERS = init_config.get("llm", {}).get("query_llm_workers", 3)
 
 
 def _file_item_parts(item: Any) -> Tuple[Path, str]:
@@ -119,10 +119,20 @@ def _query_batch(batch: List[Dict[str, str]], request: str) -> List[Dict[str, st
         for index, item in enumerate(batch, start=1)
     )
     prompt = (
-        "你是文件内容检索助手。请从给定文本块中找出与用户request直接相关的信息。\n"
+        "你是一个信息抽取专家。请从以下给定的多条文本中，抽取每个文本所描述的**实际发生的事件**。"
+        "1. 只抽取**行动主体（部队/单位）**、**主要行动/任务**、**发生地点（若有）** 这三个要素。"
+        "2. 忽略所有**诱因**（如“因……导致”、“由于……”）、**故障现象**（如“弹匣变形”、“积沙”、“无法击发”）、**后果或评估**（如“可靠性缺陷”、“内部总结”）。"
+        "3. 抽取结果用简洁的陈述句表达，格式为：“[主体] + [执行/进行] + [任务] + [地点]”。"
+        "4. 如果文本属于**内部总结、评估或非实际行动任务事件**（如维修处总结），则**不抽取**，输出“无事件”。"
+
+    
+        "输入：“印军第28步兵师后勤基地士兵在执行弹药库外围警戒任务时，因INSAS突击步枪在低温环境下出现弹匣变形导致无法顺利上膛。"
+       "输出：“印军第28步兵师后勤基地士兵执行弹药库外围警戒任务。"
+        
+        
         "只返回JSON数组，不要解释，不要Markdown。数组元素格式为："
-        "{\"file_name\":\"文件名\",\"content\":\"相关内容\"}。\n"
-        "content必须来自原文或忠实压缩原文，长度50到100个中文字符，必须以完整句子或完整分句结尾，不要半句截断。"
+        "{\"file_name\":\"文件名\",\"content\":\"相关事件\"}。\n"
+        "content长度50到100个中文字符，必须以完整句子结尾。\n"
         "同一文件可返回多条；无相关内容返回空数组[]。\n\n"
         f"request:{request}\n\n"
         f"文本块:\n{context}"

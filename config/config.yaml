@@ -35,13 +35,21 @@ tuili:
   default_target: T-90S
   use_llm: true
 
+# 相关数据
+related_data:
+  max_results: 3
+  max_batch_chars: 12000
+  max_content_chars: 100
+  supported_query_suffixes: [".csv", ".docx", ".txt", ".pdf", ".md"]
+
+
 # 大模型配置
 llm:
   base_url: http://192.168.1.42:30002/v1
   api_key: xxx
   model: /mnt/gemma-4-26B-A4B-it
   temperature: 0.3
-
+  query_llm_workers: 3
 
 files:
   data_dir: ./data

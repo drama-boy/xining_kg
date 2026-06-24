@@ -1,3 +1,6 @@
 # Python 字节码缓存
 __pycache__/
+logs/   
+data/output/
+data/upload/
 *.py[cod]

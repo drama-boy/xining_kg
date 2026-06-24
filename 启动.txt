@@ -1,0 +1,16 @@
+kgbackend
+docker run --name kg_backend -d -v /home/quantum/cs/AnalysisTool_algo/xining_kg:/app -w /app --restart always -p 5000:5000 --entrypoint python3 python:3.10-slim /app/app_server.py 
+
+neo4j
+docker run -d \
+  --name neo4j \
+  -p 7474:7474 \
+  -p 7687:7687 \
+  -v /mnt/wubotao/neo4j/data:/data \
+  -v /mnt/wubotao/neo4j/logs:/logs \
+  -v /mnt/wubotao/neo4j/import:/var/lib/neo4j/import \
+  -v /mnt/wubotao/neo4j/plugins:/plugins  \
+  -e NEO4J_AUTH=neo4j/12345678\
+  -e NEO4J_PLUGINS='["apoc"]' \
+  --restart always \
+  neo4j:latest
