@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import annotations
 
+import json
 import os
 import uuid
 from pathlib import Path
@@ -77,13 +78,25 @@ async def startup_event() -> None:
 
 
 @app.post("/api/knowledge_graph/construction",description="支持的文件格式: txt, markdown, docx, pdf, csv, png, jpg, jpeg\n")
-async def knowledge_graph_construction_api(files: List[UploadFile] = File(...)) -> dict:
+async def knowledge_graph_construction_api(
+    files: List[UploadFile] = File(...),
+    relations: Optional[str] = Form(None),
+) -> dict:
     """构建知识图谱接口。"""
     if not files:
         raise HTTPException(status_code=400, detail="请上传至少一个文件，字段名为 files")
 
     saved_paths: List[str] = []
     try:
+        parsed_relations: List[dict] = []
+        if relations:
+            try:
+                raw_relations = json.loads(relations)
+                if isinstance(raw_relations, list):
+                    parsed_relations = [item for item in raw_relations if isinstance(item, dict)]
+            except json.JSONDecodeError as exc:
+                raise HTTPException(status_code=400, detail=f"relations 不是合法 JSON: {exc}") from exc
+
         for upload_file in files:
             logger.info("收到文件: name={}, type={}", upload_file.filename, upload_file.content_type)
             saved_path = await save_upload_file(upload_file, make_upload_path(upload_file))
@@ -92,7 +105,7 @@ async def knowledge_graph_construction_api(files: List[UploadFile] = File(...)) 
 
         from algorithms.knowledge_graph.build_kg import kg_wrapper
 
-        result = await run_in_threadpool(kg_wrapper, saved_paths)
+        result = await run_in_threadpool(kg_wrapper, saved_paths, parsed_relations)
         if not result:
             raise HTTPException(status_code=400, detail="知识图谱构建失败")
 

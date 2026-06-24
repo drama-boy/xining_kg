@@ -509,7 +509,7 @@ def validate_mechanism_events(events: Iterable[Any], source_name: str = "") -> L
             cleaned["核心行为"] = clean_text(cleaned.get("事件主题"))
         if "目标体系" in cleaned and not isinstance(cleaned.get("目标体系"), dict):
             cleaned["目标体系"] = {}
-        for list_key in ("时间", "地点列表", "人员信息", "组织机构", "关联关系"):
+        for list_key in ("时间", "地点列表", "人员信息", "组织机构", "关联关系", "事件关系"):
             if list_key in cleaned and not isinstance(cleaned[list_key], list):
                 cleaned[list_key] = as_list(cleaned[list_key])
         valid_events.append(cleaned)

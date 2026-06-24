@@ -206,18 +206,108 @@ class MechanismKGBuilder:
         "id",
     }
 
+    EVENT_RELATION_KEYS = (
+        "事件关系",
+        "事件间关系",
+        "逻辑关系",
+        "event_relations",
+        "event_relationships",
+        "event_edges",
+    )
+
+    GENERIC_RELATION_KEYS = ("关联关系", "关系", "relationships", "edges")
+
+    EVENT_SOURCE_KEYS = (
+        "头事件",
+        "源事件",
+        "起始事件",
+        "前序事件",
+        "原因事件",
+        "source_event",
+        "from_event",
+        "head_event",
+        "头实体",
+        "源实体",
+        "from",
+        "source",
+    )
+
+    EVENT_TARGET_KEYS = (
+        "尾事件",
+        "目标事件",
+        "后续事件",
+        "结果事件",
+        "target_event",
+        "to_event",
+        "tail_event",
+        "尾实体",
+        "目标实体",
+        "to",
+        "target",
+    )
+
+    EVENT_RELATION_TYPE_KEYS = ("关系", "关系类型", "逻辑关系", "relation", "relation_type", "type")
+    EVENT_ATTR_KEYS = ("属性", "properties", "props")
+    EVENT_EVIDENCE_KEYS = ("证据", "依据", "evidence")
+    EVENT_RELATION_FIELD_MARKERS = ("事件", "event")
+
+    EVENT_LOGIC_RELATIONS = {
+        "早于",
+        "晚于",
+        "交叉",
+        "期间发生",
+        "导致",
+        "触发",
+        "促成",
+        "阻止",
+        "使能",
+        "要求",
+        "前置条件",
+        "子事件",
+        "包含",
+        "转变为",
+        "升级为",
+        "削弱",
+        "符合",
+        "证据支撑",
+        "矛盾",
+    }
+
+    CROSS_EVENT_COMPARISON_RELATIONS = {
+        "优于",
+        "劣于",
+        "替代",
+        "取代",
+        "全面取代",
+        "解决",
+        "克服",
+        "对比",
+        "比较",
+        "改进",
+    }
+
     def __init__(self) -> None:
         self.nodes: Dict[str, Node] = {}
         self.edges: Dict[Tuple[str, str, str], Edge] = {}
         self.current_source_file = ""
+        self.event_sort_keys: Dict[str, Tuple[int, int, int, int, int, int]] = {}
 
-    def build(self, mechanism_events: Optional[List[Dict[str, Any]]] = None) -> Dict[str, List[Dict[str, Any]]]:
+    def build(
+        self,
+        mechanism_events: Optional[List[Dict[str, Any]]] = None,
+        relations: Optional[Iterable[Dict[str, Any]]] = None,
+    ) -> Dict[str, List[Dict[str, Any]]]:
         """Build the graph from mechanism extraction output."""
-        for index, event in enumerate(mechanism_events or [], start=1):
+        mechanism_events = list(mechanism_events or [])
+        for index, event in enumerate(mechanism_events, start=1):
             self.current_source_file = clean_text(event.get("来源文件")) or clean_text(event.get("from_file"))
             self._add_mechanism_event(event, index)
 
         self.current_source_file = ""
+        self._add_event_relationships(mechanism_events)
+        self._infer_cross_event_relationships()
+        self._add_manual_relations(relations)
+        self._connect_temporal_event_sequences(mechanism_events)
 
         raw_nodes = sorted(self.nodes.values(), key=lambda item: item["id"])
         raw_edges = sorted(
@@ -244,6 +334,7 @@ class MechanismKGBuilder:
         behavior_name = f"{topic}-{behavior_text}"
 
         event_id = self._node_id("event", topic)
+        self.event_sort_keys[event_id] = self._event_sort_key(event, index)
         self.add_node(
             event_id,
             self.LABELS["event"],
@@ -428,7 +519,7 @@ class MechanismKGBuilder:
         target_type = clean_text(target.get("类型"))
         model = clean_text(target.get("型号"))
         explicit_name = clean_text(target.get("名称")) or clean_text(target.get("姓名"))
-        name = model if model and model != "未知" else explicit_name or target_type
+        name = explicit_name or (model if model and model != "未知" else target_type)
         if not name:
             return None
 
@@ -778,8 +869,9 @@ class MechanismKGBuilder:
                 self.add_edge(node_id, "指挥", target_id)
 
     def _add_explicit_relationships(self, event: Dict[str, Any]) -> None:
+        topic = clean_text(event.get("事件主题")) or clean_text(event.get("event_topic"))
         relationships = []
-        for key in ("关联关系", "关系", "relationships", "edges"):
+        for key in self.GENERIC_RELATION_KEYS:
             relationships.extend(as_list(event.get(key)))
 
         for relationship in relationships:
@@ -817,7 +909,316 @@ class MechanismKGBuilder:
             evidence = clean_text(relationship.get("证据"))
             if evidence:
                 properties["evidence"] = evidence
+            if topic:
+                properties.setdefault("event_topic", topic)
             self.add_edge(source_id, relation, target_id, properties)
+
+    def _add_event_relationships(self, events: List[Dict[str, Any]]) -> None:
+        """写入显式抽取出的事件间逻辑关系。"""
+        for event in events or []:
+            current_topic = clean_text(event.get("事件主题")) or clean_text(event.get("event_topic"))
+
+            for key in self.EVENT_RELATION_KEYS:
+                for relationship in as_list(event.get(key)):
+                    self._add_event_relationship(relationship, current_topic, force=True)
+
+            for key in self.GENERIC_RELATION_KEYS:
+                for relationship in as_list(event.get(key)):
+                    self._add_event_relationship(relationship, current_topic, force=False)
+
+    def _add_event_relationship(
+        self,
+        relationship: Any,
+        current_topic: str = "",
+        force: bool = False,
+    ) -> None:
+        if not isinstance(relationship, dict):
+            return
+
+        source_name = self._first_clean_value(relationship, self.EVENT_SOURCE_KEYS)
+        target_name = self._first_clean_value(relationship, self.EVENT_TARGET_KEYS)
+        relation = self._first_clean_value(relationship, self.EVENT_RELATION_TYPE_KEYS)
+
+        if force and not source_name:
+            source_name = current_topic
+        if not source_name or not target_name or not relation:
+            return
+
+        source_id = self._resolve_event_node_id(source_name)
+        target_id = self._resolve_event_node_id(target_name)
+        if not source_id or not target_id:
+            return
+        if not force and not self._looks_like_event_relationship(relationship, relation, source_id, target_id):
+            return
+
+        properties = self._relationship_properties(relationship)
+        properties.setdefault("relation_scope", "event")
+        self.add_edge(source_id, relation, target_id, properties)
+
+    def _add_manual_relations(self, relations: Optional[Iterable[Dict[str, Any]]]) -> None:
+        """写入外部传入的关系列表。"""
+        relation_items = list(relations or [])
+        for relation in relation_items:
+            if not isinstance(relation, dict):
+                continue
+
+            source_name = clean_text(relation.get("source")) or clean_text(relation.get("头实体"))
+            target_name = clean_text(relation.get("target")) or clean_text(relation.get("尾实体"))
+            relation_name = clean_text(relation.get("relation")) or clean_text(relation.get("关系"))
+            if not source_name or not target_name or not relation_name:
+                continue
+
+            source_id = self._resolve_node_id(source_name)
+            target_id = self._resolve_node_id(target_name)
+            if not source_id or not target_id or source_id == target_id:
+                continue
+
+            properties: Dict[str, Any] = {}
+            attrs = relation.get("properties") or relation.get("属性") or relation.get("props")
+            if isinstance(attrs, dict):
+                properties.update(attrs)
+            evidence = clean_text(relation.get("evidence")) or clean_text(relation.get("证据")) or clean_text(relation.get("依据"))
+            if evidence:
+                properties["evidence"] = evidence
+            properties.setdefault("relation_scope", "manual")
+            properties.setdefault("derived_from", "api_relations")
+            self.add_edge(source_id, relation_name, target_id, properties)
+
+    def _infer_cross_event_relationships(self) -> None:
+        """从跨事件实体关系保守补充事件层逻辑边。"""
+        if self._has_event_edge():
+            return
+        for edge in list(self.edges.values()):
+            relation = clean_text(edge.get("relation"))
+            if relation not in self.CROSS_EVENT_COMPARISON_RELATIONS:
+                continue
+
+            source_node = self.nodes.get(edge.get("source"))
+            target_node = self.nodes.get(edge.get("target"))
+            if not source_node or not target_node:
+                continue
+
+            for source_event_id, target_event_id in self._candidate_event_pairs(edge, source_node, target_node):
+                if source_event_id == target_event_id:
+                    continue
+
+                event_source, event_relation, event_target = self._infer_event_edge_direction(
+                    source_event_id,
+                    relation,
+                    target_event_id,
+                )
+                properties = dict(edge.get("properties") or {})
+                properties.update({
+                    "relation_scope": "event",
+                    "derived_from": "cross_event_entity_relation",
+                    "entity_relation": f"{source_node.get('name', '')} {relation} {target_node.get('name', '')}",
+                })
+                self.add_edge(event_source, event_relation, event_target, properties)
+
+    def _candidate_event_pairs(self, edge: Edge, source_node: Node, target_node: Node) -> List[Tuple[str, str]]:
+        pairs: List[Tuple[str, str]] = []
+        context_topics = self._edge_event_topics(edge)
+        source_topics = self._node_event_topics(source_node)
+        target_topics = self._node_event_topics(target_node)
+
+        if context_topics:
+            related_topics = [
+                topic
+                for topic in source_topics + target_topics
+                if topic not in context_topics
+            ]
+            for context_topic in context_topics:
+                context_event_id = self._resolve_event_node_id(context_topic)
+                if not context_event_id:
+                    continue
+                for related_topic in related_topics:
+                    related_event_id = self._resolve_event_node_id(related_topic)
+                    if related_event_id:
+                        pair = (context_event_id, related_event_id)
+                        if pair not in pairs:
+                            pairs.append(pair)
+            return pairs
+
+        for source_topic in source_topics:
+            for target_topic in target_topics:
+                source_event_id = self._resolve_event_node_id(source_topic)
+                target_event_id = self._resolve_event_node_id(target_topic)
+                if source_event_id and target_event_id:
+                    pair = (source_event_id, target_event_id)
+                    if pair not in pairs:
+                        pairs.append(pair)
+        return pairs
+
+    def _has_event_edge(self) -> bool:
+        for edge in self.edges.values():
+            source_node = self.nodes.get(edge.get("source"))
+            target_node = self.nodes.get(edge.get("target"))
+            if self._node_has_label(source_node or {}, self.LABELS["event"]) and self._node_has_label(target_node or {}, self.LABELS["event"]):
+                return True
+        return False
+
+    def _edge_event_topics(self, edge: Edge) -> List[str]:
+        topics: List[str] = []
+        properties = edge.get("properties") or {}
+        for topic in as_list(properties.get("event_topic")):
+            topic_text = clean_text(topic)
+            if topic_text and topic_text not in topics:
+                topics.append(topic_text)
+        return topics
+
+    def _connect_temporal_event_sequences(self, events: List[Dict[str, Any]]) -> None:
+        """当模型漏抽事件关系时，为同一来源文件内的事件补充时序边。"""
+        groups: Dict[str, List[str]] = {}
+        for event in events or []:
+            topic = clean_text(event.get("事件主题")) or clean_text(event.get("event_topic"))
+            event_id = self._resolve_event_node_id(topic)
+            if not event_id:
+                continue
+            source = clean_text(event.get("来源文件")) or clean_text(event.get("from_file")) or "__unknown_source__"
+            groups.setdefault(source, [])
+            if event_id not in groups[source]:
+                groups[source].append(event_id)
+
+        for source, event_ids in groups.items():
+            if len(event_ids) < 2 or self._has_event_edge_between(event_ids):
+                continue
+            ordered_ids = sorted(
+                event_ids,
+                key=lambda event_id: self.event_sort_keys.get(event_id, (9999, 12, 31, 23, 59, 999999)),
+            )
+            for source_id, target_id in zip(ordered_ids, ordered_ids[1:]):
+                if source_id == target_id:
+                    continue
+                properties = {
+                    "relation_scope": "event",
+                    "derived_from": "temporal_sequence",
+                    "evidence": "同一来源文件内事件按时间或抽取顺序相邻",
+                }
+                if source != "__unknown_source__":
+                    properties["source_file"] = source
+                self.add_edge(source_id, "早于", target_id, properties)
+
+    def _has_event_edge_between(self, event_ids: List[str]) -> bool:
+        event_id_set = set(event_ids)
+        for edge in self.edges.values():
+            if edge.get("source") in event_id_set and edge.get("target") in event_id_set:
+                source_node = self.nodes.get(edge.get("source"))
+                target_node = self.nodes.get(edge.get("target"))
+                if self._node_has_label(source_node or {}, self.LABELS["event"]) and self._node_has_label(target_node or {}, self.LABELS["event"]):
+                    return True
+        return False
+
+    def _infer_event_edge_direction(self, source_event_id: str, entity_relation: str, target_event_id: str) -> Tuple[str, str, str]:
+        source_key = self.event_sort_keys.get(source_event_id)
+        target_key = self.event_sort_keys.get(target_event_id)
+
+        if source_key and target_key and target_key < source_key:
+            return target_event_id, "促成", source_event_id
+        if source_key and target_key and source_key < target_key:
+            return source_event_id, "促成", target_event_id
+        return source_event_id, "削弱", target_event_id
+
+    def _node_event_topics(self, node: Node) -> List[str]:
+        topics: List[str] = []
+        properties = node.get("properties") or {}
+        for topic in as_list(properties.get("event_topic")):
+            topic_text = clean_text(topic)
+            if topic_text and topic_text not in topics:
+                topics.append(topic_text)
+        if self._node_has_label(node, self.LABELS["event"]):
+            name = clean_text(node.get("name")) or clean_text(properties.get("name"))
+            if name and name not in topics:
+                topics.append(name)
+        return topics
+
+    def _resolve_event_node_id(self, name: str) -> Optional[str]:
+        clean_name = clean_text(name)
+        if not clean_name:
+            return None
+
+        direct_id = self._node_id("event", clean_name)
+        direct_node = self.nodes.get(direct_id)
+        if direct_node and self._node_has_label(direct_node, self.LABELS["event"]):
+            return direct_id
+
+        target_key = self._entity_key(clean_name)
+        for node_id, node in self.nodes.items():
+            if not self._node_has_label(node, self.LABELS["event"]):
+                continue
+            properties = node.get("properties", {})
+            names = [
+                node.get("name", ""),
+                properties.get("name", ""),
+                properties.get("event_topic", ""),
+            ]
+            for candidate in names:
+                candidate_key = self._entity_key(candidate)
+                if candidate_key and (target_key == candidate_key or target_key in candidate_key or candidate_key in target_key):
+                    return node_id
+        return None
+
+    def _looks_like_event_relationship(
+        self,
+        relationship: Dict[str, Any],
+        relation: str,
+        source_id: str,
+        target_id: str,
+    ) -> bool:
+        if not source_id or not target_id:
+            return False
+        if relation in self.EVENT_LOGIC_RELATIONS:
+            return True
+        return any(
+            marker in clean_text(key).lower()
+            for key in relationship.keys()
+            for marker in self.EVENT_RELATION_FIELD_MARKERS
+        )
+
+    def _relationship_properties(self, relationship: Dict[str, Any]) -> Dict[str, Any]:
+        properties: Dict[str, Any] = {}
+        for key in self.EVENT_ATTR_KEYS:
+            attrs = relationship.get(key)
+            if isinstance(attrs, dict):
+                properties.update(attrs)
+                break
+        evidence = self._first_clean_value(relationship, self.EVENT_EVIDENCE_KEYS)
+        if evidence:
+            properties["evidence"] = evidence
+        return properties
+
+    @staticmethod
+    def _first_clean_value(source: Dict[str, Any], keys: Iterable[str]) -> str:
+        for key in keys:
+            value = clean_text(source.get(key))
+            if value:
+                return value
+        return ""
+
+    @staticmethod
+    def _node_has_label(node: Node, label: str) -> bool:
+        labels = node.get("labels") or []
+        return node.get("label") == label or label in labels
+
+    @staticmethod
+    def _event_sort_key(event: Dict[str, Any], index: int) -> Tuple[int, int, int, int, int, int]:
+        best = (9999, 12, 31, 23, 59, index)
+        for item in as_list(event.get("时间") or event.get("time")):
+            text = clean_text(item)
+            if not text:
+                continue
+            match = re.search(
+                r"(\d{4})\s*(?:年|-|/)?\s*(\d{1,2})?\s*(?:月|-|/)?\s*(\d{1,2})?\s*(?:日)?(?:\s+(\d{1,2})[:：](\d{1,2}))?",
+                text,
+            )
+            if not match:
+                continue
+            year = int(match.group(1))
+            month = int(match.group(2) or 1)
+            day = int(match.group(3) or 1)
+            hour = int(match.group(4) or 0)
+            minute = int(match.group(5) or 0)
+            best = min(best, (year, month, day, hour, minute, index))
+        return best
 
     @staticmethod
     def _collect_properties(item: Dict[str, Any], handled_keys: Optional[set] = None) -> Dict[str, Any]:
@@ -965,42 +1366,7 @@ class MechanismKGBuilder:
 
 def build_graph_from_files(
     input_paths: Iterable[Any],
-) -> Tuple[Dict[str, List[Dict[str, Any]]], List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]]]:
-    """并发抽取并构图。"""
-    mechanism_events: List[Dict[str, Any]] = []
-    source_summaries: List[Dict[str, Any]] = []
-    failed_files: List[Dict[str, Any]] = []
-    input_paths = list(input_paths)
-
-    iterator = input_paths
-    if input_paths:
-        try:
-            from tqdm import tqdm
-
-            iterator = tqdm(input_paths, desc="读取输入文件", total=len(input_paths), unit="file", dynamic_ncols=True)
-        except Exception:
-            iterator = input_paths
-
-    for input_path in iterator:
-        path = Path(input_path)
-        try:
-            file_mechanism_events, summary = load_mechanism_events(path)
-            mechanism_events.extend(file_mechanism_events)
-            source_summaries.append(summary)
-        except Exception as exc:
-            failed_files.append({
-                "source_file": str(path),
-                "error": str(exc),
-            })
-            logger.exception("处理输入文件失败: {}", path)
-
-    builder = MechanismKGBuilder()
-    graph_data = builder.build(mechanism_events=mechanism_events)
-    return graph_data, mechanism_events, source_summaries, failed_files
-
-
-def build_graph_from_files(
-    input_paths: Iterable[Any],
+    relations: Optional[Iterable[Dict[str, Any]]] = None,
 ) -> Tuple[Dict[str, List[Dict[str, Any]]], List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]]]:
     mechanism_events: List[Dict[str, Any]] = []
     source_summaries: List[Dict[str, Any]] = []
@@ -1064,12 +1430,13 @@ def build_graph_from_files(
                 progress.close()
 
     builder = MechanismKGBuilder()
-    graph_data = builder.build(mechanism_events=mechanism_events)
+    graph_data = builder.build(mechanism_events=mechanism_events, relations=relations)
     return graph_data, mechanism_events, source_summaries, failed_files
 
 
 def build_knowledge_graph(
     input_paths: Iterable[Any],
+    relations: Optional[Iterable[Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
     """构建并写入图谱。"""
     start_time = time.time()
@@ -1083,6 +1450,7 @@ def build_knowledge_graph(
 
     graph_data, mechanism_events, source_summaries, failed_files = build_graph_from_files(
         input_paths,
+        relations=relations,
     )
     write_json(extracted_path, mechanism_events)
     write_json(output_path, graph_data)
@@ -1134,10 +1502,10 @@ def build_knowledge_graph(
     }
 
 
-def kg_wrapper(input_paths: Iterable[Any]) -> Dict[str, Any]:
+def kg_wrapper(input_paths: Iterable[Any], relations: Optional[Iterable[Dict[str, Any]]] = None) -> Dict[str, Any]:
     """构建接口包装器。"""
     try:
-        result = build_knowledge_graph(input_paths)
+        result = build_knowledge_graph(input_paths, relations=relations)
         logger.info("知识图谱构建完成")
         return result
     except Exception as exc:
