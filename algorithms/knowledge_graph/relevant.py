@@ -15,7 +15,7 @@ from utils.util import clean_text, read_source_file, split_text
 
 SUPPORTED_QUERY_SUFFIXES = init_config.get("related_data", {}).get("supported_query_suffixes", [".csv", ".docx", ".txt", ".pdf", ".md"])
 MAX_BATCH_CHARS = init_config.get("related_data", {}).get("max_batch_chars", 12000)
-MAX_CONTENT_CHARS = init_config.get("related_data", {}).get("max_content_chars", 100)
+MAX_EVENT_CHARS = init_config.get("related_data", {}).get("max_content_chars", 100)
 MAX_RESULTS = init_config.get("related_data", {}).get("max_results", 3)
 KG_CONFIG = init_config.get("knowledge_graph", {})
 MAX_FILE_WORKERS = KG_CONFIG.get("max_workers", 5)
@@ -32,8 +32,8 @@ def _file_item_parts(item: Any) -> Tuple[Path, str]:
     return path, path.stem
 
 
-def _trim_content(text: Any, max_chars: int = MAX_CONTENT_CHARS) -> str:
-    """截取完整相关短句。"""
+def _trim_text(text: Any, max_chars: int = MAX_EVENT_CHARS) -> str:
+    """截取完整短句。"""
     content = re.sub(r"\s+", " ", clean_text(text))
     if not content:
         return ""
@@ -51,6 +51,17 @@ def _trim_content(text: Any, max_chars: int = MAX_CONTENT_CHARS) -> str:
     if weak_cut >= 30:
         return window[: weak_cut + 1]
     return window.rstrip()
+
+
+def _normalize_result_item(item: Dict[str, Any]) -> Dict[str, str]:
+    """标准化抽取结果字段。"""
+    return {
+        "file_name": clean_text(item.get("file_name")),
+        "time": clean_text(item.get("time")),
+        "coordinate": clean_text(item.get("coordinate")),
+        "place": clean_text(item.get("place")),
+        "event": _trim_text(item.get("event")),
+    }
 
 
 def _parse_llm_results(text: str) -> List[Dict[str, str]]:
@@ -74,10 +85,9 @@ def _parse_llm_results(text: str) -> List[Dict[str, str]]:
     for item in data:
         if not isinstance(item, dict):
             continue
-        filename = clean_text(item.get("file_name") or item.get("filename") or item.get("文件名"))
-        content = clean_text(item.get("content") or item.get("相关内容"))
-        if filename and content:
-            results.append({"file_name": filename, "content": _trim_content(content)})
+        normalized = _normalize_result_item(item)
+        if normalized["file_name"] and normalized["event"]:
+            results.append(normalized)
     return results
 
 
@@ -107,7 +117,10 @@ def _fallback_search(chunks: List[Dict[str, str]], request: str) -> List[Dict[st
         if any(keyword in chunk["content"] for keyword in keywords):
             results.append({
                 "file_name": chunk["file_name"],
-                "content": _trim_content(chunk["content"]),
+                "time": "",
+                "coordinate": "",
+                "place": "",
+                "event": _trim_text(chunk["content"]),
             })
     return results
 
@@ -119,22 +132,27 @@ def _query_batch(batch: List[Dict[str, str]], request: str) -> List[Dict[str, st
         for index, item in enumerate(batch, start=1)
     )
     prompt = (
-        "你是一个信息抽取专家。请从以下给定的多条文本中，抽取每个文本所描述的**实际发生的事件**。"
-        "1. 只抽取**行动主体（部队/单位）**、**主要行动/任务**、**发生地点（若有）** 这三个要素。"
-        "2. 忽略所有**诱因**（如“因……导致”、“由于……”）、**故障现象**（如“弹匣变形”、“积沙”、“无法击发”）、**后果或评估**（如“可靠性缺陷”、“内部总结”）。"
-        "3. 抽取结果用简洁的陈述句表达，格式为：“[主体] + [执行/进行] + [任务] + [地点]”。"
-        "4. 如果文本属于**内部总结、评估或非实际行动任务事件**（如维修处总结），则**不抽取**，输出“无事件”。"
-
-    
-        "输入：“印军第28步兵师后勤基地士兵在执行弹药库外围警戒任务时，因INSAS突击步枪在低温环境下出现弹匣变形导致无法顺利上膛。"
-       "输出：“印军第28步兵师后勤基地士兵执行弹药库外围警戒任务。"
-        
-        
-        "只返回JSON数组，不要解释，不要Markdown。数组元素格式为："
-        "{\"file_name\":\"文件名\",\"content\":\"相关事件\"}。\n"
-        "content长度50到100个中文字符，必须以完整句子结尾。\n"
-        "同一文件可返回多条；无相关内容返回空数组[]。\n\n"
-        f"request:{request}\n\n"
+        "你是一个信息抽取专家。请从以下给定的多条文本中，抽取每个文本所描述的**实际发生的事件**，并提取五个关键要素：文件名、事件时间、坐标、地点、事件描述。\n"
+        "1. **文件名（file_name）**：直接从输入文本块中的“[编号] 文件名:...”获取，无需抽取。\n"
+        "2. **事件时间（time）**：事件发生的具体时间（如日期、时刻等）。如果文本中没有明确时间，填空字符串\"\"。\n"
+        "3. **坐标（coordinate）**：事件发生位置的经纬度或坐标表示（如“32.1°N, 45.2°E”）。如果文本中没有，填空字符串。\n"
+        "4. **地点（place）**：事件发生的地名（如“某高地”、“某区域”）。如果文本中没有，填空字符串。\n"
+        "5. **事件描述（event）**：简明扼要描述事件，格式为“[主体] + [执行/进行] + [任务]”，长度控制在50～100个中文字符，以完整句子结尾。注意不要重复描述地点（地点已单独提取）。\n"
+        "\n抽取规则：\n"
+        "- 只抽取**实际行动事件**（如巡逻、警戒、攻击、运输等），忽略诱因（“因……导致”、“由于……”）、故障现象（“弹匣变形”、“无法击发”）、后果或评估（“可靠性缺陷”、“内部总结”）。\n"
+        "- 如果整段文本属于内部总结、评估或非实际行动事件，则**不抽取**，即该条不输出任何对象。\n"
+        "- 同一文件可能包含多个独立事件，每个事件生成一个 JSON 对象，全部放入数组。\n"
+        "\n输出格式：\n"
+        "只返回 JSON 数组，不要解释，不要 Markdown。数组元素格式为：\n"
+        "{\"file_name\":\"文件名\",\"time\":\"时间\",\"coordinate\":\"坐标\",\"place\":\"地点\",\"event\":\"事件描述\"}\n"
+        "如果没有抽取到任何事件，返回空数组 []。\n"
+        "\n示例：\n"
+        "输入：\n"
+        "\"[1] 文件名:日志A\\n内容:2024年1月15日，印军第28步兵师后勤基地士兵在执行弹药库外围警戒任务时，因INSAS突击步枪在低温环境下出现弹匣变形导致无法顺利上膛。\"\n"
+        "输出：\n"
+        "[{\"file_name\":\"日志A\",\"time\":\"2024年1月15日\",\"coordinate\":\"\",\"place\":\"弹药库外围\",\"event\":\"印军第28步兵师后勤基地士兵执行警戒任务。\"}]\n"
+        "\n请注意：示例中时间明确，地点为“弹药库外围”，坐标缺失，事件描述不含地点。\n\n"
+        f"request: {request}\n\n"
         f"文本块:\n{context}"
     )
     llm_text = llm_gemma(prompt)
@@ -165,18 +183,15 @@ def _load_file_chunks(item: Any) -> Tuple[List[Dict[str, str]], Optional[Dict[st
 
 def _limit_results(results: List[Dict[str, str]], max_results: int = MAX_RESULTS) -> List[Dict[str, str]]:
     """限制结果并均衡文件。"""
-    cleaned = [
-        {
-            "file_name": clean_text(item.get("file_name")),
-            "content": _trim_content(item.get("content")),
-        }
-        for item in results
-        if clean_text(item.get("file_name")) and clean_text(item.get("content"))
-    ]
+    cleaned = []
+    for item in results:
+        normalized = _normalize_result_item(item)
+        if normalized["file_name"] and normalized["event"]:
+            cleaned.append(normalized)
     seen = set()
     deduped = []
     for item in cleaned:
-        key = (item["file_name"], item["content"])
+        key = (item["file_name"], item["time"], item["coordinate"], item["place"], item["event"])
         if key in seen:
             continue
         seen.add(key)
